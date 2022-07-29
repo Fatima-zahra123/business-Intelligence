@@ -1,0 +1,426 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="6/24/2020 8:49:48 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="NAV_2017"
+  DTS:CreatorName="MATHE\administrateur"
+  DTS:DTSID="{90D758E8-B0A1-4078-A6CA-062A6A437CEC}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3002.107"
+  DTS:LocaleID="1036"
+  DTS:ObjectName="15_Dim_Groupe Compta  Stock"
+  DTS:PackageType="5"
+  DTS:VersionBuild="4"
+  DTS:VersionGUID="{E38AF075-59A8-42D6-898F-B593B283EB98}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.Staging2020]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{9EE664ED-4AEE-4A28-9404-E1EFAB85C707}"
+      DTS:ObjectName="LocalHost.Staging2020">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=.;Initial Catalog=Staging2020;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Chargement de Dim_GroupeComptaStock"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tâche de flux de données"
+      DTS:DTSID="{210EB332-CD0D-48DD-B37B-E00ACA87E855}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Chargement de Dim_GroupeComptaStock"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Chargement de Dim_GroupeComptaStock\Dim_GroupeComptaProduit"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destination OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;4"
+              description="Destination OLE DB"
+              name="Dim_GroupeComptaProduit"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Nombre de secondes avant l'expiration d'une commande.  Une valeur égale à 0 indique un délai d'expiration infini."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowset">[Dim_GroupeComptaProduit]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie la variable contenant le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Commande SQL à exécuter."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Force l'utilisation de la valeur de propriété DefaultCodePage lors de la description des données caractères."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le mode utilisé pour accéder à la base de données."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si les valeurs fournies pour les colonnes d'identité seront copiées à la destination. Si la valeur est définie à False, les valeurs des colonnes d'identité seront générées automatiquement à la destination. Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si les colonnes contenant la valeur NULL auront cette valeur NULL copiée à la destination. Si la valeur est définie à False, les colonnes contenant la valeur NULL auront leurs valeurs par défaut insérées à la destination. Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie les options à utiliser avec le chargement rapide.  Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie quand les validations sont émises pendant l'insertion des données.  Une valeur égale à 0 spécifie qu'une validation sera émise à la fin de l'insertion des données.  Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Chargement de Dim_GroupeComptaStock\Dim_GroupeComptaProduit.Connections[OleDbConnection]"
+                  connectionManagerID="{B7992C5E-5486-4F90-99CF-82B560656741}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWH_Prod20]"
+                  description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Chargement de Dim_GroupeComptaStock\Dim_GroupeComptaProduit.Inputs[Entrée de destination OLE DB]"
+                  errorOrTruncationOperation="Insérer"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrée de destination OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Chargement de Dim_GroupeComptaStock\Dim_GroupeComptaProduit.Inputs[Entrée de destination OLE DB].Columns[CodeGCP]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="CodeGCP"
+                      externalMetadataColumnId="Package\Chargement de Dim_GroupeComptaStock\Dim_GroupeComptaProduit.Inputs[Entrée de destination OLE DB].ExternalColumns[CodeGCP]"
+                      lineageId="Package\Chargement de Dim_GroupeComptaStock\Staging_GroupeComptaProduit.Outputs[Sortie de source OLE DB].Columns[CodeGCP]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_GroupeComptaStock\Dim_GroupeComptaProduit.Inputs[Entrée de destination OLE DB].Columns[Description]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Description"
+                      externalMetadataColumnId="Package\Chargement de Dim_GroupeComptaStock\Dim_GroupeComptaProduit.Inputs[Entrée de destination OLE DB].ExternalColumns[Description]"
+                      lineageId="Package\Chargement de Dim_GroupeComptaStock\Staging_GroupeComptaProduit.Outputs[Sortie de source OLE DB].Columns[Description]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_GroupeComptaStock\Dim_GroupeComptaProduit.Inputs[Entrée de destination OLE DB].ExternalColumns[CodeGCP]"
+                      dataType="wstr"
+                      length="255"
+                      name="CodeGCP" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_GroupeComptaStock\Dim_GroupeComptaProduit.Inputs[Entrée de destination OLE DB].ExternalColumns[Description]"
+                      dataType="wstr"
+                      length="255"
+                      name="Description" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Chargement de Dim_GroupeComptaStock\Dim_GroupeComptaProduit.Outputs[Sortie d'erreur de destination OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de destination OLE DB"
+                  synchronousInputId="Package\Chargement de Dim_GroupeComptaStock\Dim_GroupeComptaProduit.Inputs[Entrée de destination OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de Dim_GroupeComptaStock\Dim_GroupeComptaProduit.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de Dim_GroupeComptaStock\Dim_GroupeComptaProduit.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_GroupeComptaStock\Dim_GroupeComptaProduit.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de Dim_GroupeComptaStock\Dim_GroupeComptaProduit.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Chargement de Dim_GroupeComptaStock\Staging_GroupeComptaProduit"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Source OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;7"
+              description="Source OLE DB"
+              name="Staging_GroupeComptaProduit"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Nombre de secondes avant l'expiration d'une commande.  Une valeur égale à 0 indique un délai d'expiration infini."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowset">[dbo].[Staging_GroupeComptaProduit]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie la variable contenant le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Commande SQL à exécuter."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="Variable contenant la commande SQL à exécuter."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Force l'utilisation de la valeur de propriété DefaultCodePage lors de la description des données caractères."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le mode utilisé pour accéder à la base de données."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="Mappages entre les paramètres de la commande SQL et les variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Chargement de Dim_GroupeComptaStock\Staging_GroupeComptaProduit.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.Staging2020]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.Staging2020]"
+                  description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Chargement de Dim_GroupeComptaStock\Staging_GroupeComptaProduit.Outputs[Sortie de source OLE DB]"
+                  name="Sortie de source OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de Dim_GroupeComptaStock\Staging_GroupeComptaProduit.Outputs[Sortie de source OLE DB].Columns[CodeGCP]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de Dim_GroupeComptaStock\Staging_GroupeComptaProduit.Outputs[Sortie de source OLE DB].ExternalColumns[Code]"
+                      length="255"
+                      lineageId="Package\Chargement de Dim_GroupeComptaStock\Staging_GroupeComptaProduit.Outputs[Sortie de source OLE DB].Columns[CodeGCP]"
+                      name="CodeGCP"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_GroupeComptaStock\Staging_GroupeComptaProduit.Outputs[Sortie de source OLE DB].Columns[Description]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de Dim_GroupeComptaStock\Staging_GroupeComptaProduit.Outputs[Sortie de source OLE DB].ExternalColumns[Description]"
+                      length="255"
+                      lineageId="Package\Chargement de Dim_GroupeComptaStock\Staging_GroupeComptaProduit.Outputs[Sortie de source OLE DB].Columns[Description]"
+                      name="Description"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_GroupeComptaStock\Staging_GroupeComptaProduit.Outputs[Sortie de source OLE DB].ExternalColumns[Code]"
+                      dataType="wstr"
+                      length="255"
+                      name="Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_GroupeComptaStock\Staging_GroupeComptaProduit.Outputs[Sortie de source OLE DB].ExternalColumns[Description]"
+                      dataType="wstr"
+                      length="255"
+                      name="Description" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Chargement de Dim_GroupeComptaStock\Staging_GroupeComptaProduit.Outputs[Sortie d'erreur de source OLE DB]"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de source OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de Dim_GroupeComptaStock\Staging_GroupeComptaProduit.Outputs[Sortie d'erreur de source OLE DB].Columns[Code]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Chargement de Dim_GroupeComptaStock\Staging_GroupeComptaProduit.Outputs[Sortie d'erreur de source OLE DB].Columns[Code]"
+                      name="Code" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_GroupeComptaStock\Staging_GroupeComptaProduit.Outputs[Sortie d'erreur de source OLE DB].Columns[Description]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Chargement de Dim_GroupeComptaStock\Staging_GroupeComptaProduit.Outputs[Sortie d'erreur de source OLE DB].Columns[Description]"
+                      name="Description" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_GroupeComptaStock\Staging_GroupeComptaProduit.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de Dim_GroupeComptaStock\Staging_GroupeComptaProduit.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_GroupeComptaStock\Staging_GroupeComptaProduit.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de Dim_GroupeComptaStock\Staging_GroupeComptaProduit.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Chargement de Dim_GroupeComptaStock.Paths[Sortie de source OLE DB]"
+              endId="Package\Chargement de Dim_GroupeComptaStock\Dim_GroupeComptaProduit.Inputs[Entrée de destination OLE DB]"
+              name="Sortie de source OLE DB"
+              startId="Package\Chargement de Dim_GroupeComptaStock\Staging_GroupeComptaProduit.Outputs[Sortie de source OLE DB]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Cette section CDATA contient des informations sur la disposition du package. Elle comprend des informations telles que les coordonnées (x,y), la largeur et la hauteur.-->
+<!--Si vous modifiez manuellement cette section et commettez une erreur, vous pouvez la supprimer. -->
+<!--Le package pourra toujours se charger normalement, mais les informations de disposition précédente seront perdues et le concepteur réorganisera automatiquement les éléments sur l'aire de conception.-->
+<Objects
+  Version="8">
+  <!--Chaque nœud ci-dessous contiendra des propriétés qui n'affectent pas le comportement d'exécution.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="274.4,41.6"
+          Id="Package\Chargement de Dim_GroupeComptaStock"
+          TopLeft="119.428573462428,108.282354459796" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Chargement de Dim_GroupeComptaStock">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssge="clr-namespace:Microsoft.SqlServer.Graph.Extended;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+        <AnnotationLayout
+          Text="la Table 112&#xA;ODATA inshaallah"
+          ParentId="Package\Chargement de Dim_GroupeComptaStock"
+          Size="115.2,50.4"
+          Id="fe1beec5-a116-47e2-b5ea-75bd845905bc"
+          TopLeft="366.857149104683,56.2823537305152">
+          <AnnotationLayout.FontInfo>
+            <mssge:FontInfo
+              Color="#FF000000">
+              <mssge:FontInfo.TextDecorations>
+                <av:TextDecorationCollection />
+              </mssge:FontInfo.TextDecorations>
+            </mssge:FontInfo>
+          </AnnotationLayout.FontInfo>
+        </AnnotationLayout>
+        <NodeLayout
+          Size="206.4,41.6"
+          Id="Package\Chargement de Dim_GroupeComptaStock\Dim_GroupeComptaProduit"
+          TopLeft="264.571433077053,215.341179490667" />
+        <NodeLayout
+          Size="223.2,41.6"
+          Id="Package\Chargement de Dim_GroupeComptaStock\Staging_GroupeComptaProduit"
+          TopLeft="85.7142871739913,77.0823540222274" />
+        <EdgeLayout
+          Id="Package\Chargement de Dim_GroupeComptaStock.Paths[Sortie de source OLE DB]"
+          TopLeft="197.314287173991,118.682354022227">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="170.457145903062,96.6588254684395"
+              Start="0,0"
+              End="170.457145903062,89.1588254684395">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.3294127342198" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,44.3294127342198"
+                    Point2="0,48.3294127342198"
+                    Point3="4,48.3294127342198" />
+                  <mssgle:LineSegment
+                    End="166.457145903062,48.3294127342198" />
+                  <mssgle:CubicBezierSegment
+                    Point1="166.457145903062,48.3294127342198"
+                    Point2="170.457145903062,48.3294127342198"
+                    Point3="170.457145903062,52.3294127342198" />
+                  <mssgle:LineSegment
+                    End="170.457145903062,89.1588254684395" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Chargement de Dim_GroupeComptaStock\Dim_GroupeComptaProduit">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Chargement de Dim_GroupeComptaStock\Staging_GroupeComptaProduit">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

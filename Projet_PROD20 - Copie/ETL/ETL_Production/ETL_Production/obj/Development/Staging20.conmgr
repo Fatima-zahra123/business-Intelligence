@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="Staging20"
+  DTS:DTSID="{7DCC5104-F3C8-48EE-9E97-EDFB0F8C7F7B}"
+  DTS:CreationName="ADO.NET:System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Data Source=172.30.14.12;Initial Catalog=Staging2020;Integrated Security=True;Application Name=SSIS-ETL_Production-{7DCC5104-F3C8-48EE-9E97-EDFB0F8C7F7B}LocalHost.Staging20201;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

@@ -1,0 +1,2302 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="6/3/2020 3:03:14 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="NAV_2017"
+  DTS:CreatorName="MATHE\administrateur"
+  DTS:DTSID="{191D2E40-E5DA-486D-837E-211772F30D46}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3002.107"
+  DTS:LocaleID="1036"
+  DTS:ObjectName="2_Production_Fact"
+  DTS:PackageType="5"
+  DTS:VersionBuild="23"
+  DTS:VersionGUID="{DF05B6DF-788A-40DB-89DA-B43762B49B2A}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DWH_Prod2020]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{F0074483-076E-4F5E-AD44-992E2408AD29}"
+      DTS:ObjectName="DWH_Prod2020">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=.;Initial Catalog=DWH_Prod2020;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.MATHEPROD2016BC]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{5AF18585-67B2-4B7B-AE4D-161EB4209A94}"
+      DTS:ObjectName="LocalHost.MATHEPROD2016BC">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=.;Initial Catalog=MATHEPROD2016BC;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.Staging2020]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{EC64AE00-60F3-44FE-813F-6923E775C15E}"
+      DTS:ObjectName="LocalHost.Staging2020">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=.;Initial Catalog=Staging2020;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Chargement de La table Production_Fact"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tâche de flux de données"
+      DTS:DTSID="{89501E6A-2ABF-4ECC-804F-7CD54CD51A21}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Chargement de La table Production_Fact"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Chargement de La table Production_Fact\Alimentation de Production_Fact"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Recherche;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;6"
+              description="Joint des colonnes supplémentaires au flux de données en recherchant des valeurs dans une table. Par exemple, joignez la colonne 'id employé' à la table des employés afin d'obtenir la 'date d'embauche' et le 'nom de l'employé'. Nous recommandons cette transformation lorsque la table de recherche peut être stockée en mémoire."
+              name="Alimentation de Production_Fact"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Spécifie l'instruction SQL qui génère la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select [Entry No_] from [Staging_Value Entry]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie une instruction SQL qui utilise des paramètres pour générer la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select [Entry No_] from [Staging_Value Entry]) [refTable]
+where [refTable].[Entry No_] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de connexion utilisé pour accéder au dataset de référence."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de cache de la table de correspondance."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie comment la transformation de recherche gère les lignes sans entrées correspondantes dans le jeu de données de référence."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le pourcentage du cache alloué aux lignes sans entrées correspondantes dans le dataset de référence."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indique si les métadonnées sont à référencer en format XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Entry No_" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Spécifie la liste d'identificateurs de lignage se mappant aux paramètres utilisés dans la propriété SQLCommand par l'instruction SQL. Les entrées dans la liste sont séparées par des points-virgules."
+                  name="ParameterMap">#{Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Entry No_]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Détermine si les clés dupliquées dans les données de référence doivent être traitées en tant qu'erreurs lorsque le mode Cache complet est utilisé."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Chargement de La table Production_Fact\Alimentation de Production_Fact.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.Staging2020]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.Staging2020]"
+                  description="Gestionnaire de connexions utilisé pour accéder aux données de correspondance."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Chargement de La table Production_Fact\Alimentation de Production_Fact.Inputs[Entrée de recherche]"
+                  name="Entrée de recherche">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Chargement de La table Production_Fact\Alimentation de Production_Fact.Inputs[Entrée de recherche].Columns[Entry No_]"
+                      cachedDataType="i4"
+                      cachedName="Entry No_"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Entry No_]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Entry No_</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Chargement de La table Production_Fact\Alimentation de Production_Fact.Outputs[Sortie de recherche avec correspondance]"
+                  errorOrTruncationOperation="Recherche"
+                  exclusionGroup="1"
+                  name="Sortie de recherche avec correspondance"
+                  synchronousInputId="Package\Chargement de La table Production_Fact\Alimentation de Production_Fact.Inputs[Entrée de recherche]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Chargement de La table Production_Fact\Alimentation de Production_Fact.Outputs[Sortie de recherche sans correspondance]"
+                  description="Sortie de recherche gérant les lignes sans entrées correspondantes dans le dataset de référence. Utilisez cette sortie lorsque la propriété NoMatchBehavior a la valeur « Envoyez les lignes sans entrées correspondantes dans la sortie sans correspondance »."
+                  exclusionGroup="1"
+                  name="Sortie de recherche sans correspondance"
+                  synchronousInputId="Package\Chargement de La table Production_Fact\Alimentation de Production_Fact.Inputs[Entrée de recherche]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Chargement de La table Production_Fact\Alimentation de Production_Fact.Outputs[Sortie d'erreur de recherche]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de recherche"
+                  synchronousInputId="Package\Chargement de La table Production_Fact\Alimentation de Production_Fact.Inputs[Entrée de recherche]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Alimentation de Production_Fact.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de La table Production_Fact\Alimentation de Production_Fact.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Alimentation de Production_Fact.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de La table Production_Fact\Alimentation de Production_Fact.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Chargement de La table Production_Fact\Création Production_Fact"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Source OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;7"
+              description="Source OLE DB"
+              name="Création Production_Fact"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Nombre de secondes avant l'expiration d'une commande.  Une valeur égale à 0 indique un délai d'expiration infini."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie la variable contenant le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Commande SQL à exécuter."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT     [Entry No_], [Document No_], VE.[Item No_], [Item Ledger Entry No_], ve.[Source No_], 'Consommation' as TypeEcriture, VE.[Location Code], SUM([Cost Amount (Actual)])*-1 AS Cout_Consommation, 
+                     0 AS Cout_Production,0 as CoutOperatoire,0 as FraisGenOper, 0 AS Quantité,  SUM([Item Ledger Entry Quantity])*-1 as QuantitéConsommation,
+                     0 AS CoutConsmPrevu,0 as QteMatPrevue,0 AS qteRestant,0 AS CoutMatPrevu,max(POC.[Quantity per]) AS [Quantity per],max(POC.[Unit Cost]) AS [Unit Cost],max(POC.[Scrap _]) AS [Scrap %],
+                      MAX([Posting Date]) AS posting_Date,0 as poids, '' [Unit of Measure Code], 0 as    [Qty_ per Unit of Measure] 
+					 , PO.[Order No_] as 'N° Commande'
+FROM         [Staging2020].[dbo].[Staging_Value Entry] VE left join [Staging2020].[dbo].[Staging_Prod_ Order Component] POC on POC.[Prod_ Order No_]=VE.[Document No_] and POC.[Item No_]=VE.[Item No_]
+left join [Staging2020].[dbo].[Staging_Production Order] PO ON VE.[Document No_]= PO.No_
+
+WHERE     [Item Ledger Entry Type] in(5)
+
+GROUP BY [Entry No_], [Document No_], VE.[Item No_], [Item Ledger Entry No_], ve.[Source No_],  VE.[Location Code] , PO.[Order No_]
+
+UNION ALL
+
+SELECT     [Entry No_], [Document No_], [Item No_], [Item Ledger Entry No_], VE.[Source No_], 'Production' as TypeEcriture, VE.[Location Code], 0 AS Cout_Consommation, 
+                     SUM([Cost Amount (Actual)]) AS Cout_Production,0 as CoutOperatoire,0 as FraisGenOper, SUM([Item Ledger Entry Quantity]) AS Quantité, 0 as QuantitéConsommation,
+                      0 AS CoutConsmPrevu,0 as QteMatPrevue,0 AS qteRestant,0 AS CoutMatPrevu, 0 AS [Quantity per],0 AS [Unit Cost],0  AS [Scrap _],
+                       MAX([Posting Date]) AS posting_Date,0 as poids, '' [Unit of Measure Code], 0 as    [Qty_ per Unit of Measure] 
+					 , PO.[Order No_] as 'N° Commande'
+
+FROM         [Staging2020].[dbo].[Staging_Value Entry] VE left join [Staging2020].[dbo].[Staging_Production Order] PO ON VE.[Document No_]= PO.No_
+
+WHERE     [Item Ledger Entry Type] in(6) 
+
+GROUP BY [Entry No_], [Document No_], [Item No_], [Item Ledger Entry No_], VE.[Source No_],  VE.[Location Code] , PO.[Order No_]
+
+UNION ALL
+
+SELECT     [Entry No_], [Document No_], [Item No_], [Item Ledger Entry No_], VE.[Source No_], 'CoutOper' as TypeEcriture, VE.[Location Code], 0 AS Cout_Consommation, 
+                      0 AS Cout_Production,SUM([Cost Amount (Actual)]) as CoutOperatoire,0 as FraisGenOper, SUM([Item Ledger Entry Quantity]) AS Quantité , 0 as QuantitéConsommation,
+                      SUM([Expected Operation Cost Amt_]) AS CoutConsmPrevu,0 as QteMatPrevue,0 AS qteRestant,0 AS CoutMatPrevu,0 AS [Quantity per],0 AS [Unit Cost],0 AS [Scrap _],
+                       MAX([Posting Date]) AS posting_Date,0 as poids, '' [Unit of Measure Code], 0 as    [Qty_ per Unit of Measure] 
+
+					 , PO.[Order No_] as 'N° Commande'
+FROM         [Staging2020].[dbo].[Staging_Value Entry] VE left join [Staging2020].[dbo].[Staging_Prod_ Order Routing Line] PORL on PORL.[Prod_ Order No_]= VE.[Document No_] and PORL.No_=VE.No_
+left join [Staging2020].[dbo].[Staging_Production Order] PO ON VE.[Document No_]= PO.No_
+
+WHERE     [Item Ledger Entry Type] in(7)
+and [Entry Type]=0
+
+GROUP BY [Entry No_], [Document No_], [Item No_], [Item Ledger Entry No_], VE.[Source No_],  VE.[Location Code] , PO.[Order No_]
+
+UNION ALL
+
+SELECT     [Entry No_], [Document No_], [Item No_], [Item Ledger Entry No_], VE.[Source No_], 'FraisGenOP' as TypeEcriture, VE.[Location Code], 0 AS Cout_Consommation, 
+                     0 AS Cout_Production,0 as CoutOperatoire,SUM([Cost Amount (Actual)]) as FraisGenOper, SUM([Item Ledger Entry Quantity]) AS Quantité, 0 as QuantitéConsommation,
+                      0 AS CoutConsmPrevu,0 as QteMatPrevue,0 AS qteRestant,0 AS CoutMatPrevu,0 AS [Quantity per], 0 AS [Unit Cost],0 AS [Scrap _],
+                       MAX([Posting Date]) AS posting_Date,0 as poids, '' [Unit of Measure Code], 0 as    [Qty_ per Unit of Measure] 
+
+					 , PO.[Order No_] as 'N° Commande'
+FROM         [Staging2020].[dbo].[Staging_Value Entry] VE left join [Staging2020].[dbo].[Staging_Production Order] PO ON VE.[Document No_]= PO.No_
+
+WHERE     [Item Ledger Entry Type] in(7)
+and [Entry Type]=3
+
+GROUP BY [Entry No_], [Document No_], [Item No_], [Item Ledger Entry No_], VE.[Source No_],  VE.[Location Code] , PO.[Order No_]</property>
+                <property
+                  dataType="System.String"
+                  description="Variable contenant la commande SQL à exécuter."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Force l'utilisation de la valeur de propriété DefaultCodePage lors de la description des données caractères."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le mode utilisé pour accéder à la base de données."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="Mappages entre les paramètres de la commande SQL et les variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DWH_Prod2020]"
+                  connectionManagerRefId="Package.ConnectionManagers[DWH_Prod2020]"
+                  description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB]"
+                  name="Sortie de source OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Entry No_]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Entry No_]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Entry No_]"
+                      name="Entry No_"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Document No_]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Document No_]"
+                      length="20"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Document No_]"
+                      name="Document No_"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Item No_]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Item No_]"
+                      length="20"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Item No_]"
+                      name="Item No_"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Item Ledger Entry No_]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Item Ledger Entry No_]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Item Ledger Entry No_]"
+                      name="Item Ledger Entry No_"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Source No_]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Source No_]"
+                      length="20"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Source No_]"
+                      name="Source No_"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[TypeEcriture]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[TypeEcriture]"
+                      length="12"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[TypeEcriture]"
+                      name="TypeEcriture"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Location Code]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Location Code]"
+                      length="10"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Location Code]"
+                      name="Location Code"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Cout_Consommation]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Cout_Consommation]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Cout_Consommation]"
+                      name="Cout_Consommation"
+                      precision="38"
+                      scale="18"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Cout_Production]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Cout_Production]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Cout_Production]"
+                      name="Cout_Production"
+                      precision="38"
+                      scale="20"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[CoutOperatoire]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[CoutOperatoire]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[CoutOperatoire]"
+                      name="CoutOperatoire"
+                      precision="38"
+                      scale="20"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[FraisGenOper]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[FraisGenOper]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[FraisGenOper]"
+                      name="FraisGenOper"
+                      precision="38"
+                      scale="20"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Quantité]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Quantité]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Quantité]"
+                      name="Quantité"
+                      precision="38"
+                      scale="20"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[QuantitéConsommation]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[QuantitéConsommation]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[QuantitéConsommation]"
+                      name="QuantitéConsommation"
+                      precision="38"
+                      scale="18"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[CoutConsmPrevu]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[CoutConsmPrevu]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[CoutConsmPrevu]"
+                      name="CoutConsmPrevu"
+                      precision="38"
+                      scale="20"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[QteMatPrevue]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[QteMatPrevue]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[QteMatPrevue]"
+                      name="QteMatPrevue"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[qteRestant]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[qteRestant]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[qteRestant]"
+                      name="qteRestant"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[CoutMatPrevu]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[CoutMatPrevu]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[CoutMatPrevu]"
+                      name="CoutMatPrevu"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Quantity per]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Quantity per]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Quantity per]"
+                      name="Quantity per"
+                      precision="38"
+                      scale="20"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Unit Cost]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Unit Cost]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Unit Cost]"
+                      name="Unit Cost"
+                      precision="38"
+                      scale="20"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Scrap %]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Scrap %]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Scrap %]"
+                      name="Scrap %"
+                      precision="38"
+                      scale="20"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[posting_Date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[posting_Date]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[posting_Date]"
+                      name="posting_Date"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[poids]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[poids]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[poids]"
+                      name="poids"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Unit of Measure Code]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Unit of Measure Code]"
+                      length="1"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Unit of Measure Code]"
+                      name="Unit of Measure Code"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Qty_ per Unit of Measure]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Qty_ per Unit of Measure]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Qty_ per Unit of Measure]"
+                      name="Qty_ per Unit of Measure"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[N° Commande]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[N° Commande]"
+                      length="20"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[N° Commande]"
+                      name="N° Commande"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Entry No_]"
+                      dataType="i4"
+                      name="Entry No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Document No_]"
+                      dataType="wstr"
+                      length="20"
+                      name="Document No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Item No_]"
+                      dataType="wstr"
+                      length="20"
+                      name="Item No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Item Ledger Entry No_]"
+                      dataType="i4"
+                      name="Item Ledger Entry No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Source No_]"
+                      dataType="wstr"
+                      length="20"
+                      name="Source No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[TypeEcriture]"
+                      codePage="1252"
+                      dataType="str"
+                      length="12"
+                      name="TypeEcriture" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Location Code]"
+                      dataType="wstr"
+                      length="10"
+                      name="Location Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Cout_Consommation]"
+                      dataType="numeric"
+                      name="Cout_Consommation"
+                      precision="38"
+                      scale="18" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Cout_Production]"
+                      dataType="numeric"
+                      name="Cout_Production"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[CoutOperatoire]"
+                      dataType="numeric"
+                      name="CoutOperatoire"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[FraisGenOper]"
+                      dataType="numeric"
+                      name="FraisGenOper"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Quantité]"
+                      dataType="numeric"
+                      name="Quantité"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[QuantitéConsommation]"
+                      dataType="numeric"
+                      name="QuantitéConsommation"
+                      precision="38"
+                      scale="18" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[CoutConsmPrevu]"
+                      dataType="numeric"
+                      name="CoutConsmPrevu"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[QteMatPrevue]"
+                      dataType="i4"
+                      name="QteMatPrevue" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[qteRestant]"
+                      dataType="i4"
+                      name="qteRestant" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[CoutMatPrevu]"
+                      dataType="i4"
+                      name="CoutMatPrevu" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Quantity per]"
+                      dataType="numeric"
+                      name="Quantity per"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Unit Cost]"
+                      dataType="numeric"
+                      name="Unit Cost"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Scrap %]"
+                      dataType="numeric"
+                      name="Scrap %"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[posting_Date]"
+                      dataType="dbTimeStamp"
+                      name="posting_Date" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[poids]"
+                      dataType="i4"
+                      name="poids" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Unit of Measure Code]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="Unit of Measure Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Qty_ per Unit of Measure]"
+                      dataType="i4"
+                      name="Qty_ per Unit of Measure" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[N° Commande]"
+                      dataType="wstr"
+                      length="20"
+                      name="N° Commande" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB]"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de source OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Entry No_]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Entry No_]"
+                      name="Entry No_" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Document No_]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Document No_]"
+                      name="Document No_" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Item No_]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Item No_]"
+                      name="Item No_" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Item Ledger Entry No_]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Item Ledger Entry No_]"
+                      name="Item Ledger Entry No_" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Source No_]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Source No_]"
+                      name="Source No_" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[TypeEcriture]"
+                      codePage="1252"
+                      dataType="str"
+                      length="12"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[TypeEcriture]"
+                      name="TypeEcriture" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Location Code]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Location Code]"
+                      name="Location Code" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Cout_Consommation]"
+                      dataType="numeric"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Cout_Consommation]"
+                      name="Cout_Consommation"
+                      precision="38"
+                      scale="18" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Cout_Production]"
+                      dataType="numeric"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Cout_Production]"
+                      name="Cout_Production"
+                      precision="38"
+                      scale="20" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[CoutOperatoire]"
+                      dataType="numeric"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[CoutOperatoire]"
+                      name="CoutOperatoire"
+                      precision="38"
+                      scale="20" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[FraisGenOper]"
+                      dataType="numeric"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[FraisGenOper]"
+                      name="FraisGenOper"
+                      precision="38"
+                      scale="20" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Quantité]"
+                      dataType="numeric"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Quantité]"
+                      name="Quantité"
+                      precision="38"
+                      scale="20" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[QuantitéConsommation]"
+                      dataType="numeric"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[QuantitéConsommation]"
+                      name="QuantitéConsommation"
+                      precision="38"
+                      scale="18" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[CoutConsmPrevu]"
+                      dataType="numeric"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[CoutConsmPrevu]"
+                      name="CoutConsmPrevu"
+                      precision="38"
+                      scale="20" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[QteMatPrevue]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[QteMatPrevue]"
+                      name="QteMatPrevue" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[qteRestant]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[qteRestant]"
+                      name="qteRestant" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[CoutMatPrevu]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[CoutMatPrevu]"
+                      name="CoutMatPrevu" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Quantity per]"
+                      dataType="numeric"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Quantity per]"
+                      name="Quantity per"
+                      precision="38"
+                      scale="20" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Unit Cost]"
+                      dataType="numeric"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Unit Cost]"
+                      name="Unit Cost"
+                      precision="38"
+                      scale="20" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Scrap %]"
+                      dataType="numeric"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Scrap %]"
+                      name="Scrap %"
+                      precision="38"
+                      scale="20" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[posting_Date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[posting_Date]"
+                      name="posting_Date" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[poids]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[poids]"
+                      name="poids" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Unit of Measure Code]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Unit of Measure Code]"
+                      name="Unit of Measure Code" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Qty_ per Unit of Measure]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Qty_ per Unit of Measure]"
+                      name="Qty_ per Unit of Measure" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[N° Commande]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[N° Commande]"
+                      name="N° Commande" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Chargement de La table Production_Fact\Production_Fact"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destination OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;4"
+              description="Destination OLE DB"
+              name="Production_Fact"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Nombre de secondes avant l'expiration d'une commande.  Une valeur égale à 0 indique un délai d'expiration infini."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowset">[Production_Fact]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie la variable contenant le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Commande SQL à exécuter."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Force l'utilisation de la valeur de propriété DefaultCodePage lors de la description des données caractères."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le mode utilisé pour accéder à la base de données."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si les valeurs fournies pour les colonnes d'identité seront copiées à la destination. Si la valeur est définie à False, les valeurs des colonnes d'identité seront générées automatiquement à la destination. Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si les colonnes contenant la valeur NULL auront cette valeur NULL copiée à la destination. Si la valeur est définie à False, les colonnes contenant la valeur NULL auront leurs valeurs par défaut insérées à la destination. Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie les options à utiliser avec le chargement rapide.  Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie quand les validations sont émises pendant l'insertion des données.  Une valeur égale à 0 spécifie qu'une validation sera émise à la fin de l'insertion des données.  Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Chargement de La table Production_Fact\Production_Fact.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DWH_Prod2020]"
+                  connectionManagerRefId="Package.ConnectionManagers[DWH_Prod2020]"
+                  description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB]"
+                  errorOrTruncationOperation="Insérer"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrée de destination OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].Columns[Entry No_]"
+                      cachedDataType="i4"
+                      cachedName="Entry No_"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Entry No_]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Entry No_]" />
+                    <inputColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].Columns[Document No_]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Document No_"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Document No_]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Document No_]" />
+                    <inputColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].Columns[Item No_]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Item No_"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Item No_]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Item No_]" />
+                    <inputColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].Columns[Item Ledger Entry No_]"
+                      cachedDataType="i4"
+                      cachedName="Item Ledger Entry No_"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Item Ledger Entry No_]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Item Ledger Entry No_]" />
+                    <inputColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].Columns[Source No_]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Source No_"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Source No_]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Source No_]" />
+                    <inputColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].Columns[TypeEcriture]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="12"
+                      cachedName="TypeEcriture"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[TypeEcriture]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[TypeEcriture]" />
+                    <inputColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].Columns[Location Code]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="Location Code"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Location Code]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Location Code]" />
+                    <inputColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].Columns[Cout_Consommation]"
+                      cachedDataType="numeric"
+                      cachedName="Cout_Consommation"
+                      cachedPrecision="38"
+                      cachedScale="18"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Cout_Consommation]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Cout_Consommation]" />
+                    <inputColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].Columns[Cout_Production]"
+                      cachedDataType="numeric"
+                      cachedName="Cout_Production"
+                      cachedPrecision="38"
+                      cachedScale="20"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Cout_Production]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Cout_Production]" />
+                    <inputColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].Columns[CoutOperatoire]"
+                      cachedDataType="numeric"
+                      cachedName="CoutOperatoire"
+                      cachedPrecision="38"
+                      cachedScale="20"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[CoutOperatoire]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[CoutOperatoire]" />
+                    <inputColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].Columns[FraisGenOper]"
+                      cachedDataType="numeric"
+                      cachedName="FraisGenOper"
+                      cachedPrecision="38"
+                      cachedScale="20"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[FraisGenOper]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[FraisGenOper]" />
+                    <inputColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].Columns[Quantité]"
+                      cachedDataType="numeric"
+                      cachedName="Quantité"
+                      cachedPrecision="38"
+                      cachedScale="20"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Quantité]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Quantité]" />
+                    <inputColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].Columns[QuantitéConsommation]"
+                      cachedDataType="numeric"
+                      cachedName="QuantitéConsommation"
+                      cachedPrecision="38"
+                      cachedScale="18"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[QuantitéConsommation]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[QuantitéConsommation]" />
+                    <inputColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].Columns[CoutConsmPrevu]"
+                      cachedDataType="numeric"
+                      cachedName="CoutConsmPrevu"
+                      cachedPrecision="38"
+                      cachedScale="20"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[CoutConsmPrevu]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[CoutConsmPrevu]" />
+                    <inputColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].Columns[QteMatPrevue]"
+                      cachedDataType="i4"
+                      cachedName="QteMatPrevue"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[QteMatPrevue]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[QteMatPrevue]" />
+                    <inputColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].Columns[qteRestant]"
+                      cachedDataType="i4"
+                      cachedName="qteRestant"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[qteRestant]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[qteRestant]" />
+                    <inputColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].Columns[CoutMatPrevu]"
+                      cachedDataType="i4"
+                      cachedName="CoutMatPrevu"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[CoutMatPrevu]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[CoutMatPrevu]" />
+                    <inputColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].Columns[Quantity per]"
+                      cachedDataType="numeric"
+                      cachedName="Quantity per"
+                      cachedPrecision="38"
+                      cachedScale="20"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Quantity per]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Quantity per]" />
+                    <inputColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].Columns[Unit Cost]"
+                      cachedDataType="numeric"
+                      cachedName="Unit Cost"
+                      cachedPrecision="38"
+                      cachedScale="20"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Unit Cost]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Unit Cost]" />
+                    <inputColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].Columns[Scrap %]"
+                      cachedDataType="numeric"
+                      cachedName="Scrap %"
+                      cachedPrecision="38"
+                      cachedScale="20"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Scrap %]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Scrap %]" />
+                    <inputColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].Columns[posting_Date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="posting_Date"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[posting_Date]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[posting_Date]" />
+                    <inputColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].Columns[poids]"
+                      cachedDataType="i4"
+                      cachedName="poids"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[poids]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[poids]" />
+                    <inputColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].Columns[Unit of Measure Code]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="Unit of Measure Code"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Unit of Measure Code]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Unit of Measure Code]" />
+                    <inputColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].Columns[Qty_ per Unit of Measure]"
+                      cachedDataType="i4"
+                      cachedName="Qty_ per Unit of Measure"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Qty_ per Unit of Measure]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[Qty_ per Unit of Measure]" />
+                    <inputColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].Columns[N° Commande]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="N° Commande"
+                      externalMetadataColumnId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[N° Commande]"
+                      lineageId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB].Columns[N° Commande]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Entry No_]"
+                      dataType="i4"
+                      name="Entry No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Document No_]"
+                      dataType="wstr"
+                      length="20"
+                      name="Document No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Item No_]"
+                      dataType="wstr"
+                      length="20"
+                      name="Item No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Item Ledger Entry No_]"
+                      dataType="i4"
+                      name="Item Ledger Entry No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Source No_]"
+                      dataType="wstr"
+                      length="20"
+                      name="Source No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[TypeEcriture]"
+                      codePage="1252"
+                      dataType="str"
+                      length="12"
+                      name="TypeEcriture" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Location Code]"
+                      dataType="wstr"
+                      length="10"
+                      name="Location Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Cout_Consommation]"
+                      dataType="numeric"
+                      name="Cout_Consommation"
+                      precision="38"
+                      scale="18" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Cout_Production]"
+                      dataType="numeric"
+                      name="Cout_Production"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[CoutOperatoire]"
+                      dataType="numeric"
+                      name="CoutOperatoire"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[FraisGenOper]"
+                      dataType="numeric"
+                      name="FraisGenOper"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Quantité]"
+                      dataType="numeric"
+                      name="Quantité"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[QuantitéConsommation]"
+                      dataType="numeric"
+                      name="QuantitéConsommation"
+                      precision="38"
+                      scale="18" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[CoutConsmPrevu]"
+                      dataType="numeric"
+                      name="CoutConsmPrevu"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[QteMatPrevue]"
+                      dataType="i4"
+                      name="QteMatPrevue" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[qteRestant]"
+                      dataType="i4"
+                      name="qteRestant" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[CoutMatPrevu]"
+                      dataType="i4"
+                      name="CoutMatPrevu" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Quantity per]"
+                      dataType="numeric"
+                      name="Quantity per"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Unit Cost]"
+                      dataType="numeric"
+                      name="Unit Cost"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Scrap %]"
+                      dataType="numeric"
+                      name="Scrap %"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[posting_Date]"
+                      dataType="dbTimeStamp"
+                      name="posting_Date" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[poids]"
+                      dataType="i4"
+                      name="poids" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Unit of Measure Code]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="Unit of Measure Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Qty_ per Unit of Measure]"
+                      dataType="i4"
+                      name="Qty_ per Unit of Measure" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[N° Commande]"
+                      dataType="wstr"
+                      length="20"
+                      name="N° Commande" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Chargement de La table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de destination OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de destination OLE DB"
+                  synchronousInputId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de La table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Chargement de La table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de La table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Chargement de La table Production_Fact.Paths[Sortie de recherche sans correspondance]"
+              endId="Package\Chargement de La table Production_Fact\Production_Fact.Inputs[Entrée de destination OLE DB]"
+              name="Sortie de recherche sans correspondance"
+              startId="Package\Chargement de La table Production_Fact\Alimentation de Production_Fact.Outputs[Sortie de recherche sans correspondance]" />
+            <path
+              refId="Package\Chargement de La table Production_Fact.Paths[Sortie de source OLE DB]"
+              endId="Package\Chargement de La table Production_Fact\Alimentation de Production_Fact.Inputs[Entrée de recherche]"
+              name="Sortie de source OLE DB"
+              startId="Package\Chargement de La table Production_Fact\Création Production_Fact.Outputs[Sortie de source OLE DB]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Poids"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Poid*Quantitié"
+      DTS:DTSID="{9BAC2583-15C7-4935-A6BE-39B796E3B9BC}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Poids"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F0074483-076E-4F5E-AD44-992E2408AD29}"
+          SQLTask:BypassPrepare="False"
+          SQLTask:SqlStatementSource="update &#x9;[Production_Fact]&#xA;set &#x9;Poids=(SELECT [nET wEIGHT] &#xA;&#x9;&#x9;FROM  Dim_Item  &#xA;&#x9;&#x9;WHERE  Dim_Item.[No_]= Production_Fact.[ITEM No_])*Quantité&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Transformations Sous la table Production_Fact"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tâche de flux de données"
+      DTS:Disabled="True"
+      DTS:DTSID="{2F2AB6EE-48B5-43FD-BA95-52F1E3A73002}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Transformations Sous la table Production_Fact"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Transformations Sous la table Production_Fact\Production_Fact"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Source OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;7"
+              description="Source OLE DB"
+              name="Production_Fact"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Nombre de secondes avant l'expiration d'une commande.  Une valeur égale à 0 indique un délai d'expiration infini."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowset">[dbo].[Production_Fact]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie la variable contenant le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Commande SQL à exécuter."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="Variable contenant la commande SQL à exécuter."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Force l'utilisation de la valeur de propriété DefaultCodePage lors de la description des données caractères."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le mode utilisé pour accéder à la base de données."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="Mappages entre les paramètres de la commande SQL et les variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DWH_Prod2020]"
+                  connectionManagerRefId="Package.ConnectionManagers[DWH_Prod2020]"
+                  description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB]"
+                  name="Sortie de source OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[Entry No_]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Entry No_]"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[Entry No_]"
+                      name="Entry No_"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[Document No_]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Document No_]"
+                      length="20"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[Document No_]"
+                      name="Document No_"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[Item No_]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Item No_]"
+                      length="20"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[Item No_]"
+                      name="Item No_"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[Item Ledger Entry No_]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Item Ledger Entry No_]"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[Item Ledger Entry No_]"
+                      name="Item Ledger Entry No_"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[Source No_]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Source No_]"
+                      length="20"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[Source No_]"
+                      name="Source No_"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[TypeEcriture]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[TypeEcriture]"
+                      length="12"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[TypeEcriture]"
+                      name="TypeEcriture"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[Location Code]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Location Code]"
+                      length="10"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[Location Code]"
+                      name="Location Code"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[Cout_Consommation]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Cout_Consommation]"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[Cout_Consommation]"
+                      name="Cout_Consommation"
+                      precision="38"
+                      scale="18"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[Cout_Production]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Cout_Production]"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[Cout_Production]"
+                      name="Cout_Production"
+                      precision="38"
+                      scale="20"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[CoutOperatoire]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[CoutOperatoire]"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[CoutOperatoire]"
+                      name="CoutOperatoire"
+                      precision="38"
+                      scale="20"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[FraisGenOper]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[FraisGenOper]"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[FraisGenOper]"
+                      name="FraisGenOper"
+                      precision="38"
+                      scale="20"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[Quantité]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Quantité]"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[Quantité]"
+                      name="Quantité"
+                      precision="38"
+                      scale="20"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[QuantitéConsommation]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[QuantitéConsommation]"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[QuantitéConsommation]"
+                      name="QuantitéConsommation"
+                      precision="38"
+                      scale="18"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[CoutConsmPrevu]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[CoutConsmPrevu]"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[CoutConsmPrevu]"
+                      name="CoutConsmPrevu"
+                      precision="38"
+                      scale="20"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[QteMatPrevue]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[QteMatPrevue]"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[QteMatPrevue]"
+                      name="QteMatPrevue"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[qteRestant]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[qteRestant]"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[qteRestant]"
+                      name="qteRestant"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[CoutMatPrevu]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[CoutMatPrevu]"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[CoutMatPrevu]"
+                      name="CoutMatPrevu"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[Quantity per]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Quantity per]"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[Quantity per]"
+                      name="Quantity per"
+                      precision="38"
+                      scale="20"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[Unit Cost]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Unit Cost]"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[Unit Cost]"
+                      name="Unit Cost"
+                      precision="38"
+                      scale="20"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[Scrap %]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Scrap %]"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[Scrap %]"
+                      name="Scrap %"
+                      precision="38"
+                      scale="20"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[posting_Date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[posting_Date]"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[posting_Date]"
+                      name="posting_Date"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[poids]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[poids]"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[poids]"
+                      name="poids"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[Unit of Measure Code]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Unit of Measure Code]"
+                      length="1"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[Unit of Measure Code]"
+                      name="Unit of Measure Code"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[Qty_ per Unit of Measure]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Qty_ per Unit of Measure]"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[Qty_ per Unit of Measure]"
+                      name="Qty_ per Unit of Measure"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[N° Commande]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[N° Commande]"
+                      length="20"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].Columns[N° Commande]"
+                      name="N° Commande"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Entry No_]"
+                      dataType="i4"
+                      name="Entry No_" />
+                    <externalMetadataColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Document No_]"
+                      dataType="wstr"
+                      length="20"
+                      name="Document No_" />
+                    <externalMetadataColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Item No_]"
+                      dataType="wstr"
+                      length="20"
+                      name="Item No_" />
+                    <externalMetadataColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Item Ledger Entry No_]"
+                      dataType="i4"
+                      name="Item Ledger Entry No_" />
+                    <externalMetadataColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Source No_]"
+                      dataType="wstr"
+                      length="20"
+                      name="Source No_" />
+                    <externalMetadataColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[TypeEcriture]"
+                      codePage="1252"
+                      dataType="str"
+                      length="12"
+                      name="TypeEcriture" />
+                    <externalMetadataColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Location Code]"
+                      dataType="wstr"
+                      length="10"
+                      name="Location Code" />
+                    <externalMetadataColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Cout_Consommation]"
+                      dataType="numeric"
+                      name="Cout_Consommation"
+                      precision="38"
+                      scale="18" />
+                    <externalMetadataColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Cout_Production]"
+                      dataType="numeric"
+                      name="Cout_Production"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[CoutOperatoire]"
+                      dataType="numeric"
+                      name="CoutOperatoire"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[FraisGenOper]"
+                      dataType="numeric"
+                      name="FraisGenOper"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Quantité]"
+                      dataType="numeric"
+                      name="Quantité"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[QuantitéConsommation]"
+                      dataType="numeric"
+                      name="QuantitéConsommation"
+                      precision="38"
+                      scale="18" />
+                    <externalMetadataColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[CoutConsmPrevu]"
+                      dataType="numeric"
+                      name="CoutConsmPrevu"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[QteMatPrevue]"
+                      dataType="i4"
+                      name="QteMatPrevue" />
+                    <externalMetadataColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[qteRestant]"
+                      dataType="i4"
+                      name="qteRestant" />
+                    <externalMetadataColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[CoutMatPrevu]"
+                      dataType="i4"
+                      name="CoutMatPrevu" />
+                    <externalMetadataColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Quantity per]"
+                      dataType="numeric"
+                      name="Quantity per"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Unit Cost]"
+                      dataType="numeric"
+                      name="Unit Cost"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Scrap %]"
+                      dataType="numeric"
+                      name="Scrap %"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[posting_Date]"
+                      dataType="dbTimeStamp"
+                      name="posting_Date" />
+                    <externalMetadataColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[poids]"
+                      dataType="i4"
+                      name="poids" />
+                    <externalMetadataColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Unit of Measure Code]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="Unit of Measure Code" />
+                    <externalMetadataColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Qty_ per Unit of Measure]"
+                      dataType="i4"
+                      name="Qty_ per Unit of Measure" />
+                    <externalMetadataColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[N° Commande]"
+                      dataType="wstr"
+                      length="20"
+                      name="N° Commande" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB]"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de source OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Entry No_]"
+                      dataType="i4"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Entry No_]"
+                      name="Entry No_" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Document No_]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Document No_]"
+                      name="Document No_" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Item No_]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Item No_]"
+                      name="Item No_" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Item Ledger Entry No_]"
+                      dataType="i4"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Item Ledger Entry No_]"
+                      name="Item Ledger Entry No_" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Source No_]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Source No_]"
+                      name="Source No_" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[TypeEcriture]"
+                      codePage="1252"
+                      dataType="str"
+                      length="12"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[TypeEcriture]"
+                      name="TypeEcriture" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Location Code]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Location Code]"
+                      name="Location Code" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Cout_Consommation]"
+                      dataType="numeric"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Cout_Consommation]"
+                      name="Cout_Consommation"
+                      precision="38"
+                      scale="18" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Cout_Production]"
+                      dataType="numeric"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Cout_Production]"
+                      name="Cout_Production"
+                      precision="38"
+                      scale="20" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[CoutOperatoire]"
+                      dataType="numeric"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[CoutOperatoire]"
+                      name="CoutOperatoire"
+                      precision="38"
+                      scale="20" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[FraisGenOper]"
+                      dataType="numeric"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[FraisGenOper]"
+                      name="FraisGenOper"
+                      precision="38"
+                      scale="20" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Quantité]"
+                      dataType="numeric"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Quantité]"
+                      name="Quantité"
+                      precision="38"
+                      scale="20" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[QuantitéConsommation]"
+                      dataType="numeric"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[QuantitéConsommation]"
+                      name="QuantitéConsommation"
+                      precision="38"
+                      scale="18" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[CoutConsmPrevu]"
+                      dataType="numeric"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[CoutConsmPrevu]"
+                      name="CoutConsmPrevu"
+                      precision="38"
+                      scale="20" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[QteMatPrevue]"
+                      dataType="i4"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[QteMatPrevue]"
+                      name="QteMatPrevue" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[qteRestant]"
+                      dataType="i4"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[qteRestant]"
+                      name="qteRestant" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[CoutMatPrevu]"
+                      dataType="i4"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[CoutMatPrevu]"
+                      name="CoutMatPrevu" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Quantity per]"
+                      dataType="numeric"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Quantity per]"
+                      name="Quantity per"
+                      precision="38"
+                      scale="20" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Unit Cost]"
+                      dataType="numeric"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Unit Cost]"
+                      name="Unit Cost"
+                      precision="38"
+                      scale="20" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Scrap %]"
+                      dataType="numeric"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Scrap %]"
+                      name="Scrap %"
+                      precision="38"
+                      scale="20" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[posting_Date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[posting_Date]"
+                      name="posting_Date" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[poids]"
+                      dataType="i4"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[poids]"
+                      name="poids" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Unit of Measure Code]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Unit of Measure Code]"
+                      name="Unit of Measure Code" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Qty_ per Unit of Measure]"
+                      dataType="i4"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Qty_ per Unit of Measure]"
+                      name="Qty_ per Unit of Measure" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[N° Commande]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[N° Commande]"
+                      name="N° Commande" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Transformations Sous la table Production_Fact\Production_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Update"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="QtéMatPrev | CoutMatPrev"
+      DTS:DTSID="{186A78BD-0E87-400A-98A2-23482A66F56A}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Update"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F0074483-076E-4F5E-AD44-992E2408AD29}"
+          SQLTask:BypassPrepare="False"
+          SQLTask:SqlStatementSource="&#xA;&#xA;&#xA;&#xA;&#xA;update [Production_Fact]&#xA;set QteMatPrevue=0&#xA;&#xA;update [Production_Fact]&#xA;set QteMatPrevue=((select SUM(Quantité) from [Production_Fact] F where F.[Document No_]=[Production_Fact].[Document No_])&#xA;*([Quantity per])*(1+([Scrap %]/100)))/(select COUNT([Item No_]) from [Production_Fact] F where F.[Document No_]=[Production_Fact].[Document No_] and F.[Item No_]=[Production_Fact].[Item No_])&#xA;&#xA;--********************************************&#xA;&#xA;update [Production_Fact]&#xA;set CoutMatPrevu=QteMatPrevue*[Unit Cost] " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Contrainte]"
+      DTS:CreationName=""
+      DTS:DTSID="{A72539EA-3B0E-49C6-8FFB-AC266A513FC2}"
+      DTS:From="Package\Chargement de La table Production_Fact"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Contrainte"
+      DTS:To="Package\Poids" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Contrainte 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{C53E80CC-E14A-4482-93BE-762339F82231}"
+      DTS:From="Package\Chargement de La table Production_Fact"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Contrainte 1"
+      DTS:To="Package\Transformations Sous la table Production_Fact" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Contrainte 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{935F2E08-5071-4F2B-B33E-8286EBC91D7F}"
+      DTS:From="Package\Poids"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Contrainte 2"
+      DTS:To="Package\Update" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Cette section CDATA contient des informations sur la disposition du package. Elle comprend des informations telles que les coordonnées (x,y), la largeur et la hauteur.-->
+<!--Si vous modifiez manuellement cette section et commettez une erreur, vous pouvez la supprimer. -->
+<!--Le package pourra toujours se charger normalement, mais les informations de disposition précédente seront perdues et le concepteur réorganisera automatiquement les éléments sur l'aire de conception.-->
+<Objects
+  Version="8">
+  <!--Chaque nœud ci-dessous contiendra des propriétés qui n'affectent pas le comportement d'exécution.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="270.4,41.6"
+          Id="Package\Chargement de La table Production_Fact"
+          TopLeft="87.2142860840779,106.488235868962" />
+        <NodeLayout
+          Size="129.6,41.6"
+          Id="Package\Transformations Sous la table Production_Fact"
+          TopLeft="409.314289830656,113.788236889955" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Contrainte 1]"
+          TopLeft="357.614286084078,130.938236379458">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="51.700003746578,0"
+              Start="0,0"
+              End="44.200003746578,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="44.200003746578,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="103.2,41.6"
+          Id="Package\Poids"
+          TopLeft="45.7142864927953,172.517649478318" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Contrainte]"
+          TopLeft="222.414286084078,148.088235868962">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-125.099999591283,24.4294136093564"
+              Start="0,0"
+              End="-125.099999591283,16.9294136093564">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,8.21470680467819" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,8.21470680467819"
+                    Point2="0,12.2147068046782"
+                    Point3="-4,12.2147068046782" />
+                  <mssgle:LineSegment
+                    End="-121.099999591283,12.2147068046782" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-121.099999591283,12.2147068046782"
+                    Point2="-125.099999591283,12.2147068046782"
+                    Point3="-125.099999591283,16.2147068046782" />
+                  <mssgle:LineSegment
+                    End="-125.099999591283,16.9294136093564" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="112,41.6"
+          Id="Package\Update"
+          TopLeft="166.285717117543,236.752944496841" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Contrainte 2]"
+          TopLeft="97.3142864927953,214.117649478318">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="124.971430624748,22.6352950185227"
+              Start="0,0"
+              End="124.971430624748,15.1352950185227">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,7.31764750926135" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,7.31764750926135"
+                    Point2="0,11.3176475092613"
+                    Point3="4,11.3176475092613" />
+                  <mssgle:LineSegment
+                    End="120.971430624748,11.3176475092613" />
+                  <mssgle:CubicBezierSegment
+                    Point1="120.971430624748,11.3176475092613"
+                    Point2="124.971430624748,11.3176475092613"
+                    Point3="124.971430624748,15.3176475092613" />
+                  <mssgle:LineSegment
+                    End="124.971430624748,15.1352950185227" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Chargement de La table Production_Fact">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="196.8,41.6"
+          Id="Package\Chargement de La table Production_Fact\Création Production_Fact"
+          TopLeft="37.5999986376081,43.435293414106" />
+        <NodeLayout
+          Size="153.6,41.6"
+          Id="Package\Chargement de La table Production_Fact\Production_Fact"
+          TopLeft="57.828565628674,239.388235868962" />
+        <NodeLayout
+          Size="230.4,41.6"
+          Id="Package\Chargement de La table Production_Fact\Alimentation de Production_Fact"
+          TopLeft="178.857145903062,121.741178177962" />
+        <EdgeLayout
+          Id="Package\Chargement de La table Production_Fact.Paths[Sortie de source OLE DB]"
+          TopLeft="135.999998637608,85.035293414106">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="158.057147265454,36.7058847638563"
+              Start="0,0"
+              End="158.057147265454,29.2058847638563">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14.3529423819281" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,14.3529423819281"
+                    Point2="0,18.3529423819281"
+                    Point3="4,18.3529423819281" />
+                  <mssgle:LineSegment
+                    End="154.057147265454,18.3529423819281" />
+                  <mssgle:CubicBezierSegment
+                    Point1="154.057147265454,18.3529423819281"
+                    Point2="158.057147265454,18.3529423819281"
+                    Point3="158.057147265454,22.3529423819281" />
+                  <mssgle:LineSegment
+                    End="158.057147265454,29.2058847638563" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Chargement de La table Production_Fact.Paths[Sortie de recherche sans correspondance]"
+          TopLeft="294.057145903062,163.341178177962">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-159.428580274388,76.0470576909999"
+              Start="0,0"
+              End="-159.428580274388,68.5470576909999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.0235288455" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,34.0235288455"
+                    Point2="0,38.0235288455"
+                    Point3="-4,38.0235288455" />
+                  <mssgle:LineSegment
+                    End="-155.428580274388,38.0235288455" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-155.428580274388,38.0235288455"
+                    Point2="-159.428580274388,38.0235288455"
+                    Point3="-159.428580274388,42.0235288455" />
+                  <mssgle:LineSegment
+                    End="-159.428580274388,68.5470576909999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-171.216301855944,43.0235288455,183.0040234375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Chargement de La table Production_Fact\Création Production_Fact">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Chargement de La table Production_Fact\Production_Fact">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Chargement de La table Production_Fact\Alimentation de Production_Fact">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Transformations Sous la table Production_Fact">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="153.6,41.6"
+          Id="Package\Transformations Sous la table Production_Fact\Production_Fact"
+          TopLeft="206.4,79.2" />
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Transformations Sous la table Production_Fact\Production_Fact">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

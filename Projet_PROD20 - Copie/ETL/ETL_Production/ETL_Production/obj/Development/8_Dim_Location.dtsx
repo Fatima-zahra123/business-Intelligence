@@ -1,0 +1,951 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="6/7/2020 8:11:17 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="NAV_2017"
+  DTS:CreatorName="MATHE\administrateur"
+  DTS:DTSID="{EBFF98C6-7333-4381-88C3-EE8E522C633F}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3002.107"
+  DTS:LocaleID="1036"
+  DTS:ObjectName="8_Dim_Location"
+  DTS:PackageType="5"
+  DTS:VersionBuild="5"
+  DTS:VersionGUID="{42E2A2A5-842D-4DC9-9F85-4E72FF24D1CD}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.DWH_Prod2020]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{1AA529FA-4A85-456D-9035-689781344EFE}"
+      DTS:ObjectName="LocalHost.DWH_Prod2020">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=.;Initial Catalog=DWH_Prod2020;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.MATHEPROD2016BC]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{CAFF34C6-5291-4584-AD00-DAAAABC24CA7}"
+      DTS:ObjectName="LocalHost.MATHEPROD2016BC">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=.;Initial Catalog=MATHEPROD2016BC;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.Staging2020]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{27FB4D05-3D9E-4628-9591-861C084A4E40}"
+      DTS:ObjectName="LocalHost.Staging2020">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=.;Initial Catalog=Staging2020;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Chargement Dim_Location"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tâche de flux de données"
+      DTS:DTSID="{C7140939-69A2-4FC5-8FBB-72E21DFCC951}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Chargement Dim_Location"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Chargement Dim_Location\Dim_Location"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destination OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;4"
+              description="Destination OLE DB"
+              name="Dim_Location"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Nombre de secondes avant l'expiration d'une commande.  Une valeur égale à 0 indique un délai d'expiration infini."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowset">[Dim_Location]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie la variable contenant le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Commande SQL à exécuter."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Force l'utilisation de la valeur de propriété DefaultCodePage lors de la description des données caractères."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le mode utilisé pour accéder à la base de données."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si les valeurs fournies pour les colonnes d'identité seront copiées à la destination. Si la valeur est définie à False, les valeurs des colonnes d'identité seront générées automatiquement à la destination. Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si les colonnes contenant la valeur NULL auront cette valeur NULL copiée à la destination. Si la valeur est définie à False, les colonnes contenant la valeur NULL auront leurs valeurs par défaut insérées à la destination. Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie les options à utiliser avec le chargement rapide.  Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie quand les validations sont émises pendant l'insertion des données.  Une valeur égale à 0 spécifie qu'une validation sera émise à la fin de l'insertion des données.  Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Chargement Dim_Location\Dim_Location.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.DWH_Prod2020]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.DWH_Prod2020]"
+                  description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Chargement Dim_Location\Dim_Location.Inputs[Entrée de destination OLE DB]"
+                  errorOrTruncationOperation="Insérer"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrée de destination OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Chargement Dim_Location\Dim_Location.Inputs[Entrée de destination OLE DB].Columns[Code]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="Code"
+                      externalMetadataColumnId="Package\Chargement Dim_Location\Dim_Location.Inputs[Entrée de destination OLE DB].ExternalColumns[Code]"
+                      lineageId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].Columns[Code]" />
+                    <inputColumn
+                      refId="Package\Chargement Dim_Location\Dim_Location.Inputs[Entrée de destination OLE DB].Columns[Name]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="Name"
+                      externalMetadataColumnId="Package\Chargement Dim_Location\Dim_Location.Inputs[Entrée de destination OLE DB].ExternalColumns[Name]"
+                      lineageId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].Columns[Name]" />
+                    <inputColumn
+                      refId="Package\Chargement Dim_Location\Dim_Location.Inputs[Entrée de destination OLE DB].Columns[City]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="City"
+                      externalMetadataColumnId="Package\Chargement Dim_Location\Dim_Location.Inputs[Entrée de destination OLE DB].ExternalColumns[City]"
+                      lineageId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].Columns[City]" />
+                    <inputColumn
+                      refId="Package\Chargement Dim_Location\Dim_Location.Inputs[Entrée de destination OLE DB].Columns[County]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="County"
+                      externalMetadataColumnId="Package\Chargement Dim_Location\Dim_Location.Inputs[Entrée de destination OLE DB].ExternalColumns[County]"
+                      lineageId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].Columns[County]" />
+                    <inputColumn
+                      refId="Package\Chargement Dim_Location\Dim_Location.Inputs[Entrée de destination OLE DB].Columns[E-Mail]"
+                      cachedDataType="wstr"
+                      cachedLength="80"
+                      cachedName="E-Mail"
+                      externalMetadataColumnId="Package\Chargement Dim_Location\Dim_Location.Inputs[Entrée de destination OLE DB].ExternalColumns[E-Mail]"
+                      lineageId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].Columns[E-Mail]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Dim_Location.Inputs[Entrée de destination OLE DB].ExternalColumns[Code]"
+                      dataType="wstr"
+                      length="10"
+                      name="Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Dim_Location.Inputs[Entrée de destination OLE DB].ExternalColumns[Name]"
+                      dataType="wstr"
+                      length="100"
+                      name="Name" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Dim_Location.Inputs[Entrée de destination OLE DB].ExternalColumns[City]"
+                      dataType="wstr"
+                      length="30"
+                      name="City" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Dim_Location.Inputs[Entrée de destination OLE DB].ExternalColumns[County]"
+                      dataType="wstr"
+                      length="30"
+                      name="County" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Dim_Location.Inputs[Entrée de destination OLE DB].ExternalColumns[E-Mail]"
+                      dataType="wstr"
+                      length="80"
+                      name="E-Mail" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Chargement Dim_Location\Dim_Location.Outputs[Sortie d'erreur de destination OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de destination OLE DB"
+                  synchronousInputId="Package\Chargement Dim_Location\Dim_Location.Inputs[Entrée de destination OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement Dim_Location\Dim_Location.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Chargement Dim_Location\Dim_Location.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Location\Dim_Location.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Chargement Dim_Location\Dim_Location.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Chargement Dim_Location\Recherche"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Recherche;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;6"
+              description="Joint des colonnes supplémentaires au flux de données en recherchant des valeurs dans une table. Par exemple, joignez la colonne 'id employé' à la table des employés afin d'obtenir la 'date d'embauche' et le 'nom de l'employé'. Nous recommandons cette transformation lorsque la table de recherche peut être stockée en mémoire."
+              name="Recherche"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Spécifie l'instruction SQL qui génère la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select Code from [Staging_Location]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie une instruction SQL qui utilise des paramètres pour générer la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select Code from [Staging_Location]) [refTable]
+where [refTable].[Code] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de connexion utilisé pour accéder au dataset de référence."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de cache de la table de correspondance."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie comment la transformation de recherche gère les lignes sans entrées correspondantes dans le jeu de données de référence."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le pourcentage du cache alloué aux lignes sans entrées correspondantes dans le dataset de référence."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indique si les métadonnées sont à référencer en format XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Code" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Spécifie la liste d'identificateurs de lignage se mappant aux paramètres utilisés dans la propriété SQLCommand par l'instruction SQL. Les entrées dans la liste sont séparées par des points-virgules."
+                  name="ParameterMap">#{Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].Columns[Code]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Détermine si les clés dupliquées dans les données de référence doivent être traitées en tant qu'erreurs lorsque le mode Cache complet est utilisé."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Chargement Dim_Location\Recherche.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.Staging2020]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.Staging2020]"
+                  description="Gestionnaire de connexions utilisé pour accéder aux données de correspondance."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Chargement Dim_Location\Recherche.Inputs[Entrée de recherche]"
+                  name="Entrée de recherche">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Chargement Dim_Location\Recherche.Inputs[Entrée de recherche].Columns[Code]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="Code"
+                      lineageId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].Columns[Code]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Code</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Chargement Dim_Location\Recherche.Outputs[Sortie de recherche avec correspondance]"
+                  errorOrTruncationOperation="Recherche"
+                  exclusionGroup="1"
+                  name="Sortie de recherche avec correspondance"
+                  synchronousInputId="Package\Chargement Dim_Location\Recherche.Inputs[Entrée de recherche]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Chargement Dim_Location\Recherche.Outputs[Sortie de recherche sans correspondance]"
+                  description="Sortie de recherche gérant les lignes sans entrées correspondantes dans le dataset de référence. Utilisez cette sortie lorsque la propriété NoMatchBehavior a la valeur « Envoyez les lignes sans entrées correspondantes dans la sortie sans correspondance »."
+                  exclusionGroup="1"
+                  name="Sortie de recherche sans correspondance"
+                  synchronousInputId="Package\Chargement Dim_Location\Recherche.Inputs[Entrée de recherche]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Chargement Dim_Location\Recherche.Outputs[Sortie d'erreur de recherche]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de recherche"
+                  synchronousInputId="Package\Chargement Dim_Location\Recherche.Inputs[Entrée de recherche]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement Dim_Location\Recherche.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Chargement Dim_Location\Recherche.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Location\Recherche.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Chargement Dim_Location\Recherche.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Chargement Dim_Location\Staging_Location"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Source OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;7"
+              description="Source OLE DB"
+              name="Staging_Location"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Nombre de secondes avant l'expiration d'une commande.  Une valeur égale à 0 indique un délai d'expiration infini."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowset">[dbo].[Staging_Location]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie la variable contenant le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Commande SQL à exécuter."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="Variable contenant la commande SQL à exécuter."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Force l'utilisation de la valeur de propriété DefaultCodePage lors de la description des données caractères."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le mode utilisé pour accéder à la base de données."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="Mappages entre les paramètres de la commande SQL et les variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Chargement Dim_Location\Staging_Location.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.Staging2020]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.Staging2020]"
+                  description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB]"
+                  name="Sortie de source OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].Columns[Code]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Code]"
+                      length="10"
+                      lineageId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].Columns[Code]"
+                      name="Code"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].Columns[Name]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Name]"
+                      length="100"
+                      lineageId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].Columns[Name]"
+                      name="Name"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].Columns[City]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[City]"
+                      length="30"
+                      lineageId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].Columns[City]"
+                      name="City"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].Columns[County]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[County]"
+                      length="30"
+                      lineageId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].Columns[County]"
+                      name="County"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].Columns[E-Mail]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[E-Mail]"
+                      length="80"
+                      lineageId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].Columns[E-Mail]"
+                      name="E-Mail"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[timestamp]"
+                      dataType="bytes"
+                      length="8"
+                      name="timestamp" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Code]"
+                      dataType="wstr"
+                      length="10"
+                      name="Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Name]"
+                      dataType="wstr"
+                      length="100"
+                      name="Name" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Default Bin Code]"
+                      dataType="wstr"
+                      length="20"
+                      name="Default Bin Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Name 2]"
+                      dataType="wstr"
+                      length="50"
+                      name="Name 2" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Address]"
+                      dataType="wstr"
+                      length="100"
+                      name="Address" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Address 2]"
+                      dataType="wstr"
+                      length="50"
+                      name="Address 2" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[City]"
+                      dataType="wstr"
+                      length="30"
+                      name="City" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Phone No_]"
+                      dataType="wstr"
+                      length="30"
+                      name="Phone No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Phone No_ 2]"
+                      dataType="wstr"
+                      length="30"
+                      name="Phone No_ 2" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Telex No_]"
+                      dataType="wstr"
+                      length="30"
+                      name="Telex No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Fax No_]"
+                      dataType="wstr"
+                      length="30"
+                      name="Fax No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Contact]"
+                      dataType="wstr"
+                      length="100"
+                      name="Contact" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Post Code]"
+                      dataType="wstr"
+                      length="20"
+                      name="Post Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[County]"
+                      dataType="wstr"
+                      length="30"
+                      name="County" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[E-Mail]"
+                      dataType="wstr"
+                      length="80"
+                      name="E-Mail" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Home Page]"
+                      dataType="wstr"
+                      length="90"
+                      name="Home Page" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Country_Region Code]"
+                      dataType="wstr"
+                      length="10"
+                      name="Country_Region Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Use As In-Transit]"
+                      dataType="ui1"
+                      name="Use As In-Transit" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Require Put-away]"
+                      dataType="ui1"
+                      name="Require Put-away" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Require Pick]"
+                      dataType="ui1"
+                      name="Require Pick" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Cross-Dock Due Date Calc_]"
+                      codePage="1252"
+                      dataType="str"
+                      length="32"
+                      name="Cross-Dock Due Date Calc_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Use Cross-Docking]"
+                      dataType="ui1"
+                      name="Use Cross-Docking" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Require Receive]"
+                      dataType="ui1"
+                      name="Require Receive" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Require Shipment]"
+                      dataType="ui1"
+                      name="Require Shipment" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Bin Mandatory]"
+                      dataType="ui1"
+                      name="Bin Mandatory" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Directed Put-away and Pick]"
+                      dataType="ui1"
+                      name="Directed Put-away and Pick" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Default Bin Selection]"
+                      dataType="i4"
+                      name="Default Bin Selection" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Outbound Whse_ Handling Time]"
+                      codePage="1252"
+                      dataType="str"
+                      length="32"
+                      name="Outbound Whse_ Handling Time" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Inbound Whse_ Handling Time]"
+                      codePage="1252"
+                      dataType="str"
+                      length="32"
+                      name="Inbound Whse_ Handling Time" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Put-away Template Code]"
+                      dataType="wstr"
+                      length="10"
+                      name="Put-away Template Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Use Put-away Worksheet]"
+                      dataType="ui1"
+                      name="Use Put-away Worksheet" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Pick According to FEFO]"
+                      dataType="ui1"
+                      name="Pick According to FEFO" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Allow Breakbulk]"
+                      dataType="ui1"
+                      name="Allow Breakbulk" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Bin Capacity Policy]"
+                      dataType="i4"
+                      name="Bin Capacity Policy" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Open Shop Floor Bin Code]"
+                      dataType="wstr"
+                      length="20"
+                      name="Open Shop Floor Bin Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[To-Production Bin Code]"
+                      dataType="wstr"
+                      length="20"
+                      name="To-Production Bin Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[From-Production Bin Code]"
+                      dataType="wstr"
+                      length="20"
+                      name="From-Production Bin Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Adjustment Bin Code]"
+                      dataType="wstr"
+                      length="20"
+                      name="Adjustment Bin Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Always Create Put-away Line]"
+                      dataType="ui1"
+                      name="Always Create Put-away Line" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Always Create Pick Line]"
+                      dataType="ui1"
+                      name="Always Create Pick Line" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Special Equipment]"
+                      dataType="i4"
+                      name="Special Equipment" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Receipt Bin Code]"
+                      dataType="wstr"
+                      length="20"
+                      name="Receipt Bin Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Shipment Bin Code]"
+                      dataType="wstr"
+                      length="20"
+                      name="Shipment Bin Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Cross-Dock Bin Code]"
+                      dataType="wstr"
+                      length="20"
+                      name="Cross-Dock Bin Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[To-Assembly Bin Code]"
+                      dataType="wstr"
+                      length="20"
+                      name="To-Assembly Bin Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[From-Assembly Bin Code]"
+                      dataType="wstr"
+                      length="20"
+                      name="From-Assembly Bin Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Asm_-to-Order Shpt_ Bin Code]"
+                      dataType="wstr"
+                      length="20"
+                      name="Asm_-to-Order Shpt_ Bin Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Base Calendar Code]"
+                      dataType="wstr"
+                      length="10"
+                      name="Base Calendar Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB].ExternalColumns[Use ADCS]"
+                      dataType="ui1"
+                      name="Use ADCS" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie d'erreur de source OLE DB]"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de source OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie d'erreur de source OLE DB].Columns[Code]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie d'erreur de source OLE DB].Columns[Code]"
+                      name="Code" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie d'erreur de source OLE DB].Columns[Name]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie d'erreur de source OLE DB].Columns[Name]"
+                      name="Name" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie d'erreur de source OLE DB].Columns[City]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie d'erreur de source OLE DB].Columns[City]"
+                      name="City" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie d'erreur de source OLE DB].Columns[County]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie d'erreur de source OLE DB].Columns[County]"
+                      name="County" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie d'erreur de source OLE DB].Columns[E-Mail]"
+                      dataType="wstr"
+                      length="80"
+                      lineageId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie d'erreur de source OLE DB].Columns[E-Mail]"
+                      name="E-Mail" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Chargement Dim_Location.Paths[Sortie de recherche sans correspondance]"
+              endId="Package\Chargement Dim_Location\Dim_Location.Inputs[Entrée de destination OLE DB]"
+              name="Sortie de recherche sans correspondance"
+              startId="Package\Chargement Dim_Location\Recherche.Outputs[Sortie de recherche sans correspondance]" />
+            <path
+              refId="Package\Chargement Dim_Location.Paths[Sortie de source OLE DB]"
+              endId="Package\Chargement Dim_Location\Recherche.Inputs[Entrée de recherche]"
+              name="Sortie de source OLE DB"
+              startId="Package\Chargement Dim_Location\Staging_Location.Outputs[Sortie de source OLE DB]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Cette section CDATA contient des informations sur la disposition du package. Elle comprend des informations telles que les coordonnées (x,y), la largeur et la hauteur.-->
+<!--Si vous modifiez manuellement cette section et commettez une erreur, vous pouvez la supprimer. -->
+<!--Le package pourra toujours se charger normalement, mais les informations de disposition précédente seront perdues et le concepteur réorganisera automatiquement les éléments sur l'aire de conception.-->
+<Objects
+  Version="8">
+  <!--Chaque nœud ci-dessous contiendra des propriétés qui n'affectent pas le comportement d'exécution.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="203.2,41.6"
+          Id="Package\Chargement Dim_Location"
+          TopLeft="99.42857312183,85.035295310235" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Chargement Dim_Location">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="142.4,41.6"
+          Id="Package\Chargement Dim_Location\Dim_Location"
+          TopLeft="103.42857318995,241.647062212538" />
+        <NodeLayout
+          Size="159.2,41.6"
+          Id="Package\Chargement Dim_Location\Staging_Location"
+          TopLeft="102.28571602763,81.3647070234622" />
+        <NodeLayout
+          Size="127.2,41.6"
+          Id="Package\Chargement Dim_Location\Recherche"
+          TopLeft="338.857148627846,160.282355189076" />
+        <EdgeLayout
+          Id="Package\Chargement Dim_Location.Paths[Sortie de source OLE DB]"
+          TopLeft="181.88571602763,122.964707023462">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="220.571432600216,37.3176481656137"
+              Start="0,0"
+              End="220.571432600216,29.8176481656137">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14.6588240828069" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,14.6588240828069"
+                    Point2="0,18.6588240828069"
+                    Point3="4,18.6588240828069" />
+                  <mssgle:LineSegment
+                    End="216.571432600216,18.6588240828069" />
+                  <mssgle:CubicBezierSegment
+                    Point1="216.571432600216,18.6588240828069"
+                    Point2="220.571432600216,18.6588240828069"
+                    Point3="220.571432600216,22.6588240828069" />
+                  <mssgle:LineSegment
+                    End="220.571432600216,29.8176481656137" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Chargement Dim_Location.Paths[Sortie de recherche sans correspondance]"
+          TopLeft="402.457148627846,201.882355189076">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-227.828575437896,39.7647070234621"
+              Start="0,0"
+              End="-227.828575437896,32.2647070234621">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.8823535117311" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,15.8823535117311"
+                    Point2="0,19.8823535117311"
+                    Point3="-4,19.8823535117311" />
+                  <mssgle:LineSegment
+                    End="-223.828575437896,19.8823535117311" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-223.828575437896,19.8823535117311"
+                    Point2="-227.828575437896,19.8823535117311"
+                    Point3="-227.828575437896,23.8823535117311" />
+                  <mssgle:LineSegment
+                    End="-227.828575437896,32.2647070234621" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-205.416299437698,24.8823535117311,183.0040234375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Chargement Dim_Location\Dim_Location">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Chargement Dim_Location\Staging_Location">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Chargement Dim_Location\Recherche">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

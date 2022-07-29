@@ -1,0 +1,2933 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="6/5/2020 3:59:21 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="NAV_2017"
+  DTS:CreatorName="MATHE\administrateur"
+  DTS:DTSID="{C1560B9A-AC36-4244-94FA-379F7B2FFCED}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.170"
+  DTS:LocaleID="1036"
+  DTS:ObjectName="05_Dim_Item"
+  DTS:PackageType="5"
+  DTS:VersionBuild="37"
+  DTS:VersionGUID="{A24C7BB8-8435-4B7A-BE78-73C1673AE78E}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.DWH_Prod2020]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{E81617B7-C838-47A5-B670-DC8C79925502}"
+      DTS:ObjectName="LocalHost.DWH_Prod2020">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=.;Initial Catalog=DWH_Prod2020;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.Staging2020]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{E6487C2D-5F07-4ADC-ABDC-EF2133E866F9}"
+      DTS:ObjectName="LocalHost.Staging2020">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=172.30.14.12;Initial Catalog=Staging2020;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Chargement de Dim_Item"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tâche de flux de données"
+      DTS:DTSID="{C01106C8-B5B2-4E36-8BEC-66FD1DAA3CA5}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Chargement de Dim_Item"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Chargement de Dim_Item\Commande OLE DB"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="Commande OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;2"
+              description="Exécute une instruction SQL pour chaque ligne d'un flux de données. Par exemple, appelez une procédure stockée 'nouvelle configuration d'employé' pour chaque ligne de la table 'nouveaux employés'. Remarque : l'exécution d'une instruction SQL pour chaque ligne d'un flux de données volumineux peut prendre beaucoup de temps."
+              name="Commande OLE DB"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Nombre de secondes avant l'expiration d'une commande.  Une valeur égale à 0 indique un délai d'expiration infini."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Commande SQL à exécuter."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">UPDATE [dbo].[Dim_Item] SET [code_groupe produit] = ?,[Code_Marque] = ?,[Cout Unitaire] = ?,[Description] = ?,[GIFT IN C] = ?,[Gpe compta. marché TVA] = ?,[Groupe compta. produit] = ?,[Groupe compta. stock] = ?,[Poids Net] = ?,[Prix Unitaire] = ?,[Profit _] = ?,[Statut article] = ?,[Type Produit] = ?,[Unité] = ? WHERE [No_] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Chargement de Dim_Item\Commande OLE DB.Connections[OleDbConnection]"
+                  connectionManagerID="{B7992C5E-5486-4F90-99CF-82B560656741}:invalid"
+                  connectionManagerRefId="{B7992C5E-5486-4F90-99CF-82B560656741}:invalid"
+                  description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB]"
+                  errorOrTruncationOperation="Exécution de commande"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrée de commande OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[code_groupe produit]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="code_groupe produit"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_0]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[code_groupe produit]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[Code_Marque]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Code_Marque"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_1]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Code_Marque]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[Cout Unitaire]"
+                      cachedDataType="numeric"
+                      cachedName="Cout Unitaire"
+                      cachedPrecision="38"
+                      cachedScale="20"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_2]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Cout Unitaire]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[Description]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="Description"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_3]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Description]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[GIFT IN C]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="GIFT IN C"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_4]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[GIFT IN C]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[Gpe compta. marché TVA]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Gpe compta. marché TVA"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_5]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Gpe compta. marché TVA]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[Groupe compta. produit]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Groupe compta. produit"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_6]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Groupe compta. produit]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[Groupe compta. stock]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Groupe compta. stock"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_7]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Groupe compta. stock]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[No_]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="No_"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_14]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[No_]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[Poids Net]"
+                      cachedDataType="numeric"
+                      cachedName="Poids Net"
+                      cachedPrecision="38"
+                      cachedScale="20"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_8]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Poids Net]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[Prix Unitaire]"
+                      cachedDataType="numeric"
+                      cachedName="Prix Unitaire"
+                      cachedPrecision="38"
+                      cachedScale="20"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_9]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Prix Unitaire]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[Profit _]"
+                      cachedDataType="numeric"
+                      cachedName="Profit _"
+                      cachedPrecision="38"
+                      cachedScale="20"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_10]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Profit _]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[Statut article]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Statut article"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_11]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Statut article]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[Type Produit]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Type Produit"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_12]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Type Produit]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[Unité]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="Unité"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_13]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Unité]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_0]"
+                      dataType="wstr"
+                      length="10"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_1]"
+                      dataType="wstr"
+                      length="20"
+                      name="Param_1">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_2]"
+                      dataType="numeric"
+                      name="Param_2"
+                      precision="38"
+                      scale="20">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_3]"
+                      dataType="wstr"
+                      length="100"
+                      name="Param_3">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_4]"
+                      dataType="wstr"
+                      length="20"
+                      name="Param_4">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_5]"
+                      dataType="wstr"
+                      length="20"
+                      name="Param_5">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_6]"
+                      dataType="wstr"
+                      length="20"
+                      name="Param_6">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_7]"
+                      dataType="wstr"
+                      length="20"
+                      name="Param_7">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_8]"
+                      dataType="numeric"
+                      name="Param_8"
+                      precision="38"
+                      scale="20">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_9]"
+                      dataType="numeric"
+                      name="Param_9"
+                      precision="38"
+                      scale="20">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_10]"
+                      dataType="numeric"
+                      name="Param_10"
+                      precision="38"
+                      scale="20">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_11]"
+                      dataType="wstr"
+                      length="20"
+                      name="Param_11">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_12]"
+                      dataType="wstr"
+                      length="20"
+                      name="Param_12">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_13]"
+                      dataType="wstr"
+                      length="10"
+                      name="Param_13">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_14]"
+                      dataType="wstr"
+                      length="20"
+                      name="Param_14">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Chargement de Dim_Item\Commande OLE DB.Outputs[Sortie de commande OLE DB]"
+                  exclusionGroup="1"
+                  name="Sortie de commande OLE DB"
+                  synchronousInputId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Chargement de Dim_Item\Commande OLE DB.Outputs[Sortie d'erreur de commande OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de commande OLE DB"
+                  synchronousInputId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB.Outputs[Sortie d'erreur de commande OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de Dim_Item\Commande OLE DB.Outputs[Sortie d'erreur de commande OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB.Outputs[Sortie d'erreur de commande OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de Dim_Item\Commande OLE DB.Outputs[Sortie d'erreur de commande OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Chargement de Dim_Item\Commande OLE DB 1"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="Commande OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;2"
+              description="Exécute une instruction SQL pour chaque ligne d'un flux de données. Par exemple, appelez une procédure stockée 'nouvelle configuration d'employé' pour chaque ligne de la table 'nouveaux employés'. Remarque : l'exécution d'une instruction SQL pour chaque ligne d'un flux de données volumineux peut prendre beaucoup de temps."
+              name="Commande OLE DB 1"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Nombre de secondes avant l'expiration d'une commande.  Une valeur égale à 0 indique un délai d'expiration infini."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Commande SQL à exécuter."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">UPDATE [dbo].[Dim_Item] SET [code_groupe produit] = ?,[Code_Marque] = ?,[Cout Unitaire] = ?,[Description] = ?,[GIFT IN C] = ?,[Gpe compta. marché TVA] = ?,[Groupe compta. produit] = ?,[Groupe compta. stock] = ?,[Poids Net] = ?,[Prix Unitaire] = ?,[Profit _] = ?,[Statut article] = ?,[Type Produit] = ?,[Unité] = ? WHERE [No_] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Connections[OleDbConnection]"
+                  connectionManagerID="{B7992C5E-5486-4F90-99CF-82B560656741}:invalid"
+                  connectionManagerRefId="{B7992C5E-5486-4F90-99CF-82B560656741}:invalid"
+                  description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB]"
+                  errorOrTruncationOperation="Exécution de commande"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrée de commande OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].Columns[code_groupe produit]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="code_groupe produit"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_0]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[code_groupe produit]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].Columns[Code_Marque]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Code_Marque"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_1]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Code_Marque]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].Columns[Cout Unitaire]"
+                      cachedDataType="numeric"
+                      cachedName="Cout Unitaire"
+                      cachedPrecision="38"
+                      cachedScale="20"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_2]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Cout Unitaire]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].Columns[Description]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="Description"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_3]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Description]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].Columns[GIFT IN C]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="GIFT IN C"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_4]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[GIFT IN C]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].Columns[Gpe compta. marché TVA]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Gpe compta. marché TVA"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_5]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Gpe compta. marché TVA]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].Columns[Groupe compta. produit]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Groupe compta. produit"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_6]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Groupe compta. produit]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].Columns[Groupe compta. stock]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Groupe compta. stock"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_7]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Groupe compta. stock]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].Columns[No_]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="No_"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_14]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[No_]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].Columns[Poids Net]"
+                      cachedDataType="numeric"
+                      cachedName="Poids Net"
+                      cachedPrecision="38"
+                      cachedScale="20"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_8]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Poids Net]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].Columns[Prix Unitaire]"
+                      cachedDataType="numeric"
+                      cachedName="Prix Unitaire"
+                      cachedPrecision="38"
+                      cachedScale="20"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_9]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Prix Unitaire]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].Columns[Profit _]"
+                      cachedDataType="numeric"
+                      cachedName="Profit _"
+                      cachedPrecision="38"
+                      cachedScale="20"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_10]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Profit _]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].Columns[Statut article]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Statut article"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_11]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Statut article]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].Columns[Type Produit]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Type Produit"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_12]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Type Produit]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].Columns[Unité]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="Unité"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_13]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Unité]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_0]"
+                      dataType="wstr"
+                      length="10"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_1]"
+                      dataType="wstr"
+                      length="20"
+                      name="Param_1">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_2]"
+                      dataType="numeric"
+                      name="Param_2"
+                      precision="38"
+                      scale="20">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_3]"
+                      dataType="wstr"
+                      length="100"
+                      name="Param_3">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_4]"
+                      dataType="wstr"
+                      length="20"
+                      name="Param_4">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_5]"
+                      dataType="wstr"
+                      length="20"
+                      name="Param_5">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_6]"
+                      dataType="wstr"
+                      length="20"
+                      name="Param_6">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_7]"
+                      dataType="wstr"
+                      length="20"
+                      name="Param_7">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_8]"
+                      dataType="numeric"
+                      name="Param_8"
+                      precision="38"
+                      scale="20">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_9]"
+                      dataType="numeric"
+                      name="Param_9"
+                      precision="38"
+                      scale="20">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_10]"
+                      dataType="numeric"
+                      name="Param_10"
+                      precision="38"
+                      scale="20">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_11]"
+                      dataType="wstr"
+                      length="20"
+                      name="Param_11">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_12]"
+                      dataType="wstr"
+                      length="20"
+                      name="Param_12">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_13]"
+                      dataType="wstr"
+                      length="10"
+                      name="Param_13">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_14]"
+                      dataType="wstr"
+                      length="20"
+                      name="Param_14">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Outputs[Sortie de commande OLE DB]"
+                  exclusionGroup="1"
+                  name="Sortie de commande OLE DB"
+                  synchronousInputId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Outputs[Sortie d'erreur de commande OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de commande OLE DB"
+                  synchronousInputId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Outputs[Sortie d'erreur de commande OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de Dim_Item\Commande OLE DB 1.Outputs[Sortie d'erreur de commande OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Commande OLE DB 1.Outputs[Sortie d'erreur de commande OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de Dim_Item\Commande OLE DB 1.Outputs[Sortie d'erreur de commande OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Chargement de Dim_Item\Dimension à variation lente"
+              componentClassID="Microsoft.SCD"
+              contactInfo="Dimension à variation lente;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;3"
+              description="Met à jour une dimension d'entrepôt de données (Data Warehouse) SQL Server Analysis Services. Mettez à jour les enregistrements de dimension qui sont déjà présents et insérez ceux qui ne le sont pas. Par exemple, mettez à jour la table DimProduct de la base de données OLAP AdventureWorksDW avec les données de la table Products dans la base de données OLTP AdventureWorks."
+              name="Dimension à variation lente"
+              version="3">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Spécifie l'instruction SELECT utilisée pour créer un ensemble de lignes du schéma."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT [code_groupe produit], [Code_Marque], [Cout Unitaire], [Description], [GIFT IN C], [Gpe compta. marché TVA], [Groupe compta. produit], [Groupe compta. stock], [No_], [Poids Net], [Prix Unitaire], [Profit _], [Statut article], [Type Produit], [Unité] FROM [dbo].[Dim_Item]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie la clause WHERE dans l'instruction SELECT qui sélectionne la ligne actuelle parmi les lignes comportant des clés de travail identiques."
+                  name="CurrentRowWhere"></property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si les mises à jour d'attribut d'historique sont dirigées sur la sortie de la transformation pour les mises à jour d'attribut de validation."
+                  name="UpdateChangingAttributeHistory">true</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si la transformation échoue lorsque les colonnes comportant des attributs fixes contiennent des modifications."
+                  name="FailOnFixedAttributeChange">false</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie le nom de la colonne pour le membre déduit."
+                  name="InferredMemberIndicator"></property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si les mises à jour de membre déduit sont détectées."
+                  name="EnableInferredMember">true</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si la transformation échoue lorsque la recherche d'un enregistrement existant échoue."
+                  name="FailOnLookupFailure">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie que toutes les lignes de l'entrée sont nouvelles ou que la transformation détecte le type de modification."
+                  name="IncomingRowChangeType"
+                  typeConverter="IncomingRowChangeType">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Chargement de Dim_Item\Dimension à variation lente.Connections[LookupConnection]"
+                  connectionManagerID="{B7992C5E-5486-4F90-99CF-82B560656741}:invalid"
+                  connectionManagerRefId="{B7992C5E-5486-4F90-99CF-82B560656741}:invalid"
+                  description="Définit la connexion à utiliser pour faire des recherches dans la table de dimension"
+                  name="LookupConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente]"
+                  name="Entrée de dimension à variation lente">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].Columns[code_groupe produit]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="code_groupe produit"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[code_groupe produit]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[code_groupe produit]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].Columns[Code_Marque]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Code_Marque"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[Code_Marque]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Code_Marque]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].Columns[Cout Unitaire]"
+                      cachedDataType="numeric"
+                      cachedName="Cout Unitaire"
+                      cachedPrecision="38"
+                      cachedScale="20"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[Cout Unitaire]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Cout Unitaire]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].Columns[Description]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="Description"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[Description]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Description]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].Columns[GIFT IN C]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="GIFT IN C"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[GIFT IN C]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[GIFT IN C]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].Columns[Gpe compta. marché TVA]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Gpe compta. marché TVA"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[Gpe compta. marché TVA]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Gpe compta. marché TVA]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].Columns[Groupe compta. produit]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Groupe compta. produit"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[Groupe compta. produit]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Groupe compta. produit]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].Columns[Groupe compta. stock]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Groupe compta. stock"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[Groupe compta. stock]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Groupe compta. stock]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].Columns[No_]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="No_"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[No_]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[No_]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].Columns[Poids Net]"
+                      cachedDataType="numeric"
+                      cachedName="Poids Net"
+                      cachedPrecision="38"
+                      cachedScale="20"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[Poids Net]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Poids Net]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].Columns[Prix Unitaire]"
+                      cachedDataType="numeric"
+                      cachedName="Prix Unitaire"
+                      cachedPrecision="38"
+                      cachedScale="20"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[Prix Unitaire]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Prix Unitaire]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].Columns[Profit _]"
+                      cachedDataType="numeric"
+                      cachedName="Profit _"
+                      cachedPrecision="38"
+                      cachedScale="20"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[Profit _]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Profit _]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].Columns[Statut article]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Statut article"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[Statut article]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Statut article]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].Columns[Type Produit]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Type Produit"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[Type Produit]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Type Produit]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].Columns[Unité]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="Unité"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[Unité]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Unité]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">2</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[code_groupe produit]"
+                      dataType="wstr"
+                      length="10"
+                      name="code_groupe produit" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[Code_Marque]"
+                      dataType="wstr"
+                      length="20"
+                      name="Code_Marque" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[Cout Unitaire]"
+                      dataType="numeric"
+                      name="Cout Unitaire"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[Description]"
+                      dataType="wstr"
+                      length="100"
+                      name="Description" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[GIFT IN C]"
+                      dataType="wstr"
+                      length="20"
+                      name="GIFT IN C" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[Gpe compta. marché TVA]"
+                      dataType="wstr"
+                      length="20"
+                      name="Gpe compta. marché TVA" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[Groupe compta. produit]"
+                      dataType="wstr"
+                      length="20"
+                      name="Groupe compta. produit" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[Groupe compta. stock]"
+                      dataType="wstr"
+                      length="20"
+                      name="Groupe compta. stock" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[No_]"
+                      dataType="wstr"
+                      length="20"
+                      name="No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[Poids Net]"
+                      dataType="numeric"
+                      name="Poids Net"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[Prix Unitaire]"
+                      dataType="numeric"
+                      name="Prix Unitaire"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[Profit _]"
+                      dataType="numeric"
+                      name="Profit _"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[Statut article]"
+                      dataType="wstr"
+                      length="20"
+                      name="Statut article" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[Type Produit]"
+                      dataType="wstr"
+                      length="20"
+                      name="Type Produit" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente].ExternalColumns[Unité]"
+                      dataType="wstr"
+                      length="10"
+                      name="Unité" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Chargement de Dim_Item\Dimension à variation lente.Outputs[Sortie inchangée]"
+                  description="Lignes inchangées"
+                  exclusionGroup="1"
+                  name="Sortie inchangée"
+                  synchronousInputId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Chargement de Dim_Item\Dimension à variation lente.Outputs[Nouvelle sortie]"
+                  description="Nouvelles lignes"
+                  exclusionGroup="1"
+                  name="Nouvelle sortie"
+                  synchronousInputId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Chargement de Dim_Item\Dimension à variation lente.Outputs[Sortie d'attribut fixe]"
+                  description="Lignes comportant des modifications dans les colonnes marquées FixedAttribute"
+                  exclusionGroup="1"
+                  name="Sortie d'attribut fixe"
+                  synchronousInputId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Chargement de Dim_Item\Dimension à variation lente.Outputs[Sortie de mises à jour d'attribut de validation]"
+                  description="Ces lignes contiennent de nouvelles informations sur les modifications de colonnes ChangingAttribute (type 1)"
+                  exclusionGroup="1"
+                  name="Sortie de mises à jour d'attribut de validation"
+                  synchronousInputId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Chargement de Dim_Item\Dimension à variation lente.Outputs[Sortie d'insertions d'attribut d'historique]"
+                  description="Les modifications sur HistoricalAttribute (type 2) apparaissent dans ces nouvelles lignes"
+                  exclusionGroup="2"
+                  name="Sortie d'insertions d'attribut d'historique"
+                  synchronousInputId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Chargement de Dim_Item\Dimension à variation lente.Outputs[Sortie de mises à jour de membre déduit]"
+                  description="Information de mise à jour de ligne de dimension initiale non remplie"
+                  exclusionGroup="1"
+                  name="Sortie de mises à jour de membre déduit"
+                  synchronousInputId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Chargement de Dim_Item\Dim_Item"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destination OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;4"
+              description="Destination OLE DB"
+              name="Dim_Item"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Nombre de secondes avant l'expiration d'une commande.  Une valeur égale à 0 indique un délai d'expiration infini."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowset">[dbo].[Dim_Item]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie la variable contenant le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Commande SQL à exécuter."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Force l'utilisation de la valeur de propriété DefaultCodePage lors de la description des données caractères."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le mode utilisé pour accéder à la base de données."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si les valeurs fournies pour les colonnes d'identité seront copiées à la destination. Si la valeur est définie à False, les valeurs des colonnes d'identité seront générées automatiquement à la destination. Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si les colonnes contenant la valeur NULL auront cette valeur NULL copiée à la destination. Si la valeur est définie à False, les colonnes contenant la valeur NULL auront leurs valeurs par défaut insérées à la destination. Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie les options à utiliser avec le chargement rapide.  Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie quand les validations sont émises pendant l'insertion des données.  Une valeur égale à 0 spécifie qu'une validation sera émise à la fin de l'insertion des données.  Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Chargement de Dim_Item\Dim_Item.Connections[OleDbConnection]"
+                  connectionManagerID="{B7992C5E-5486-4F90-99CF-82B560656741}:invalid"
+                  connectionManagerRefId="{B7992C5E-5486-4F90-99CF-82B560656741}:invalid"
+                  description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB]"
+                  errorOrTruncationOperation="Insérer"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrée de destination OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].Columns[No_]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="No_"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].ExternalColumns[No_]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[No_]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].Columns[Description]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="Description"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].ExternalColumns[Description]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Description]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].Columns[Gpe compta. marché TVA]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Gpe compta. marché TVA"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].ExternalColumns[Gpe compta. marché TVA]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Gpe compta. marché TVA]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].Columns[Groupe compta. produit]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Groupe compta. produit"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].ExternalColumns[Groupe compta. produit]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Groupe compta. produit]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].Columns[code_groupe produit]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="code_groupe produit"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].ExternalColumns[code_groupe produit]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[code_groupe produit]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].Columns[Code_Marque]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Code_Marque"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].ExternalColumns[Code_Marque]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Code_Marque]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].Columns[Type Produit]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Type Produit"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].ExternalColumns[Type Produit]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Type Produit]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].Columns[Unité]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="Unité"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].ExternalColumns[Unité]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Unité]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].Columns[Groupe compta. stock]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Groupe compta. stock"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].ExternalColumns[Groupe compta. stock]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Groupe compta. stock]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].Columns[Prix Unitaire]"
+                      cachedDataType="numeric"
+                      cachedName="Prix Unitaire"
+                      cachedPrecision="38"
+                      cachedScale="20"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].ExternalColumns[Prix Unitaire]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Prix Unitaire]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].Columns[Profit _]"
+                      cachedDataType="numeric"
+                      cachedName="Profit _"
+                      cachedPrecision="38"
+                      cachedScale="20"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].ExternalColumns[Profit _]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Profit _]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].Columns[Cout Unitaire]"
+                      cachedDataType="numeric"
+                      cachedName="Cout Unitaire"
+                      cachedPrecision="38"
+                      cachedScale="20"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].ExternalColumns[Cout Unitaire]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Cout Unitaire]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].Columns[Poids Net]"
+                      cachedDataType="numeric"
+                      cachedName="Poids Net"
+                      cachedPrecision="38"
+                      cachedScale="20"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].ExternalColumns[Poids Net]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Poids Net]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].Columns[GIFT IN C]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="GIFT IN C"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].ExternalColumns[GIFT IN C]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[GIFT IN C]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].Columns[Statut article]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Statut article"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].ExternalColumns[Statut article]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Statut article]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].ExternalColumns[id_DimItem]"
+                      dataType="i4"
+                      name="id_DimItem" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].ExternalColumns[No_]"
+                      dataType="wstr"
+                      length="20"
+                      name="No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].ExternalColumns[Description]"
+                      dataType="wstr"
+                      length="100"
+                      name="Description" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].ExternalColumns[Gpe compta. marché TVA]"
+                      dataType="wstr"
+                      length="20"
+                      name="Gpe compta. marché TVA" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].ExternalColumns[Groupe compta. produit]"
+                      dataType="wstr"
+                      length="20"
+                      name="Groupe compta. produit" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].ExternalColumns[code_groupe produit]"
+                      dataType="wstr"
+                      length="10"
+                      name="code_groupe produit" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].ExternalColumns[Code_Marque]"
+                      dataType="wstr"
+                      length="20"
+                      name="Code_Marque" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].ExternalColumns[Type Produit]"
+                      dataType="wstr"
+                      length="20"
+                      name="Type Produit" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].ExternalColumns[Unité]"
+                      dataType="wstr"
+                      length="10"
+                      name="Unité" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].ExternalColumns[Groupe compta. stock]"
+                      dataType="wstr"
+                      length="20"
+                      name="Groupe compta. stock" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].ExternalColumns[Prix Unitaire]"
+                      dataType="numeric"
+                      name="Prix Unitaire"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].ExternalColumns[Profit _]"
+                      dataType="numeric"
+                      name="Profit _"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].ExternalColumns[Cout Unitaire]"
+                      dataType="numeric"
+                      name="Cout Unitaire"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].ExternalColumns[Poids Net]"
+                      dataType="numeric"
+                      name="Poids Net"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].ExternalColumns[GIFT IN C]"
+                      dataType="wstr"
+                      length="20"
+                      name="GIFT IN C" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB].ExternalColumns[Statut article]"
+                      dataType="wstr"
+                      length="20"
+                      name="Statut article" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Chargement de Dim_Item\Dim_Item.Outputs[Sortie d'erreur de destination OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de destination OLE DB"
+                  synchronousInputId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Dim_Item.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de Dim_Item\Dim_Item.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Dim_Item.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de Dim_Item\Dim_Item.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Chargement de Dim_Item\Staging_Item"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Source OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;7"
+              description="Source OLE DB"
+              name="Staging_Item"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Nombre de secondes avant l'expiration d'une commande.  Une valeur égale à 0 indique un délai d'expiration infini."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowset">[dbo].[Staging_Item]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie la variable contenant le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Commande SQL à exécuter."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="Variable contenant la commande SQL à exécuter."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Force l'utilisation de la valeur de propriété DefaultCodePage lors de la description des données caractères."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le mode utilisé pour accéder à la base de données."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="Mappages entre les paramètres de la commande SQL et les variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Chargement de Dim_Item\Staging_Item.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.Staging2020]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.Staging2020]"
+                  description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB]"
+                  name="Sortie de source OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[No_]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[No_]"
+                      length="20"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[No_]"
+                      name="No_"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Unité]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Base Unit of Measure]"
+                      length="10"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Unité]"
+                      name="Unité"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Groupe compta. stock]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Inventory Posting Group]"
+                      length="20"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Groupe compta. stock]"
+                      name="Groupe compta. stock"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Prix Unitaire]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Unit Price]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Prix Unitaire]"
+                      name="Prix Unitaire"
+                      precision="38"
+                      scale="20"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Profit _]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Profit _]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Profit _]"
+                      name="Profit _"
+                      precision="38"
+                      scale="20"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Cout Unitaire]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Unit Cost]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Cout Unitaire]"
+                      name="Cout Unitaire"
+                      precision="38"
+                      scale="20"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Poids Net]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Net Weight]"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Poids Net]"
+                      name="Poids Net"
+                      precision="38"
+                      scale="20"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Gpe compta. marché TVA]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[VAT Bus_ Posting Gr_ (Price)]"
+                      length="20"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Gpe compta. marché TVA]"
+                      name="Gpe compta. marché TVA"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Groupe compta. produit]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Gen_ Prod_ Posting Group]"
+                      length="20"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Groupe compta. produit]"
+                      name="Groupe compta. produit"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[code_groupe produit]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Product Group Code]"
+                      length="10"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[code_groupe produit]"
+                      name="code_groupe produit"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Type Produit]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Product Type]"
+                      length="20"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Type Produit]"
+                      name="Type Produit"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[GIFT IN C]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[GIFT IN C]"
+                      length="20"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[GIFT IN C]"
+                      name="GIFT IN C"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Statut article]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Statut article]"
+                      length="20"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Statut article]"
+                      name="Statut article"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Description]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Description]"
+                      length="100"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Description]"
+                      name="Description"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Code_Marque]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Mark Code]"
+                      length="20"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].Columns[Code_Marque]"
+                      name="Code_Marque"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[timestamp]"
+                      dataType="bytes"
+                      length="8"
+                      name="timestamp" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[No_]"
+                      dataType="wstr"
+                      length="20"
+                      name="No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Description]"
+                      dataType="wstr"
+                      length="100"
+                      name="Description" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Base Unit of Measure]"
+                      dataType="wstr"
+                      length="10"
+                      name="Base Unit of Measure" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Inventory Posting Group]"
+                      dataType="wstr"
+                      length="20"
+                      name="Inventory Posting Group" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Shelf No_]"
+                      dataType="wstr"
+                      length="10"
+                      name="Shelf No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Item Disc_ Group]"
+                      dataType="wstr"
+                      length="20"
+                      name="Item Disc_ Group" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Allow Invoice Disc_]"
+                      dataType="ui1"
+                      name="Allow Invoice Disc_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Commission Group]"
+                      dataType="i4"
+                      name="Commission Group" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Unit Price]"
+                      dataType="numeric"
+                      name="Unit Price"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Price_Profit Calculation]"
+                      dataType="i4"
+                      name="Price_Profit Calculation" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Profit _]"
+                      dataType="numeric"
+                      name="Profit _"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Costing Method]"
+                      dataType="i4"
+                      name="Costing Method" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Unit Cost]"
+                      dataType="numeric"
+                      name="Unit Cost"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Standard Cost]"
+                      dataType="numeric"
+                      name="Standard Cost"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Last Direct Cost]"
+                      dataType="numeric"
+                      name="Last Direct Cost"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Indirect Cost _]"
+                      dataType="numeric"
+                      name="Indirect Cost _"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Cost is Adjusted]"
+                      dataType="ui1"
+                      name="Cost is Adjusted" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Allow Online Adjustment]"
+                      dataType="ui1"
+                      name="Allow Online Adjustment" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Vendor No_]"
+                      dataType="wstr"
+                      length="20"
+                      name="Vendor No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Vendor Item No_]"
+                      dataType="wstr"
+                      length="20"
+                      name="Vendor Item No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Lead Time Calculation]"
+                      codePage="1252"
+                      dataType="str"
+                      length="32"
+                      name="Lead Time Calculation" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Reorder Point]"
+                      dataType="numeric"
+                      name="Reorder Point"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Maximum Inventory]"
+                      dataType="numeric"
+                      name="Maximum Inventory"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Reorder Quantity]"
+                      dataType="numeric"
+                      name="Reorder Quantity"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Alternative Item No_]"
+                      dataType="wstr"
+                      length="20"
+                      name="Alternative Item No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Unit List Price]"
+                      dataType="numeric"
+                      name="Unit List Price"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Duty Due _]"
+                      dataType="numeric"
+                      name="Duty Due _"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Duty Code]"
+                      dataType="wstr"
+                      length="10"
+                      name="Duty Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Gross Weight]"
+                      dataType="numeric"
+                      name="Gross Weight"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Net Weight]"
+                      dataType="numeric"
+                      name="Net Weight"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Units per Parcel]"
+                      dataType="numeric"
+                      name="Units per Parcel"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Unit Volume]"
+                      dataType="numeric"
+                      name="Unit Volume"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Durability]"
+                      dataType="wstr"
+                      length="10"
+                      name="Durability" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Freight Type]"
+                      dataType="wstr"
+                      length="10"
+                      name="Freight Type" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Tariff No_]"
+                      dataType="wstr"
+                      length="20"
+                      name="Tariff No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Duty Unit Conversion]"
+                      dataType="numeric"
+                      name="Duty Unit Conversion"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Country_Region Purchased Code]"
+                      dataType="wstr"
+                      length="10"
+                      name="Country_Region Purchased Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Budget Quantity]"
+                      dataType="numeric"
+                      name="Budget Quantity"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Budgeted Amount]"
+                      dataType="numeric"
+                      name="Budgeted Amount"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Budget Profit]"
+                      dataType="numeric"
+                      name="Budget Profit"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Blocked]"
+                      dataType="ui1"
+                      name="Blocked" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Block Reason]"
+                      dataType="wstr"
+                      length="250"
+                      name="Block Reason" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Last DateTime Modified]"
+                      dataType="dbTimeStamp"
+                      name="Last DateTime Modified" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Last Date Modified]"
+                      dataType="dbTimeStamp"
+                      name="Last Date Modified" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Last Time Modified]"
+                      dataType="dbTimeStamp"
+                      name="Last Time Modified" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Price Includes VAT]"
+                      dataType="ui1"
+                      name="Price Includes VAT" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[VAT Bus_ Posting Gr_ (Price)]"
+                      dataType="wstr"
+                      length="20"
+                      name="VAT Bus_ Posting Gr_ (Price)" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Gen_ Prod_ Posting Group]"
+                      dataType="wstr"
+                      length="20"
+                      name="Gen_ Prod_ Posting Group" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Picture]"
+                      dataType="guid"
+                      name="Picture" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Country_Region of Origin Code]"
+                      dataType="wstr"
+                      length="10"
+                      name="Country_Region of Origin Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Automatic Ext_ Texts]"
+                      dataType="ui1"
+                      name="Automatic Ext_ Texts" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[No_ Series]"
+                      dataType="wstr"
+                      length="20"
+                      name="No_ Series" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Tax Group Code]"
+                      dataType="wstr"
+                      length="20"
+                      name="Tax Group Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[VAT Prod_ Posting Group]"
+                      dataType="wstr"
+                      length="20"
+                      name="VAT Prod_ Posting Group" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Reserve]"
+                      dataType="i4"
+                      name="Reserve" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Global Dimension 1 Code]"
+                      dataType="wstr"
+                      length="20"
+                      name="Global Dimension 1 Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Global Dimension 2 Code]"
+                      dataType="wstr"
+                      length="20"
+                      name="Global Dimension 2 Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Stockout Warning]"
+                      dataType="i4"
+                      name="Stockout Warning" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Prevent Negative Inventory]"
+                      dataType="i4"
+                      name="Prevent Negative Inventory" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Application Wksh_ User ID]"
+                      dataType="wstr"
+                      length="128"
+                      name="Application Wksh_ User ID" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Assembly Policy]"
+                      dataType="i4"
+                      name="Assembly Policy" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[GTIN]"
+                      dataType="wstr"
+                      length="14"
+                      name="GTIN" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Default Deferral Template Code]"
+                      dataType="wstr"
+                      length="10"
+                      name="Default Deferral Template Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Low-Level Code]"
+                      dataType="i4"
+                      name="Low-Level Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Lot Size]"
+                      dataType="numeric"
+                      name="Lot Size"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Serial Nos_]"
+                      dataType="wstr"
+                      length="20"
+                      name="Serial Nos_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Last Unit Cost Calc_ Date]"
+                      dataType="dbTimeStamp"
+                      name="Last Unit Cost Calc_ Date" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Rolled-up Material Cost]"
+                      dataType="numeric"
+                      name="Rolled-up Material Cost"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Rolled-up Capacity Cost]"
+                      dataType="numeric"
+                      name="Rolled-up Capacity Cost"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Scrap _]"
+                      dataType="numeric"
+                      name="Scrap _"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Inventory Value Zero]"
+                      dataType="ui1"
+                      name="Inventory Value Zero" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Discrete Order Quantity]"
+                      dataType="i4"
+                      name="Discrete Order Quantity" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Minimum Order Quantity]"
+                      dataType="numeric"
+                      name="Minimum Order Quantity"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Maximum Order Quantity]"
+                      dataType="numeric"
+                      name="Maximum Order Quantity"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Safety Stock Quantity]"
+                      dataType="numeric"
+                      name="Safety Stock Quantity"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Order Multiple]"
+                      dataType="numeric"
+                      name="Order Multiple"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Safety Lead Time]"
+                      codePage="1252"
+                      dataType="str"
+                      length="32"
+                      name="Safety Lead Time" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Flushing Method]"
+                      dataType="i4"
+                      name="Flushing Method" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Replenishment System]"
+                      dataType="i4"
+                      name="Replenishment System" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Rounding Precision]"
+                      dataType="numeric"
+                      name="Rounding Precision"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Sales Unit of Measure]"
+                      dataType="wstr"
+                      length="10"
+                      name="Sales Unit of Measure" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Purch_ Unit of Measure]"
+                      dataType="wstr"
+                      length="10"
+                      name="Purch_ Unit of Measure" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Time Bucket]"
+                      codePage="1252"
+                      dataType="str"
+                      length="32"
+                      name="Time Bucket" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Reordering Policy]"
+                      dataType="i4"
+                      name="Reordering Policy" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Include Inventory]"
+                      dataType="ui1"
+                      name="Include Inventory" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Manufacturing Policy]"
+                      dataType="i4"
+                      name="Manufacturing Policy" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Rescheduling Period]"
+                      codePage="1252"
+                      dataType="str"
+                      length="32"
+                      name="Rescheduling Period" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Lot Accumulation Period]"
+                      codePage="1252"
+                      dataType="str"
+                      length="32"
+                      name="Lot Accumulation Period" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Dampener Period]"
+                      codePage="1252"
+                      dataType="str"
+                      length="32"
+                      name="Dampener Period" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Dampener Quantity]"
+                      dataType="numeric"
+                      name="Dampener Quantity"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Overflow Level]"
+                      dataType="numeric"
+                      name="Overflow Level"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Manufacturer Code]"
+                      dataType="wstr"
+                      length="10"
+                      name="Manufacturer Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Item Category Code]"
+                      dataType="wstr"
+                      length="20"
+                      name="Item Category Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Created From Nonstock Item]"
+                      dataType="ui1"
+                      name="Created From Nonstock Item" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Product Group Code]"
+                      dataType="wstr"
+                      length="10"
+                      name="Product Group Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Service Item Group]"
+                      dataType="wstr"
+                      length="10"
+                      name="Service Item Group" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Item Tracking Code]"
+                      dataType="wstr"
+                      length="10"
+                      name="Item Tracking Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Lot Nos_]"
+                      dataType="wstr"
+                      length="20"
+                      name="Lot Nos_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Expiration Calculation]"
+                      codePage="1252"
+                      dataType="str"
+                      length="32"
+                      name="Expiration Calculation" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Warehouse Class Code]"
+                      dataType="wstr"
+                      length="10"
+                      name="Warehouse Class Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Special Equipment Code]"
+                      dataType="wstr"
+                      length="10"
+                      name="Special Equipment Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Put-away Template Code]"
+                      dataType="wstr"
+                      length="10"
+                      name="Put-away Template Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Put-away Unit of Measure Code]"
+                      dataType="wstr"
+                      length="10"
+                      name="Put-away Unit of Measure Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Phys Invt Counting Period Code]"
+                      dataType="wstr"
+                      length="10"
+                      name="Phys Invt Counting Period Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Last Counting Period Update]"
+                      dataType="dbTimeStamp"
+                      name="Last Counting Period Update" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Use Cross-Docking]"
+                      dataType="ui1"
+                      name="Use Cross-Docking" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Next Counting Start Date]"
+                      dataType="dbTimeStamp"
+                      name="Next Counting Start Date" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Next Counting End Date]"
+                      dataType="dbTimeStamp"
+                      name="Next Counting End Date" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Id]"
+                      dataType="guid"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Unit of Measure Id]"
+                      dataType="guid"
+                      name="Unit of Measure Id" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Tax Group Id]"
+                      dataType="guid"
+                      name="Tax Group Id" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Sales Blocked]"
+                      dataType="ui1"
+                      name="Sales Blocked" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Purchasing Blocked]"
+                      dataType="ui1"
+                      name="Purchasing Blocked" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Item Category Id]"
+                      dataType="guid"
+                      name="Item Category Id" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Sub Manufacturer Code]"
+                      dataType="wstr"
+                      length="20"
+                      name="Sub Manufacturer Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Mark Code]"
+                      dataType="wstr"
+                      length="20"
+                      name="Mark Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Range Code]"
+                      dataType="wstr"
+                      length="20"
+                      name="Range Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Product Type]"
+                      dataType="wstr"
+                      length="20"
+                      name="Product Type" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Product Original]"
+                      dataType="wstr"
+                      length="20"
+                      name="Product Original" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Temporary Item]"
+                      dataType="ui1"
+                      name="Temporary Item" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Unit Purch Price]"
+                      dataType="numeric"
+                      name="Unit Purch Price"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Carton Volume]"
+                      dataType="numeric"
+                      name="Carton Volume"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Number of carton]"
+                      dataType="numeric"
+                      name="Number of carton"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Block Purch Ord_ Exceed_ Budg_]"
+                      dataType="ui1"
+                      name="Block Purch Ord_ Exceed_ Budg_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Purchase Type]"
+                      dataType="i4"
+                      name="Purchase Type" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Update Item]"
+                      dataType="ui1"
+                      name="Update Item" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[To exclude]"
+                      dataType="ui1"
+                      name="To exclude" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Article DMA]"
+                      dataType="ui1"
+                      name="Article DMA" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Article Sup FB]"
+                      dataType="ui1"
+                      name="Article Sup FB" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Article Wright]"
+                      dataType="ui1"
+                      name="Article Wright" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Sous Type]"
+                      dataType="wstr"
+                      length="20"
+                      name="Sous Type" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Cible]"
+                      dataType="wstr"
+                      length="20"
+                      name="Cible" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Positionnement]"
+                      dataType="wstr"
+                      length="20"
+                      name="Positionnement" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[GIFT IN C]"
+                      dataType="wstr"
+                      length="20"
+                      name="GIFT IN C" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Statut article]"
+                      dataType="wstr"
+                      length="20"
+                      name="Statut article" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Grammage]"
+                      dataType="wstr"
+                      length="20"
+                      name="Grammage" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[ Packaging]"
+                      dataType="wstr"
+                      length="20"
+                      name=" Packaging" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Routing No_]"
+                      dataType="wstr"
+                      length="20"
+                      name="Routing No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Production BOM No_]"
+                      dataType="wstr"
+                      length="20"
+                      name="Production BOM No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Single-Level Material Cost]"
+                      dataType="numeric"
+                      name="Single-Level Material Cost"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Single-Level Capacity Cost]"
+                      dataType="numeric"
+                      name="Single-Level Capacity Cost"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Single-Level Subcontrd_ Cost]"
+                      dataType="numeric"
+                      name="Single-Level Subcontrd_ Cost"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Single-Level Cap_ Ovhd Cost]"
+                      dataType="numeric"
+                      name="Single-Level Cap_ Ovhd Cost"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Single-Level Mfg_ Ovhd Cost]"
+                      dataType="numeric"
+                      name="Single-Level Mfg_ Ovhd Cost"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Overhead Rate]"
+                      dataType="numeric"
+                      name="Overhead Rate"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Rolled-up Subcontracted Cost]"
+                      dataType="numeric"
+                      name="Rolled-up Subcontracted Cost"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Rolled-up Mfg_ Ovhd Cost]"
+                      dataType="numeric"
+                      name="Rolled-up Mfg_ Ovhd Cost"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Rolled-up Cap_ Overhead Cost]"
+                      dataType="numeric"
+                      name="Rolled-up Cap_ Overhead Cost"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Order Tracking Policy]"
+                      dataType="i4"
+                      name="Order Tracking Policy" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Critical]"
+                      dataType="ui1"
+                      name="Critical" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB].ExternalColumns[Common Item No_]"
+                      dataType="wstr"
+                      length="20"
+                      name="Common Item No_" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB]"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de source OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[No_]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[No_]"
+                      name="No_" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[Base Unit of Measure]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[Base Unit of Measure]"
+                      name="Base Unit of Measure" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[Inventory Posting Group]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[Inventory Posting Group]"
+                      name="Inventory Posting Group" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[Unit Price]"
+                      dataType="numeric"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[Unit Price]"
+                      name="Unit Price"
+                      precision="38"
+                      scale="20" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[Profit _]"
+                      dataType="numeric"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[Profit _]"
+                      name="Profit _"
+                      precision="38"
+                      scale="20" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[Unit Cost]"
+                      dataType="numeric"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[Unit Cost]"
+                      name="Unit Cost"
+                      precision="38"
+                      scale="20" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[Net Weight]"
+                      dataType="numeric"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[Net Weight]"
+                      name="Net Weight"
+                      precision="38"
+                      scale="20" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[VAT Bus_ Posting Gr_ (Price)]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[VAT Bus_ Posting Gr_ (Price)]"
+                      name="VAT Bus_ Posting Gr_ (Price)" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[Gen_ Prod_ Posting Group]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[Gen_ Prod_ Posting Group]"
+                      name="Gen_ Prod_ Posting Group" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[Product Group Code]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[Product Group Code]"
+                      name="Product Group Code" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[Product Type]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[Product Type]"
+                      name="Product Type" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[GIFT IN C]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[GIFT IN C]"
+                      name="GIFT IN C" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[Statut article]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[Statut article]"
+                      name="Statut article" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[Description]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[Description]"
+                      name="Description" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[Mark Code]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie d'erreur de source OLE DB].Columns[Mark Code]"
+                      name="Mark Code" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Chargement de Dim_Item.Paths[Nouvelle sortie]"
+              endId="Package\Chargement de Dim_Item\Dim_Item.Inputs[Entrée de destination OLE DB]"
+              name="Nouvelle sortie"
+              startId="Package\Chargement de Dim_Item\Dimension à variation lente.Outputs[Nouvelle sortie]" />
+            <path
+              refId="Package\Chargement de Dim_Item.Paths[Sortie de mises à jour d'attribut de validation]"
+              endId="Package\Chargement de Dim_Item\Commande OLE DB 1.Inputs[Entrée de commande OLE DB]"
+              name="Sortie de mises à jour d'attribut de validation"
+              startId="Package\Chargement de Dim_Item\Dimension à variation lente.Outputs[Sortie de mises à jour d'attribut de validation]" />
+            <path
+              refId="Package\Chargement de Dim_Item.Paths[Sortie de mises à jour de membre déduit]"
+              endId="Package\Chargement de Dim_Item\Commande OLE DB.Inputs[Entrée de commande OLE DB]"
+              name="Sortie de mises à jour de membre déduit"
+              startId="Package\Chargement de Dim_Item\Dimension à variation lente.Outputs[Sortie de mises à jour de membre déduit]" />
+            <path
+              refId="Package\Chargement de Dim_Item.Paths[Sortie de source OLE DB]"
+              endId="Package\Chargement de Dim_Item\Dimension à variation lente.Inputs[Entrée de dimension à variation lente]"
+              name="Sortie de source OLE DB"
+              startId="Package\Chargement de Dim_Item\Staging_Item.Outputs[Sortie de source OLE DB]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Cette section CDATA contient des informations sur la disposition du package. Elle comprend des informations telles que les coordonnées (x,y), la largeur et la hauteur.-->
+<!--Si vous modifiez manuellement cette section et commettez une erreur, vous pouvez la supprimer. -->
+<!--Le package pourra toujours se charger normalement, mais les informations de disposition précédente seront perdues et le concepteur réorganisera automatiquement les éléments sur l'aire de conception.-->
+<Objects
+  Version="8">
+  <!--Chaque nœud ci-dessous contiendra des propriétés qui n'affectent pas le comportement d'exécution.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="201,42"
+          Id="Package\Chargement de Dim_Item"
+          TopLeft="33.7142862884365,64.2352950185226" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Chargement de Dim_Item">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="142,42"
+          Id="Package\Chargement de Dim_Item\Staging_Item"
+          TopLeft="263.3,5.49999999999984" />
+        <NodeLayout
+          Size="207,42"
+          Id="Package\Chargement de Dim_Item\Dimension à variation lente"
+          TopLeft="230.5,107.1" />
+        <NodeLayout
+          Size="180,42"
+          Id="Package\Chargement de Dim_Item\Commande OLE DB 1"
+          TopLeft="592.1,261.7" />
+        <NodeLayout
+          Size="125,42"
+          Id="Package\Chargement de Dim_Item\Dim_Item"
+          TopLeft="2.50000000000009,248.7" />
+        <NodeLayout
+          Size="170,42"
+          Id="Package\Chargement de Dim_Item\Commande OLE DB"
+          TopLeft="254.9,274.7" />
+        <EdgeLayout
+          Id="Package\Chargement de Dim_Item.Paths[Sortie de source OLE DB]"
+          TopLeft="334.15,47.4999999999998">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59.6000000000002"
+              Start="0,0"
+              End="0,52.1000000000002">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.1000000000002" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Chargement de Dim_Item.Paths[Sortie de mises à jour de membre déduit]"
+          TopLeft="336.95,149.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,125.6"
+              Start="0,0"
+              End="0,118.1">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,118.1" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-91.06205078125,52.92548828125,182.1241015625,12.2490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Chargement de Dim_Item.Paths[Sortie de mises à jour d'attribut de validation]"
+          TopLeft="383.75,149.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="298.35,112.6"
+              Start="0,0"
+              End="298.35,105.1">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.4880763116057" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,34.4880763116057"
+                    Point2="0,38.4880763116057"
+                    Point3="4,38.4880763116057" />
+                  <mssgle:LineSegment
+                    End="294.35,38.4880763116057" />
+                  <mssgle:CubicBezierSegment
+                    Point1="294.35,38.4880763116057"
+                    Point2="298.35,38.4880763116057"
+                    Point3="298.35,42.4880763116057" />
+                  <mssgle:LineSegment
+                    End="298.35,105.1" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="49.34240234375,43.4880763116057,199.6651953125,12.2490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Chargement de Dim_Item.Paths[Nouvelle sortie]"
+          TopLeft="284.25,149.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-219.25,99.6"
+              Start="0,0"
+              End="-219.25,92.1">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.0445151033386" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,30.0445151033386"
+                    Point2="0,34.0445151033386"
+                    Point3="-4,34.0445151033386" />
+                  <mssgle:LineSegment
+                    End="-215.25,34.0445151033386" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-215.25,34.0445151033386"
+                    Point2="-219.25,34.0445151033386"
+                    Point3="-219.25,38.0445151033386" />
+                  <mssgle:LineSegment
+                    End="-219.25,92.1" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-142.76134765625,39.0445151033386,66.2726953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Chargement de Dim_Item\Staging_Item">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Chargement de Dim_Item\Dimension à variation lente">
+    <Properties>
+      <Property>
+        <Name>SCDMetadata</Name>
+        <Value
+          type="q2:string">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SCDWizardMetadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionID&gt;{B7992C5E-5486-4F90-99CF-82B560656741}&lt;/ConnectionID&gt;
+  &lt;TableName&gt;[dbo].[Dim_Item]&lt;/TableName&gt;
+  &lt;InputToColumnsCollection&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Staging_Item.Sorties[Sortie de source OLE DB].Colonnes[code_groupe produit]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;code_groupe produit&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Staging_Item.Sorties[Sortie de source OLE DB].Colonnes[Code_Marque]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;Code_Marque&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Staging_Item.Sorties[Sortie de source OLE DB].Colonnes[Cout Unitaire]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;Cout Unitaire&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Staging_Item.Sorties[Sortie de source OLE DB].Colonnes[Description]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;Description&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Staging_Item.Sorties[Sortie de source OLE DB].Colonnes[GIFT IN C]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;GIFT IN C&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Staging_Item.Sorties[Sortie de source OLE DB].Colonnes[Gpe compta. marché TVA]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;Gpe compta. marché TVA&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Staging_Item.Sorties[Sortie de source OLE DB].Colonnes[Groupe compta. produit]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;Groupe compta. produit&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Staging_Item.Sorties[Sortie de source OLE DB].Colonnes[Groupe compta. stock]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;Groupe compta. stock&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Staging_Item.Sorties[Sortie de source OLE DB].Colonnes[No_]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;No_&lt;/ColumnName&gt;
+      &lt;KeyType&gt;BusinessKey&lt;/KeyType&gt;
+      &lt;ChangeType&gt;None&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Staging_Item.Sorties[Sortie de source OLE DB].Colonnes[Poids Net]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;Poids Net&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Staging_Item.Sorties[Sortie de source OLE DB].Colonnes[Prix Unitaire]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;Prix Unitaire&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Staging_Item.Sorties[Sortie de source OLE DB].Colonnes[Profit _]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;Profit _&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Staging_Item.Sorties[Sortie de source OLE DB].Colonnes[Statut article]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;Statut article&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Staging_Item.Sorties[Sortie de source OLE DB].Colonnes[Type Produit]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;Type Produit&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Staging_Item.Sorties[Sortie de source OLE DB].Colonnes[Unité]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;Unité&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+  &lt;/InputToColumnsCollection&gt;
+  &lt;GeneratedComponentsIdentificationStrings&gt;
+    &lt;anyType xsi:type="xsd:string"&gt;Destination d'insertion&lt;/anyType&gt;
+    &lt;anyType xsi:type="xsd:string"&gt;Commande OLE DB&lt;/anyType&gt;
+    &lt;anyType xsi:type="xsd:string"&gt;Commande OLE DB 1&lt;/anyType&gt;
+  &lt;/GeneratedComponentsIdentificationStrings&gt;
+  &lt;FailFixedAttribute&gt;false&lt;/FailFixedAttribute&gt;
+  &lt;FailChangeAttribute&gt;true&lt;/FailChangeAttribute&gt;
+  &lt;UseStartEndDate&gt;false&lt;/UseStartEndDate&gt;
+  &lt;CurrentIndicatorColumn /&gt;
+  &lt;InferredIndicatorColumn /&gt;
+  &lt;ValueCurrent /&gt;
+  &lt;ValueExpired /&gt;
+  &lt;StartDateColumn /&gt;
+  &lt;EndDateColumn /&gt;
+  &lt;DateVariable /&gt;
+  &lt;EnableInferredSupport&gt;true&lt;/EnableInferredSupport&gt;
+&lt;/SCDWizardMetadata&gt;</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

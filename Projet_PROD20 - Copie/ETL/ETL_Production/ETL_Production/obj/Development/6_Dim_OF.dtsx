@@ -1,0 +1,847 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="6/4/2020 10:28:59 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="NAV_2017"
+  DTS:CreatorName="MATHE\administrateur"
+  DTS:DTSID="{F5198F30-1ED2-4241-AE0F-492C08EE4931}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3002.107"
+  DTS:LocaleID="1036"
+  DTS:ObjectName="6_Dim_OF"
+  DTS:PackageType="5"
+  DTS:VersionBuild="29"
+  DTS:VersionGUID="{B7CC4BA7-4BA8-4BAF-B67F-C51339B4B1D9}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.DWH_Prod2020]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{C1EAEB20-FAB5-4F1A-87E7-EFF4BC3CED19}"
+      DTS:ObjectName="LocalHost.DWH_Prod2020">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=.;Initial Catalog=DWH_Prod2020;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.DWH_Prod20201]"
+      DTS:CreationName="ADO.NET:System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+      DTS:DTSID="{2B092469-2C1C-4DD5-9E52-C82A8E11F649}"
+      DTS:ObjectName="LocalHost.DWH_Prod20201">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=.;Initial Catalog=DWH_Prod2020;Integrated Security=True;Application Name=SSIS-6_Dim_OF-{2B092469-2C1C-4DD5-9E52-C82A8E11F649}LocalHost.DWH_Prod20201;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.Staging2020]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{CE45ACC5-782E-4A14-B370-71CC813A16BF}"
+      DTS:ObjectName="LocalHost.Staging2020">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=.;Initial Catalog=Staging2020;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Chargement de Dim_OF"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tâche de flux de données"
+      DTS:DTSID="{85FED1B5-0F77-4BEC-AF74-70DE2056779F}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:MaxErrorCount="4"
+      DTS:ObjectName="Chargement de Dim_OF"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Chargement de Dim_OF\Alimentation de Dim_OF"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Recherche;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;6"
+              description="Joint des colonnes supplémentaires au flux de données en recherchant des valeurs dans une table. Par exemple, joignez la colonne 'id employé' à la table des employés afin d'obtenir la 'date d'embauche' et le 'nom de l'employé'. Nous recommandons cette transformation lorsque la table de recherche peut être stockée en mémoire."
+              name="Alimentation de Dim_OF"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Spécifie l'instruction SQL qui génère la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select No_ from Dim_OF</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie une instruction SQL qui utilise des paramètres pour générer la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select No_ from Dim_OF) [refTable]
+where [refTable].[No_] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de connexion utilisé pour accéder au dataset de référence."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de cache de la table de correspondance."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie comment la transformation de recherche gère les lignes sans entrées correspondantes dans le jeu de données de référence."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le pourcentage du cache alloué aux lignes sans entrées correspondantes dans le dataset de référence."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indique si les métadonnées sont à référencer en format XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="No_" dataType="DT_WSTR" length="20" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Spécifie la liste d'identificateurs de lignage se mappant aux paramètres utilisés dans la propriété SQLCommand par l'instruction SQL. Les entrées dans la liste sont séparées par des points-virgules."
+                  name="ParameterMap">#{Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].Columns[No_]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Détermine si les clés dupliquées dans les données de référence doivent être traitées en tant qu'erreurs lorsque le mode Cache complet est utilisé."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Chargement de Dim_OF\Alimentation de Dim_OF.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.DWH_Prod2020]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.DWH_Prod2020]"
+                  description="Gestionnaire de connexions utilisé pour accéder aux données de correspondance."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Chargement de Dim_OF\Alimentation de Dim_OF.Inputs[Entrée de recherche]"
+                  name="Entrée de recherche">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Chargement de Dim_OF\Alimentation de Dim_OF.Inputs[Entrée de recherche].Columns[No_]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="No_"
+                      lineageId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].Columns[No_]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">No_</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Chargement de Dim_OF\Alimentation de Dim_OF.Outputs[Sortie de recherche avec correspondance]"
+                  errorOrTruncationOperation="Recherche"
+                  exclusionGroup="1"
+                  name="Sortie de recherche avec correspondance"
+                  synchronousInputId="Package\Chargement de Dim_OF\Alimentation de Dim_OF.Inputs[Entrée de recherche]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Chargement de Dim_OF\Alimentation de Dim_OF.Outputs[Sortie de recherche sans correspondance]"
+                  description="Sortie de recherche gérant les lignes sans entrées correspondantes dans le dataset de référence. Utilisez cette sortie lorsque la propriété NoMatchBehavior a la valeur « Envoyez les lignes sans entrées correspondantes dans la sortie sans correspondance »."
+                  exclusionGroup="1"
+                  name="Sortie de recherche sans correspondance"
+                  synchronousInputId="Package\Chargement de Dim_OF\Alimentation de Dim_OF.Inputs[Entrée de recherche]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Chargement de Dim_OF\Alimentation de Dim_OF.Outputs[Sortie d'erreur de recherche]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de recherche"
+                  synchronousInputId="Package\Chargement de Dim_OF\Alimentation de Dim_OF.Inputs[Entrée de recherche]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de Dim_OF\Alimentation de Dim_OF.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de Dim_OF\Alimentation de Dim_OF.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_OF\Alimentation de Dim_OF.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de Dim_OF\Alimentation de Dim_OF.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Chargement de Dim_OF\Creation de Dim_OF"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Utilise des données issues de SQL Server, OLE DB, ODBC ou Oracle, à l'aide du fournisseur de données .NET Framework correspondant. Utilisez une instruction Transact-SQL pour définir le jeu de résultats. Par exemple, extrayez des données depuis SQL Server à partir du fournisseur de données .NET Framework pour SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;4"
+              description="Utilise des données issues de SQL Server, OLE DB, ODBC ou Oracle, à l'aide du fournisseur de données .NET Framework correspondant. Utilisez une instruction Transact-SQL pour définir le jeu de résultats. Par exemple, extrayez des données depuis SQL Server à partir du fournisseur de données .NET Framework pour SQL Server."
+              name="Creation de Dim_OF"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Spécifie l'instruction SQL utilisée par le composant pour extraire des données."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select 
+Case Status
+when 0 then 'Simulé'
+when 1 then 'planifié'
+when 2 then 'planifié ferme'
+when 3 then 'Lancé'
+when 4 then 'Terminé'
+end AS Status
+,No_
+,Description +' '+ [Description 2] AS Description 
+,[Creation Date]
+,[Starting Date]
+,[Ending Date]
+,[Finished Date]
+,[Starting Date-Time]
+,[Ending Date-Time]
+
+ from [staging_production order]
+
+where Status in(3,4)</property>
+                <property
+                  dataType="System.Int32"
+                  description="Nombre de secondes avant l'expiration d'une commande.  Une valeur égale à 0 indique un délai d'expiration infini."
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si les colonnes externes qui ne sont pas des chaînes peuvent ou non être converties implicitement en chaînes dans les colonnes de sortie."
+                  name="AllowImplicitStringConversion">true</property>
+                <property
+                  dataType="System.String"
+                  description="Nom de la table de base de données source."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifier le mode de récupération des informations de colonne externe"
+                  name="AccessMode"
+                  typeConverter="Microsoft.SqlServer.Dts.Pipeline.DataReaderSourceAdapter+EnumToStringConverter">2</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.DataReaderSourceAdapter</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Chargement de Dim_OF\Creation de Dim_OF.Connections[IDbConnection]"
+                  connectionManagerID="{7DCC5104-F3C8-48EE-9E97-EDFB0F8C7F7B}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Staging20]"
+                  description="Gestionnaire de connexions managées"
+                  name="IDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET]"
+                  name="Sortie de source ADO NET">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].Columns[Status]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].ExternalColumns[Status]"
+                      length="14"
+                      lineageId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].Columns[Status]"
+                      name="Status"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].Columns[No_]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].ExternalColumns[No_]"
+                      length="20"
+                      lineageId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].Columns[No_]"
+                      name="No_"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].Columns[Description]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].ExternalColumns[Description]"
+                      length="151"
+                      lineageId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].Columns[Description]"
+                      name="Description"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].Columns[Creation Date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].ExternalColumns[Creation Date]"
+                      lineageId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].Columns[Creation Date]"
+                      name="Creation Date"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].Columns[Starting Date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].ExternalColumns[Starting Date]"
+                      lineageId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].Columns[Starting Date]"
+                      name="Starting Date"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].Columns[Ending Date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].ExternalColumns[Ending Date]"
+                      lineageId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].Columns[Ending Date]"
+                      name="Ending Date"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].Columns[Finished Date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].ExternalColumns[Finished Date]"
+                      lineageId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].Columns[Finished Date]"
+                      name="Finished Date"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].Columns[Starting Date-Time]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].ExternalColumns[Starting Date-Time]"
+                      lineageId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].Columns[Starting Date-Time]"
+                      name="Starting Date-Time"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].Columns[Ending Date-Time]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].ExternalColumns[Ending Date-Time]"
+                      lineageId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].Columns[Ending Date-Time]"
+                      name="Ending Date-Time"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].ExternalColumns[Status]"
+                      dataType="wstr"
+                      length="14"
+                      name="Status" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].ExternalColumns[No_]"
+                      dataType="wstr"
+                      length="20"
+                      name="No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].ExternalColumns[Description]"
+                      dataType="wstr"
+                      length="151"
+                      name="Description" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].ExternalColumns[Creation Date]"
+                      dataType="dbTimeStamp"
+                      name="Creation Date" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].ExternalColumns[Starting Date]"
+                      dataType="dbTimeStamp"
+                      name="Starting Date" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].ExternalColumns[Ending Date]"
+                      dataType="dbTimeStamp"
+                      name="Ending Date" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].ExternalColumns[Finished Date]"
+                      dataType="dbTimeStamp"
+                      name="Finished Date" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].ExternalColumns[Starting Date-Time]"
+                      dataType="dbTimeStamp"
+                      name="Starting Date-Time" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].ExternalColumns[Ending Date-Time]"
+                      dataType="dbTimeStamp"
+                      name="Ending Date-Time" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie d'erreur de source ADO NET]"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de source ADO NET">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie d'erreur de source ADO NET].Columns[Status]"
+                      dataType="wstr"
+                      length="14"
+                      lineageId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie d'erreur de source ADO NET].Columns[Status]"
+                      name="Status" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie d'erreur de source ADO NET].Columns[No_]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie d'erreur de source ADO NET].Columns[No_]"
+                      name="No_" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie d'erreur de source ADO NET].Columns[Description]"
+                      dataType="wstr"
+                      length="151"
+                      lineageId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie d'erreur de source ADO NET].Columns[Description]"
+                      name="Description" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie d'erreur de source ADO NET].Columns[Creation Date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie d'erreur de source ADO NET].Columns[Creation Date]"
+                      name="Creation Date" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie d'erreur de source ADO NET].Columns[Starting Date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie d'erreur de source ADO NET].Columns[Starting Date]"
+                      name="Starting Date" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie d'erreur de source ADO NET].Columns[Ending Date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie d'erreur de source ADO NET].Columns[Ending Date]"
+                      name="Ending Date" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie d'erreur de source ADO NET].Columns[Finished Date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie d'erreur de source ADO NET].Columns[Finished Date]"
+                      name="Finished Date" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie d'erreur de source ADO NET].Columns[Starting Date-Time]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie d'erreur de source ADO NET].Columns[Starting Date-Time]"
+                      name="Starting Date-Time" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie d'erreur de source ADO NET].Columns[Ending Date-Time]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie d'erreur de source ADO NET].Columns[Ending Date-Time]"
+                      name="Ending Date-Time" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie d'erreur de source ADO NET].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie d'erreur de source ADO NET].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie d'erreur de source ADO NET].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie d'erreur de source ADO NET].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Chargement de Dim_OF\Dim_OF"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destination OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;4"
+              description="Destination OLE DB"
+              name="Dim_OF"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Nombre de secondes avant l'expiration d'une commande.  Une valeur égale à 0 indique un délai d'expiration infini."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowset">[Dim_OF]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie la variable contenant le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Commande SQL à exécuter."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Force l'utilisation de la valeur de propriété DefaultCodePage lors de la description des données caractères."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le mode utilisé pour accéder à la base de données."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si les valeurs fournies pour les colonnes d'identité seront copiées à la destination. Si la valeur est définie à False, les valeurs des colonnes d'identité seront générées automatiquement à la destination. Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si les colonnes contenant la valeur NULL auront cette valeur NULL copiée à la destination. Si la valeur est définie à False, les colonnes contenant la valeur NULL auront leurs valeurs par défaut insérées à la destination. Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie les options à utiliser avec le chargement rapide.  Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie quand les validations sont émises pendant l'insertion des données.  Une valeur égale à 0 spécifie qu'une validation sera émise à la fin de l'insertion des données.  Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Chargement de Dim_OF\Dim_OF.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.DWH_Prod2020]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.DWH_Prod2020]"
+                  description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Chargement de Dim_OF\Dim_OF.Inputs[Entrée de destination OLE DB]"
+                  errorOrTruncationOperation="Insérer"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrée de destination OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Chargement de Dim_OF\Dim_OF.Inputs[Entrée de destination OLE DB].Columns[Status]"
+                      cachedDataType="wstr"
+                      cachedLength="14"
+                      cachedName="Status"
+                      externalMetadataColumnId="Package\Chargement de Dim_OF\Dim_OF.Inputs[Entrée de destination OLE DB].ExternalColumns[Status]"
+                      lineageId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].Columns[Status]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_OF\Dim_OF.Inputs[Entrée de destination OLE DB].Columns[No_]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="No_"
+                      externalMetadataColumnId="Package\Chargement de Dim_OF\Dim_OF.Inputs[Entrée de destination OLE DB].ExternalColumns[No_]"
+                      lineageId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].Columns[No_]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_OF\Dim_OF.Inputs[Entrée de destination OLE DB].Columns[Description]"
+                      cachedDataType="wstr"
+                      cachedLength="151"
+                      cachedName="Description"
+                      externalMetadataColumnId="Package\Chargement de Dim_OF\Dim_OF.Inputs[Entrée de destination OLE DB].ExternalColumns[Description]"
+                      lineageId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].Columns[Description]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_OF\Dim_OF.Inputs[Entrée de destination OLE DB].Columns[Creation Date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Creation Date"
+                      externalMetadataColumnId="Package\Chargement de Dim_OF\Dim_OF.Inputs[Entrée de destination OLE DB].ExternalColumns[Creation Date]"
+                      lineageId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].Columns[Creation Date]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_OF\Dim_OF.Inputs[Entrée de destination OLE DB].Columns[Starting Date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Starting Date"
+                      externalMetadataColumnId="Package\Chargement de Dim_OF\Dim_OF.Inputs[Entrée de destination OLE DB].ExternalColumns[Starting Date]"
+                      lineageId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].Columns[Starting Date]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_OF\Dim_OF.Inputs[Entrée de destination OLE DB].Columns[Ending Date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Ending Date"
+                      externalMetadataColumnId="Package\Chargement de Dim_OF\Dim_OF.Inputs[Entrée de destination OLE DB].ExternalColumns[Ending Date]"
+                      lineageId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].Columns[Ending Date]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_OF\Dim_OF.Inputs[Entrée de destination OLE DB].Columns[Finished Date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Finished Date"
+                      externalMetadataColumnId="Package\Chargement de Dim_OF\Dim_OF.Inputs[Entrée de destination OLE DB].ExternalColumns[Finished Date]"
+                      lineageId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].Columns[Finished Date]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_OF\Dim_OF.Inputs[Entrée de destination OLE DB].Columns[Starting Date-Time]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Starting Date-Time"
+                      externalMetadataColumnId="Package\Chargement de Dim_OF\Dim_OF.Inputs[Entrée de destination OLE DB].ExternalColumns[Starting Date-Time]"
+                      lineageId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].Columns[Starting Date-Time]" />
+                    <inputColumn
+                      refId="Package\Chargement de Dim_OF\Dim_OF.Inputs[Entrée de destination OLE DB].Columns[Ending Date-Time]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Ending Date-Time"
+                      externalMetadataColumnId="Package\Chargement de Dim_OF\Dim_OF.Inputs[Entrée de destination OLE DB].ExternalColumns[Ending Date-Time]"
+                      lineageId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET].Columns[Ending Date-Time]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_OF\Dim_OF.Inputs[Entrée de destination OLE DB].ExternalColumns[Status]"
+                      dataType="wstr"
+                      length="14"
+                      name="Status" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_OF\Dim_OF.Inputs[Entrée de destination OLE DB].ExternalColumns[No_]"
+                      dataType="wstr"
+                      length="20"
+                      name="No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_OF\Dim_OF.Inputs[Entrée de destination OLE DB].ExternalColumns[Description]"
+                      dataType="wstr"
+                      length="151"
+                      name="Description" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_OF\Dim_OF.Inputs[Entrée de destination OLE DB].ExternalColumns[Creation Date]"
+                      dataType="dbTimeStamp"
+                      name="Creation Date" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_OF\Dim_OF.Inputs[Entrée de destination OLE DB].ExternalColumns[Starting Date]"
+                      dataType="dbTimeStamp"
+                      name="Starting Date" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_OF\Dim_OF.Inputs[Entrée de destination OLE DB].ExternalColumns[Ending Date]"
+                      dataType="dbTimeStamp"
+                      name="Ending Date" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_OF\Dim_OF.Inputs[Entrée de destination OLE DB].ExternalColumns[Finished Date]"
+                      dataType="dbTimeStamp"
+                      name="Finished Date" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_OF\Dim_OF.Inputs[Entrée de destination OLE DB].ExternalColumns[Starting Date-Time]"
+                      dataType="dbTimeStamp"
+                      name="Starting Date-Time" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de Dim_OF\Dim_OF.Inputs[Entrée de destination OLE DB].ExternalColumns[Ending Date-Time]"
+                      dataType="dbTimeStamp"
+                      name="Ending Date-Time" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Chargement de Dim_OF\Dim_OF.Outputs[Sortie d'erreur de destination OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de destination OLE DB"
+                  synchronousInputId="Package\Chargement de Dim_OF\Dim_OF.Inputs[Entrée de destination OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de Dim_OF\Dim_OF.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de Dim_OF\Dim_OF.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Chargement de Dim_OF\Dim_OF.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de Dim_OF\Dim_OF.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Chargement de Dim_OF.Paths[Sortie de recherche sans correspondance]"
+              endId="Package\Chargement de Dim_OF\Dim_OF.Inputs[Entrée de destination OLE DB]"
+              name="Sortie de recherche sans correspondance"
+              startId="Package\Chargement de Dim_OF\Alimentation de Dim_OF.Outputs[Sortie de recherche sans correspondance]" />
+            <path
+              refId="Package\Chargement de Dim_OF.Paths[Sortie de source ADO NET]"
+              endId="Package\Chargement de Dim_OF\Alimentation de Dim_OF.Inputs[Entrée de recherche]"
+              name="Sortie de source ADO NET"
+              startId="Package\Chargement de Dim_OF\Creation de Dim_OF.Outputs[Sortie de source ADO NET]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Cette section CDATA contient des informations sur la disposition du package. Elle comprend des informations telles que les coordonnées (x,y), la largeur et la hauteur.-->
+<!--Si vous modifiez manuellement cette section et commettez une erreur, vous pouvez la supprimer. -->
+<!--Le package pourra toujours se charger normalement, mais les informations de disposition précédente seront perdues et le concepteur réorganisera automatiquement les éléments sur l'aire de conception.-->
+<Objects
+  Version="8">
+  <!--Chaque nœud ci-dessous contiendra des propriétés qui n'affectent pas le comportement d'exécution.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="191.2,41.6"
+          Id="Package\Chargement de Dim_OF"
+          TopLeft="94.85714447255,77.6941187366892" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Chargement de Dim_OF">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="116,41.6"
+          Id="Package\Chargement de Dim_OF\Dim_OF"
+          TopLeft="98.85714454067,209.223532346046" />
+        <NodeLayout
+          Size="192.8,41.6"
+          Id="Package\Chargement de Dim_OF\Alimentation de Dim_OF"
+          TopLeft="333.714291397406,124.188237035811" />
+        <NodeLayout
+          Size="173.6,41.6"
+          Id="Package\Chargement de Dim_OF\Creation de Dim_OF"
+          TopLeft="80.7999992506845,46.023528991356" />
+        <EdgeLayout
+          Id="Package\Chargement de Dim_OF.Paths[Sortie de source ADO NET]"
+          TopLeft="167.599999250685,87.623528991356">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="262.514292146722,36.5647080444547"
+              Start="0,0"
+              End="262.514292146722,29.0647080444547">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14.2823540222273" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,14.2823540222273"
+                    Point2="0,18.2823540222273"
+                    Point3="4,18.2823540222273" />
+                  <mssgle:LineSegment
+                    End="258.514292146722,18.2823540222273" />
+                  <mssgle:CubicBezierSegment
+                    Point1="258.514292146722,18.2823540222273"
+                    Point2="262.514292146722,18.2823540222273"
+                    Point3="262.514292146722,22.2823540222273" />
+                  <mssgle:LineSegment
+                    End="262.514292146722,29.0647080444547" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Chargement de Dim_OF.Paths[Sortie de recherche sans correspondance]"
+          TopLeft="430.114291397406,165.788237035811">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-273.257146856736,43.4352953102353"
+              Start="0,0"
+              End="-273.257146856736,35.9352953102353">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.7176476551176" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,17.7176476551176"
+                    Point2="0,21.7176476551176"
+                    Point3="-4,21.7176476551176" />
+                  <mssgle:LineSegment
+                    End="-269.257146856736,21.7176476551176" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-269.257146856736,21.7176476551176"
+                    Point2="-273.257146856736,21.7176476551176"
+                    Point3="-273.257146856736,25.7176476551176" />
+                  <mssgle:LineSegment
+                    End="-273.257146856736,35.9352953102353" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-228.130585147118,26.7176476551176,183.0040234375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Chargement de Dim_OF\Dim_OF">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Chargement de Dim_OF\Alimentation de Dim_OF">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Chargement de Dim_OF\Creation de Dim_OF">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

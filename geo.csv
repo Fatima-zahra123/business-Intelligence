@@ -1,0 +1,11 @@
+Geographie_PK	PaysCode	Pays	DepartementCode	Departement	CodePostal	Ville
+1	FR	France	13	Bouches-du-Rhône	13001	Marseille
+2	FR	France	69	Rhône	69001	Lyon
+3	FR	France	75	Paris	75001	Paris
+4	FR	France	33	Gironde	33001	Bordeaux
+5	FR	France	59	Nord	59001	Lille
+6	FR	France	31	Haute Garonne	31001	Toulouse
+7	FR	France	67	Bas Rhin	67000	Strasbourg
+8	FR	France	13	Bouches-du-Rhône	13100	Aix-en-Provence
+10	DE	Allemagne	091	Haute-Bavière	58352	Munich
+11	ES	Espagne	08	Catalogne	08006	Barcelone

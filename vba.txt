@@ -1,0 +1,28 @@
+
+Range ==> Selection ===> Areas ====> zones
+
+Set ==> for creating a variable of type cellule
+
+Boites de dialogues : permet d'interagir avec le programme  InputBox() est une fonction ex ="entrer votre nom" ,"saisie","default value" / MsgBox
+
+pour faire des calculs la moyenne de la selection ==> Application.WorksheetFunction.Average(Selection)
+
+evenement :
+les actions que peuvent se passer sur uun element
+
+click 
+
+Sur une fenetre
+open load close
+
+access BeforeInsert ,...
+
+envoi des mails ==> Application.Outlook  
+connexion ==> ajouter ==> rechercher ==> fermer ==> connexion existante ==> choisir l table 
+
+
+set avec les objets
+Workbook , Worksheet
+
+
+ActiveSheet.Name="Import Data"

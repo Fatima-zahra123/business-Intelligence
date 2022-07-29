@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="MATHEPROD2016BC"
+  DTS:DTSID="{6165BD0A-C66D-40AD-8C6B-3C66D2D71336}"
+  DTS:CreationName="ADO.NET:System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Data Source=.;Initial Catalog=MATHEPROD2016BC;Integrated Security=True;Application Name=SSIS-ETL_Production-{6165BD0A-C66D-40AD-8C6B-3C66D2D71336}LocalHost.MATHEPROD2016BC1;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

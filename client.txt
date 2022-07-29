@@ -1,0 +1,11 @@
+﻿Client_PK;GeographieClient_FK;ClientCode;Client;TypeClient;SegmentationClient
+1;1;C1;LaBoutiqueOnLine.com;Site Marchand;Bon Client
+2;3;C2;Maison Discount;Discounteur;Bon Client
+3;8;C3;Cuisine du sud;Spécialiste;Tiède
+4;4;C4;Discount plus;Discounteur;Tiède
+5;2;C5;ToutPourLaMaison.com;Site Marchand;Très Bon Client
+6;3;C6;Hypermarché Youpi;Grande surface;Très Bon Client
+7;10;C7;EineKüch;Spécilaiste;Bon Client
+8;11;C8;Mercado Del Sol;Grande surface;Bon Client
+9;1;C9;ElectroYoupa;Spécialiste;Bon Client
+10;5;C10;Toutmoinscher.com;Site Marchand;Tiède

@@ -1,0 +1,2314 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="6/11/2020 3:37:38 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="NAV_2017"
+  DTS:CreatorName="MATHE\administrateur"
+  DTS:DTSID="{CFF86381-D17D-4DED-824D-DA9697AD6A5B}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3002.107"
+  DTS:LocaleID="1036"
+  DTS:ObjectName="03_Achats_Fact"
+  DTS:PackageType="5"
+  DTS:VersionBuild="41"
+  DTS:VersionGUID="{2FD49AC3-86EF-4134-BF6B-E49D2DB56C51}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.DWH_Prod2020]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{29AC4E98-A2A8-401A-9ED5-597617F6EF19}"
+      DTS:ObjectName="LocalHost.DWH_Prod2020">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=.;Initial Catalog=DWH_Prod2020;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.Staging2020]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{9D7539DB-5F51-4D42-9339-07783FE69C37}"
+      DTS:ObjectName="LocalHost.Staging2020">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=172.30.14.12;Initial Catalog=Staging2020;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Chargement de la Table Achats_Fact"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tâche de flux de données"
+      DTS:DTSID="{D1B8883E-815D-44E8-A292-D4888C5DF828}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Chargement de la Table Achats_Fact"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Chargement de la Table Achats_Fact\Achats_Fact"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destination OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;4"
+              description="Destination OLE DB"
+              name="Achats_Fact"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Nombre de secondes avant l'expiration d'une commande.  Une valeur égale à 0 indique un délai d'expiration infini."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowset">[Achats_Fact]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie la variable contenant le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Commande SQL à exécuter."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Force l'utilisation de la valeur de propriété DefaultCodePage lors de la description des données caractères."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le mode utilisé pour accéder à la base de données."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si les valeurs fournies pour les colonnes d'identité seront copiées à la destination. Si la valeur est définie à False, les valeurs des colonnes d'identité seront générées automatiquement à la destination. Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si les colonnes contenant la valeur NULL auront cette valeur NULL copiée à la destination. Si la valeur est définie à False, les colonnes contenant la valeur NULL auront leurs valeurs par défaut insérées à la destination. Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie les options à utiliser avec le chargement rapide.  Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie quand les validations sont émises pendant l'insertion des données.  Une valeur égale à 0 spécifie qu'une validation sera émise à la fin de l'insertion des données.  Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.DWH_Prod2020]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.DWH_Prod2020]"
+                  description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB]"
+                  errorOrTruncationOperation="Insérer"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrée de destination OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].Columns[Posting Date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Posting Date"
+                      externalMetadataColumnId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Posting Date]"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Posting Date]" />
+                    <inputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].Columns[N° document]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="N° document"
+                      externalMetadataColumnId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[N° document]"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[N° document]" />
+                    <inputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].Columns[Cout unitaire]"
+                      cachedDataType="numeric"
+                      cachedName="Cout unitaire"
+                      cachedPrecision="38"
+                      cachedScale="20"
+                      externalMetadataColumnId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Cout unitaire]"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Cout unitaire]" />
+                    <inputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].Columns[Coût total (réel)]"
+                      cachedDataType="numeric"
+                      cachedName="Coût total (réel)"
+                      cachedPrecision="38"
+                      cachedScale="20"
+                      externalMetadataColumnId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Coût total (réel)]"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Coût total (réel)]" />
+                    <inputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].Columns[Date évaluation]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Date évaluation"
+                      externalMetadataColumnId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Date évaluation]"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Date évaluation]" />
+                    <inputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].Columns[Montant achats (reel)]"
+                      cachedDataType="numeric"
+                      cachedName="Montant achats (reel)"
+                      cachedPrecision="38"
+                      cachedScale="20"
+                      externalMetadataColumnId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Montant achats (reel)]"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Montant achats (reel)]" />
+                    <inputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].Columns[Montant achats (prevu)]"
+                      cachedDataType="numeric"
+                      cachedName="Montant achats (prevu)"
+                      cachedPrecision="38"
+                      cachedScale="20"
+                      externalMetadataColumnId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Montant achats (prevu)]"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Montant achats (prevu)]" />
+                    <inputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].Columns[Coût total (prévu)]"
+                      cachedDataType="numeric"
+                      cachedName="Coût total (prévu)"
+                      cachedPrecision="38"
+                      cachedScale="20"
+                      externalMetadataColumnId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Coût total (prévu)]"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Coût total (prévu)]" />
+                    <inputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].Columns[id_DimLocation]"
+                      cachedDataType="i4"
+                      cachedName="id_DimLocation"
+                      externalMetadataColumnId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[id_DimLocation]"
+                      lineageId="Package\Chargement de la Table Achats_Fact\id_DimLocation.Outputs[Sortie de recherche avec correspondance].Columns[id_DimLocation]" />
+                    <inputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].Columns[id_DimGCP]"
+                      cachedDataType="i4"
+                      cachedName="id_DimGCP"
+                      externalMetadataColumnId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[id_DimGCP]"
+                      lineageId="Package\Chargement de la Table Achats_Fact\id_DimGCP.Outputs[Sortie de recherche avec correspondance].Columns[id_DimGCP]" />
+                    <inputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].Columns[id_DimGCS]"
+                      cachedDataType="i4"
+                      cachedName="id_DimGCS"
+                      externalMetadataColumnId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[id_DimGCS]"
+                      lineageId="Package\Chargement de la Table Achats_Fact\id_DimGCS.Outputs[Sortie de recherche avec correspondance].Columns[id_DimGCS]" />
+                    <inputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].Columns[Quantité valorisée]"
+                      cachedDataType="numeric"
+                      cachedName="Quantité valorisée"
+                      cachedPrecision="38"
+                      cachedScale="20"
+                      externalMetadataColumnId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Quantité facturée]"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Quantité valorisée]" />
+                    <inputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].Columns[id_dimItem]"
+                      cachedDataType="i4"
+                      cachedName="id_dimItem"
+                      externalMetadataColumnId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[id_dimItem]"
+                      lineageId="Package\Chargement de la Table Achats_Fact\id_DimItem.Outputs[Sortie de recherche avec correspondance].Columns[id_dimItem]" />
+                    <inputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].Columns[id_DimFournisseur]"
+                      cachedDataType="i4"
+                      cachedName="id_DimFournisseur"
+                      externalMetadataColumnId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[id_DimFournisseur]"
+                      lineageId="Package\Chargement de la Table Achats_Fact\id_DimFournisseur.Outputs[Sortie de recherche avec correspondance].Columns[id_DimFournisseur]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[N° document]"
+                      dataType="wstr"
+                      length="20"
+                      name="N° document" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Posting Date]"
+                      dataType="dbTimeStamp"
+                      name="Posting Date" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Date évaluation]"
+                      dataType="dbTimeStamp"
+                      name="Date évaluation" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Quantité facturée]"
+                      dataType="numeric"
+                      name="Quantité facturée"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Cout unitaire]"
+                      dataType="numeric"
+                      name="Cout unitaire"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Coût total (réel)]"
+                      dataType="numeric"
+                      name="Coût total (réel)"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Coût total (prévu)]"
+                      dataType="numeric"
+                      name="Coût total (prévu)"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Montant achats (reel)]"
+                      dataType="numeric"
+                      name="Montant achats (reel)"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Montant achats (prevu)]"
+                      dataType="numeric"
+                      name="Montant achats (prevu)"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[id_DimLocation]"
+                      dataType="i4"
+                      name="id_DimLocation" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[id_DimGCP]"
+                      dataType="i4"
+                      name="id_DimGCP" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[id_DimGCS]"
+                      dataType="i4"
+                      name="id_DimGCS" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[id_dimItem]"
+                      dataType="i4"
+                      name="id_dimItem" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[id_DimFournisseur]"
+                      dataType="i4"
+                      name="id_DimFournisseur" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Outputs[Sortie d'erreur de destination OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de destination OLE DB"
+                  synchronousInputId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Chargement de la Table Achats_Fact\id_DimFournisseur"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Recherche;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;6"
+              description="Joint des colonnes supplémentaires au flux de données en recherchant des valeurs dans une table. Par exemple, joignez la colonne 'id employé' à la table des employés afin d'obtenir la 'date d'embauche' et le 'nom de l'employé'. Nous recommandons cette transformation lorsque la table de recherche peut être stockée en mémoire."
+              name="id_DimFournisseur"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Spécifie l'instruction SQL qui génère la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[Dim_Fournisseur]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie une instruction SQL qui utilise des paramètres pour générer la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[Dim_Fournisseur]) [refTable]
+where [refTable].[No_] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de connexion utilisé pour accéder au dataset de référence."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de cache de la table de correspondance."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie comment la transformation de recherche gère les lignes sans entrées correspondantes dans le jeu de données de référence."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le pourcentage du cache alloué aux lignes sans entrées correspondantes dans le dataset de référence."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indique si les métadonnées sont à référencer en format XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="id_DimFournisseur" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="No_" dataType="DT_WSTR" length="20" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Nom" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Adresse" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Phone No" dataType="DT_WSTR" length="30" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Fax No" dataType="DT_WSTR" length="30" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="E-Mail" dataType="DT_WSTR" length="80" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Country_Region Code" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Ville" dataType="DT_WSTR" length="30" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Vendor Posting Group" dataType="DT_WSTR" length="20" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Code Devise" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Spécifie la liste d'identificateurs de lignage se mappant aux paramètres utilisés dans la propriété SQLCommand par l'instruction SQL. Les entrées dans la liste sont séparées par des points-virgules."
+                  name="ParameterMap">#{Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[N° origine]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Détermine si les clés dupliquées dans les données de référence doivent être traitées en tant qu'erreurs lorsque le mode Cache complet est utilisé."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Chargement de la Table Achats_Fact\id_DimFournisseur.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.DWH_Prod2020]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.DWH_Prod2020]"
+                  description="Gestionnaire de connexions utilisé pour accéder aux données de correspondance."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Chargement de la Table Achats_Fact\id_DimFournisseur.Inputs[Entrée de recherche]"
+                  name="Entrée de recherche">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\id_DimFournisseur.Inputs[Entrée de recherche].Columns[N° origine]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="N° origine"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[N° origine]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">No_</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Chargement de la Table Achats_Fact\id_DimFournisseur.Outputs[Sortie de recherche avec correspondance]"
+                  errorOrTruncationOperation="Recherche"
+                  exclusionGroup="1"
+                  name="Sortie de recherche avec correspondance"
+                  synchronousInputId="Package\Chargement de la Table Achats_Fact\id_DimFournisseur.Inputs[Entrée de recherche]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\id_DimFournisseur.Outputs[Sortie de recherche avec correspondance].Columns[id_DimFournisseur]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copie de colonnes"
+                      lineageId="Package\Chargement de la Table Achats_Fact\id_DimFournisseur.Outputs[Sortie de recherche avec correspondance].Columns[id_DimFournisseur]"
+                      name="id_DimFournisseur"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn">id_DimFournisseur</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Chargement de la Table Achats_Fact\id_DimFournisseur.Outputs[Sortie de recherche sans correspondance]"
+                  description="Sortie de recherche gérant les lignes sans entrées correspondantes dans le dataset de référence. Utilisez cette sortie lorsque la propriété NoMatchBehavior a la valeur « Envoyez les lignes sans entrées correspondantes dans la sortie sans correspondance »."
+                  exclusionGroup="1"
+                  name="Sortie de recherche sans correspondance"
+                  synchronousInputId="Package\Chargement de la Table Achats_Fact\id_DimFournisseur.Inputs[Entrée de recherche]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Chargement de la Table Achats_Fact\id_DimFournisseur.Outputs[Sortie d'erreur de recherche]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de recherche"
+                  synchronousInputId="Package\Chargement de la Table Achats_Fact\id_DimFournisseur.Inputs[Entrée de recherche]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\id_DimFournisseur.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de la Table Achats_Fact\id_DimFournisseur.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\id_DimFournisseur.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de la Table Achats_Fact\id_DimFournisseur.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Chargement de la Table Achats_Fact\id_DimGCP"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Recherche;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;6"
+              description="Joint des colonnes supplémentaires au flux de données en recherchant des valeurs dans une table. Par exemple, joignez la colonne 'id employé' à la table des employés afin d'obtenir la 'date d'embauche' et le 'nom de l'employé'. Nous recommandons cette transformation lorsque la table de recherche peut être stockée en mémoire."
+              name="id_DimGCP"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Spécifie l'instruction SQL qui génère la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[Dim_GroupeComptaProduit]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie une instruction SQL qui utilise des paramètres pour générer la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[Dim_GroupeComptaProduit]) [refTable]
+where [refTable].[CodeGCP] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de connexion utilisé pour accéder au dataset de référence."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de cache de la table de correspondance."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie comment la transformation de recherche gère les lignes sans entrées correspondantes dans le jeu de données de référence."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le pourcentage du cache alloué aux lignes sans entrées correspondantes dans le dataset de référence."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indique si les métadonnées sont à référencer en format XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="id_DimGCP" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CodeGCP" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Description" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Spécifie la liste d'identificateurs de lignage se mappant aux paramètres utilisés dans la propriété SQLCommand par l'instruction SQL. Les entrées dans la liste sont séparées par des points-virgules."
+                  name="ParameterMap">#{Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Groupes comptabilisation produit]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Détermine si les clés dupliquées dans les données de référence doivent être traitées en tant qu'erreurs lorsque le mode Cache complet est utilisé."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Chargement de la Table Achats_Fact\id_DimGCP.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.DWH_Prod2020]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.DWH_Prod2020]"
+                  description="Gestionnaire de connexions utilisé pour accéder aux données de correspondance."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Chargement de la Table Achats_Fact\id_DimGCP.Inputs[Entrée de recherche]"
+                  name="Entrée de recherche">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\id_DimGCP.Inputs[Entrée de recherche].Columns[Groupes comptabilisation produit]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Groupes comptabilisation produit"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Groupes comptabilisation produit]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">CodeGCP</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Chargement de la Table Achats_Fact\id_DimGCP.Outputs[Sortie de recherche avec correspondance]"
+                  errorOrTruncationOperation="Recherche"
+                  exclusionGroup="1"
+                  name="Sortie de recherche avec correspondance"
+                  synchronousInputId="Package\Chargement de la Table Achats_Fact\id_DimGCP.Inputs[Entrée de recherche]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\id_DimGCP.Outputs[Sortie de recherche avec correspondance].Columns[id_DimGCP]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copie de colonnes"
+                      lineageId="Package\Chargement de la Table Achats_Fact\id_DimGCP.Outputs[Sortie de recherche avec correspondance].Columns[id_DimGCP]"
+                      name="id_DimGCP"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn">id_DimGCP</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Chargement de la Table Achats_Fact\id_DimGCP.Outputs[Sortie de recherche sans correspondance]"
+                  description="Sortie de recherche gérant les lignes sans entrées correspondantes dans le dataset de référence. Utilisez cette sortie lorsque la propriété NoMatchBehavior a la valeur « Envoyez les lignes sans entrées correspondantes dans la sortie sans correspondance »."
+                  exclusionGroup="1"
+                  name="Sortie de recherche sans correspondance"
+                  synchronousInputId="Package\Chargement de la Table Achats_Fact\id_DimGCP.Inputs[Entrée de recherche]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Chargement de la Table Achats_Fact\id_DimGCP.Outputs[Sortie d'erreur de recherche]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de recherche"
+                  synchronousInputId="Package\Chargement de la Table Achats_Fact\id_DimGCP.Inputs[Entrée de recherche]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\id_DimGCP.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de la Table Achats_Fact\id_DimGCP.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\id_DimGCP.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de la Table Achats_Fact\id_DimGCP.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Chargement de la Table Achats_Fact\id_DimGCS"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Recherche;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;6"
+              description="Joint des colonnes supplémentaires au flux de données en recherchant des valeurs dans une table. Par exemple, joignez la colonne 'id employé' à la table des employés afin d'obtenir la 'date d'embauche' et le 'nom de l'employé'. Nous recommandons cette transformation lorsque la table de recherche peut être stockée en mémoire."
+              name="id_DimGCS"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Spécifie l'instruction SQL qui génère la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[Dim_GroupeComptaStock]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie une instruction SQL qui utilise des paramètres pour générer la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[Dim_GroupeComptaStock]) [refTable]
+where [refTable].[CodeGCS] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de connexion utilisé pour accéder au dataset de référence."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de cache de la table de correspondance."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie comment la transformation de recherche gère les lignes sans entrées correspondantes dans le jeu de données de référence."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le pourcentage du cache alloué aux lignes sans entrées correspondantes dans le dataset de référence."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indique si les métadonnées sont à référencer en format XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="id_DimGCS" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CodeGCS" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Description" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Spécifie la liste d'identificateurs de lignage se mappant aux paramètres utilisés dans la propriété SQLCommand par l'instruction SQL. Les entrées dans la liste sont séparées par des points-virgules."
+                  name="ParameterMap">#{Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Groupe compta. stock]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Détermine si les clés dupliquées dans les données de référence doivent être traitées en tant qu'erreurs lorsque le mode Cache complet est utilisé."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Chargement de la Table Achats_Fact\id_DimGCS.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.DWH_Prod2020]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.DWH_Prod2020]"
+                  description="Gestionnaire de connexions utilisé pour accéder aux données de correspondance."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Chargement de la Table Achats_Fact\id_DimGCS.Inputs[Entrée de recherche]"
+                  name="Entrée de recherche">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\id_DimGCS.Inputs[Entrée de recherche].Columns[Groupe compta. stock]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Groupe compta. stock"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Groupe compta. stock]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">CodeGCS</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Chargement de la Table Achats_Fact\id_DimGCS.Outputs[Sortie de recherche avec correspondance]"
+                  errorOrTruncationOperation="Recherche"
+                  exclusionGroup="1"
+                  name="Sortie de recherche avec correspondance"
+                  synchronousInputId="Package\Chargement de la Table Achats_Fact\id_DimGCS.Inputs[Entrée de recherche]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\id_DimGCS.Outputs[Sortie de recherche avec correspondance].Columns[id_DimGCS]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copie de colonnes"
+                      lineageId="Package\Chargement de la Table Achats_Fact\id_DimGCS.Outputs[Sortie de recherche avec correspondance].Columns[id_DimGCS]"
+                      name="id_DimGCS"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn">id_DimGCS</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Chargement de la Table Achats_Fact\id_DimGCS.Outputs[Sortie de recherche sans correspondance]"
+                  description="Sortie de recherche gérant les lignes sans entrées correspondantes dans le dataset de référence. Utilisez cette sortie lorsque la propriété NoMatchBehavior a la valeur « Envoyez les lignes sans entrées correspondantes dans la sortie sans correspondance »."
+                  exclusionGroup="1"
+                  name="Sortie de recherche sans correspondance"
+                  synchronousInputId="Package\Chargement de la Table Achats_Fact\id_DimGCS.Inputs[Entrée de recherche]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Chargement de la Table Achats_Fact\id_DimGCS.Outputs[Sortie d'erreur de recherche]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de recherche"
+                  synchronousInputId="Package\Chargement de la Table Achats_Fact\id_DimGCS.Inputs[Entrée de recherche]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\id_DimGCS.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de la Table Achats_Fact\id_DimGCS.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\id_DimGCS.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de la Table Achats_Fact\id_DimGCS.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Chargement de la Table Achats_Fact\id_DimItem"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Recherche;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;6"
+              description="Joint des colonnes supplémentaires au flux de données en recherchant des valeurs dans une table. Par exemple, joignez la colonne 'id employé' à la table des employés afin d'obtenir la 'date d'embauche' et le 'nom de l'employé'. Nous recommandons cette transformation lorsque la table de recherche peut être stockée en mémoire."
+              name="id_DimItem"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Spécifie l'instruction SQL qui génère la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select [id_dimItem], [no_] from [dim_item]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie une instruction SQL qui utilise des paramètres pour générer la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select [id_dimItem], [no_] from [dim_item]) [refTable]
+where [refTable].[no_] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de connexion utilisé pour accéder au dataset de référence."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de cache de la table de correspondance."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie comment la transformation de recherche gère les lignes sans entrées correspondantes dans le jeu de données de référence."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le pourcentage du cache alloué aux lignes sans entrées correspondantes dans le dataset de référence."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indique si les métadonnées sont à référencer en format XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="id_dimItem" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="no_" dataType="DT_WSTR" length="20" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Spécifie la liste d'identificateurs de lignage se mappant aux paramètres utilisés dans la propriété SQLCommand par l'instruction SQL. Les entrées dans la liste sont séparées par des points-virgules."
+                  name="ParameterMap">#{Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Item No_]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Détermine si les clés dupliquées dans les données de référence doivent être traitées en tant qu'erreurs lorsque le mode Cache complet est utilisé."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Chargement de la Table Achats_Fact\id_DimItem.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.DWH_Prod2020]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.DWH_Prod2020]"
+                  description="Gestionnaire de connexions utilisé pour accéder aux données de correspondance."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Chargement de la Table Achats_Fact\id_DimItem.Inputs[Entrée de recherche]"
+                  name="Entrée de recherche">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\id_DimItem.Inputs[Entrée de recherche].Columns[Item No_]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Item No_"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Item No_]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">no_</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Chargement de la Table Achats_Fact\id_DimItem.Outputs[Sortie de recherche avec correspondance]"
+                  errorOrTruncationOperation="Recherche"
+                  exclusionGroup="1"
+                  name="Sortie de recherche avec correspondance"
+                  synchronousInputId="Package\Chargement de la Table Achats_Fact\id_DimItem.Inputs[Entrée de recherche]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\id_DimItem.Outputs[Sortie de recherche avec correspondance].Columns[id_dimItem]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copie de colonnes"
+                      lineageId="Package\Chargement de la Table Achats_Fact\id_DimItem.Outputs[Sortie de recherche avec correspondance].Columns[id_dimItem]"
+                      name="id_dimItem"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn">id_dimItem</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Chargement de la Table Achats_Fact\id_DimItem.Outputs[Sortie de recherche sans correspondance]"
+                  description="Sortie de recherche gérant les lignes sans entrées correspondantes dans le dataset de référence. Utilisez cette sortie lorsque la propriété NoMatchBehavior a la valeur « Envoyez les lignes sans entrées correspondantes dans la sortie sans correspondance »."
+                  exclusionGroup="1"
+                  name="Sortie de recherche sans correspondance"
+                  synchronousInputId="Package\Chargement de la Table Achats_Fact\id_DimItem.Inputs[Entrée de recherche]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Chargement de la Table Achats_Fact\id_DimItem.Outputs[Sortie d'erreur de recherche]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de recherche"
+                  synchronousInputId="Package\Chargement de la Table Achats_Fact\id_DimItem.Inputs[Entrée de recherche]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\id_DimItem.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de la Table Achats_Fact\id_DimItem.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\id_DimItem.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de la Table Achats_Fact\id_DimItem.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Chargement de la Table Achats_Fact\id_DimLocation"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Recherche;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;6"
+              description="Joint des colonnes supplémentaires au flux de données en recherchant des valeurs dans une table. Par exemple, joignez la colonne 'id employé' à la table des employés afin d'obtenir la 'date d'embauche' et le 'nom de l'employé'. Nous recommandons cette transformation lorsque la table de recherche peut être stockée en mémoire."
+              name="id_DimLocation"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Spécifie l'instruction SQL qui génère la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[Dim_Location]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie une instruction SQL qui utilise des paramètres pour générer la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[Dim_Location]) [refTable]
+where [refTable].[Code] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de connexion utilisé pour accéder au dataset de référence."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de cache de la table de correspondance."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie comment la transformation de recherche gère les lignes sans entrées correspondantes dans le jeu de données de référence."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le pourcentage du cache alloué aux lignes sans entrées correspondantes dans le dataset de référence."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indique si les métadonnées sont à référencer en format XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="id_DimLocation" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Code" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Name" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="City" dataType="DT_WSTR" length="30" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="County" dataType="DT_WSTR" length="30" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="E-Mail" dataType="DT_WSTR" length="80" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Spécifie la liste d'identificateurs de lignage se mappant aux paramètres utilisés dans la propriété SQLCommand par l'instruction SQL. Les entrées dans la liste sont séparées par des points-virgules."
+                  name="ParameterMap">#{Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Location Code]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Détermine si les clés dupliquées dans les données de référence doivent être traitées en tant qu'erreurs lorsque le mode Cache complet est utilisé."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Chargement de la Table Achats_Fact\id_DimLocation.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.DWH_Prod2020]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.DWH_Prod2020]"
+                  description="Gestionnaire de connexions utilisé pour accéder aux données de correspondance."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Chargement de la Table Achats_Fact\id_DimLocation.Inputs[Entrée de recherche]"
+                  name="Entrée de recherche">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\id_DimLocation.Inputs[Entrée de recherche].Columns[Location Code]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="Location Code"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Location Code]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Code</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Chargement de la Table Achats_Fact\id_DimLocation.Outputs[Sortie de recherche avec correspondance]"
+                  errorOrTruncationOperation="Recherche"
+                  exclusionGroup="1"
+                  name="Sortie de recherche avec correspondance"
+                  synchronousInputId="Package\Chargement de la Table Achats_Fact\id_DimLocation.Inputs[Entrée de recherche]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\id_DimLocation.Outputs[Sortie de recherche avec correspondance].Columns[id_DimLocation]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copie de colonnes"
+                      lineageId="Package\Chargement de la Table Achats_Fact\id_DimLocation.Outputs[Sortie de recherche avec correspondance].Columns[id_DimLocation]"
+                      name="id_DimLocation"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn">id_DimLocation</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Chargement de la Table Achats_Fact\id_DimLocation.Outputs[Sortie de recherche sans correspondance]"
+                  description="Sortie de recherche gérant les lignes sans entrées correspondantes dans le dataset de référence. Utilisez cette sortie lorsque la propriété NoMatchBehavior a la valeur « Envoyez les lignes sans entrées correspondantes dans la sortie sans correspondance »."
+                  exclusionGroup="1"
+                  name="Sortie de recherche sans correspondance"
+                  synchronousInputId="Package\Chargement de la Table Achats_Fact\id_DimLocation.Inputs[Entrée de recherche]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Chargement de la Table Achats_Fact\id_DimLocation.Outputs[Sortie d'erreur de recherche]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de recherche"
+                  synchronousInputId="Package\Chargement de la Table Achats_Fact\id_DimLocation.Inputs[Entrée de recherche]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\id_DimLocation.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de la Table Achats_Fact\id_DimLocation.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\id_DimLocation.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de la Table Achats_Fact\id_DimLocation.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Source OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;7"
+              description="Source OLE DB"
+              name="Staging_Entry Value"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Nombre de secondes avant l'expiration d'une commande.  Une valeur égale à 0 indique un délai d'expiration infini."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowset">[dbo].[Staging_Value Entry]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie la variable contenant le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Commande SQL à exécuter."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT *  FROM [Staging_Value Entry] WHERE LEFT([Document No_],2) in ('AA','FA') 
+AND [Posting Date]&gt;'13-11-2008' 
+ORDER BY [Posting Date] desc</property>
+                <property
+                  dataType="System.String"
+                  description="Variable contenant la commande SQL à exécuter."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Force l'utilisation de la valeur de propriété DefaultCodePage lors de la description des données caractères."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le mode utilisé pour accéder à la base de données."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="Mappages entre les paramètres de la commande SQL et les variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.Staging2020]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.Staging2020]"
+                  description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB]"
+                  name="Sortie de source OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Entry No_]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Entry No_]"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Entry No_]"
+                      name="Entry No_"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Item No_]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Item No_]"
+                      length="20"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Item No_]"
+                      name="Item No_"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Posting Date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Posting Date]"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Posting Date]"
+                      name="Posting Date"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[N° origine]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Source No_]"
+                      length="20"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[N° origine]"
+                      name="N° origine"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[N° document]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Document No_]"
+                      length="20"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[N° document]"
+                      name="N° document"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Location Code]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Location Code]"
+                      length="10"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Location Code]"
+                      name="Location Code"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Source Posting Group]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Source Posting Group]"
+                      length="20"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Source Posting Group]"
+                      name="Source Posting Group"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Quantité valorisée]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Valued Quantity]"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Quantité valorisée]"
+                      name="Quantité valorisée"
+                      precision="38"
+                      scale="20"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Quantité facturée]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Invoiced Quantity]"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Quantité facturée]"
+                      name="Quantité facturée"
+                      precision="38"
+                      scale="20"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Cout unitaire]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Cost per Unit]"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Cout unitaire]"
+                      name="Cout unitaire"
+                      precision="38"
+                      scale="20"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Coût total (réel)]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Cost Amount (Actual)]"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Coût total (réel)]"
+                      name="Coût total (réel)"
+                      precision="38"
+                      scale="20"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Groupes comptabilisation produit]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Gen_ Prod_ Posting Group]"
+                      length="20"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Groupes comptabilisation produit]"
+                      name="Groupes comptabilisation produit"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Date évaluation]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Valuation Date]"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Date évaluation]"
+                      name="Date évaluation"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Montant achats (reel)]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Purchase Amount (Actual)]"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Montant achats (reel)]"
+                      name="Montant achats (reel)"
+                      precision="38"
+                      scale="20"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Montant achats (prevu)]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Purchase Amount (Expected)]"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Montant achats (prevu)]"
+                      name="Montant achats (prevu)"
+                      precision="38"
+                      scale="20"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Coût total (prévu)]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Cost Amount (Expected)]"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Coût total (prévu)]"
+                      name="Coût total (prévu)"
+                      precision="38"
+                      scale="20"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Dimension Set ID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Dimension Set ID]"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Dimension Set ID]"
+                      name="Dimension Set ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Groupe compta. stock]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Inventory Posting Group]"
+                      length="20"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].Columns[Groupe compta. stock]"
+                      name="Groupe compta. stock"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[timestamp]"
+                      dataType="bytes"
+                      length="8"
+                      name="timestamp" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Entry No_]"
+                      dataType="i4"
+                      name="Entry No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Item No_]"
+                      dataType="wstr"
+                      length="20"
+                      name="Item No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Posting Date]"
+                      dataType="dbTimeStamp"
+                      name="Posting Date" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Item Ledger Entry Type]"
+                      dataType="i4"
+                      name="Item Ledger Entry Type" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Source No_]"
+                      dataType="wstr"
+                      length="20"
+                      name="Source No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Document No_]"
+                      dataType="wstr"
+                      length="20"
+                      name="Document No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Description]"
+                      dataType="wstr"
+                      length="100"
+                      name="Description" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Location Code]"
+                      dataType="wstr"
+                      length="10"
+                      name="Location Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Inventory Posting Group]"
+                      dataType="wstr"
+                      length="20"
+                      name="Inventory Posting Group" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Source Posting Group]"
+                      dataType="wstr"
+                      length="20"
+                      name="Source Posting Group" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Item Ledger Entry No_]"
+                      dataType="i4"
+                      name="Item Ledger Entry No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Valued Quantity]"
+                      dataType="numeric"
+                      name="Valued Quantity"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Item Ledger Entry Quantity]"
+                      dataType="numeric"
+                      name="Item Ledger Entry Quantity"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Invoiced Quantity]"
+                      dataType="numeric"
+                      name="Invoiced Quantity"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Cost per Unit]"
+                      dataType="numeric"
+                      name="Cost per Unit"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Sales Amount (Actual)]"
+                      dataType="numeric"
+                      name="Sales Amount (Actual)"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Salespers__Purch_ Code]"
+                      dataType="wstr"
+                      length="20"
+                      name="Salespers__Purch_ Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Discount Amount]"
+                      dataType="numeric"
+                      name="Discount Amount"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[User ID]"
+                      dataType="wstr"
+                      length="50"
+                      name="User ID" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Source Code]"
+                      dataType="wstr"
+                      length="10"
+                      name="Source Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Applies-to Entry]"
+                      dataType="i4"
+                      name="Applies-to Entry" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Global Dimension 1 Code]"
+                      dataType="wstr"
+                      length="20"
+                      name="Global Dimension 1 Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Global Dimension 2 Code]"
+                      dataType="wstr"
+                      length="20"
+                      name="Global Dimension 2 Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Source Type]"
+                      dataType="i4"
+                      name="Source Type" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Cost Amount (Actual)]"
+                      dataType="numeric"
+                      name="Cost Amount (Actual)"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Cost Posted to G_L]"
+                      dataType="numeric"
+                      name="Cost Posted to G_L"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Reason Code]"
+                      dataType="wstr"
+                      length="10"
+                      name="Reason Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Drop Shipment]"
+                      dataType="ui1"
+                      name="Drop Shipment" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Journal Batch Name]"
+                      dataType="wstr"
+                      length="10"
+                      name="Journal Batch Name" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Gen_ Bus_ Posting Group]"
+                      dataType="wstr"
+                      length="20"
+                      name="Gen_ Bus_ Posting Group" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Gen_ Prod_ Posting Group]"
+                      dataType="wstr"
+                      length="20"
+                      name="Gen_ Prod_ Posting Group" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Document Date]"
+                      dataType="dbTimeStamp"
+                      name="Document Date" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[External Document No_]"
+                      dataType="wstr"
+                      length="35"
+                      name="External Document No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Cost Amount (Actual) (ACY)]"
+                      dataType="numeric"
+                      name="Cost Amount (Actual) (ACY)"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Cost Posted to G_L (ACY)]"
+                      dataType="numeric"
+                      name="Cost Posted to G_L (ACY)"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Cost per Unit (ACY)]"
+                      dataType="numeric"
+                      name="Cost per Unit (ACY)"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Document Type]"
+                      dataType="i4"
+                      name="Document Type" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Document Line No_]"
+                      dataType="i4"
+                      name="Document Line No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Order Type]"
+                      dataType="i4"
+                      name="Order Type" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Order No_]"
+                      dataType="wstr"
+                      length="20"
+                      name="Order No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Order Line No_]"
+                      dataType="i4"
+                      name="Order Line No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Expected Cost]"
+                      dataType="ui1"
+                      name="Expected Cost" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Item Charge No_]"
+                      dataType="wstr"
+                      length="20"
+                      name="Item Charge No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Valued By Average Cost]"
+                      dataType="ui1"
+                      name="Valued By Average Cost" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Partial Revaluation]"
+                      dataType="ui1"
+                      name="Partial Revaluation" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Inventoriable]"
+                      dataType="ui1"
+                      name="Inventoriable" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Valuation Date]"
+                      dataType="dbTimeStamp"
+                      name="Valuation Date" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Entry Type]"
+                      dataType="i4"
+                      name="Entry Type" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Variance Type]"
+                      dataType="i4"
+                      name="Variance Type" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Purchase Amount (Actual)]"
+                      dataType="numeric"
+                      name="Purchase Amount (Actual)"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Purchase Amount (Expected)]"
+                      dataType="numeric"
+                      name="Purchase Amount (Expected)"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Sales Amount (Expected)]"
+                      dataType="numeric"
+                      name="Sales Amount (Expected)"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Cost Amount (Expected)]"
+                      dataType="numeric"
+                      name="Cost Amount (Expected)"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Cost Amount (Non-Invtbl_)]"
+                      dataType="numeric"
+                      name="Cost Amount (Non-Invtbl_)"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Cost Amount (Expected) (ACY)]"
+                      dataType="numeric"
+                      name="Cost Amount (Expected) (ACY)"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Cost Amount (Non-Invtbl_)(ACY)]"
+                      dataType="numeric"
+                      name="Cost Amount (Non-Invtbl_)(ACY)"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Expected Cost Posted to G_L]"
+                      dataType="numeric"
+                      name="Expected Cost Posted to G_L"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Exp_ Cost Posted to G_L (ACY)]"
+                      dataType="numeric"
+                      name="Exp_ Cost Posted to G_L (ACY)"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Dimension Set ID]"
+                      dataType="i4"
+                      name="Dimension Set ID" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Job No_]"
+                      dataType="wstr"
+                      length="20"
+                      name="Job No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Job Task No_]"
+                      dataType="wstr"
+                      length="20"
+                      name="Job Task No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Job Ledger Entry No_]"
+                      dataType="i4"
+                      name="Job Ledger Entry No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Variant Code]"
+                      dataType="wstr"
+                      length="10"
+                      name="Variant Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Adjustment]"
+                      dataType="ui1"
+                      name="Adjustment" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Average Cost Exception]"
+                      dataType="ui1"
+                      name="Average Cost Exception" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Capacity Ledger Entry No_]"
+                      dataType="i4"
+                      name="Capacity Ledger Entry No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Type]"
+                      dataType="i4"
+                      name="Type" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[No_]"
+                      dataType="wstr"
+                      length="20"
+                      name="No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Return Reason Code]"
+                      dataType="wstr"
+                      length="10"
+                      name="Return Reason Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Product Original]"
+                      dataType="wstr"
+                      length="20"
+                      name="Product Original" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Date of Transshipment]"
+                      dataType="dbTimeStamp"
+                      name="Date of Transshipment" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Date of ETA Casa]"
+                      dataType="dbTimeStamp"
+                      name="Date of ETA Casa" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Date of DUM]"
+                      dataType="dbTimeStamp"
+                      name="Date of DUM" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[N° of DUM]"
+                      dataType="wstr"
+                      length="20"
+                      name="N° of DUM" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Exchange rate]"
+                      dataType="numeric"
+                      name="Exchange rate"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[clearance date]"
+                      dataType="dbTimeStamp"
+                      name="clearance date" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[date to arrive deposit]"
+                      dataType="dbTimeStamp"
+                      name="date to arrive deposit" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Date of negiciation]"
+                      dataType="dbTimeStamp"
+                      name="Date of negiciation" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Amount deestarie]"
+                      dataType="numeric"
+                      name="Amount deestarie"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Amount ODEP]"
+                      dataType="numeric"
+                      name="Amount ODEP"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Company]"
+                      dataType="i4"
+                      name="Company" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[INCOTERM]"
+                      dataType="i4"
+                      name="INCOTERM" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[TYPE OF TC]"
+                      dataType="i4"
+                      name="TYPE OF TC" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[CUSTOMS REGIME]"
+                      dataType="i4"
+                      name="CUSTOMS REGIME" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Date of Obligation]"
+                      dataType="dbTimeStamp"
+                      name="Date of Obligation" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Exchange Dum]"
+                      dataType="numeric"
+                      name="Exchange Dum"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB].ExternalColumns[Departement]"
+                      dataType="i4"
+                      name="Departement" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB]"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de source OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Entry No_]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Entry No_]"
+                      name="Entry No_" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Item No_]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Item No_]"
+                      name="Item No_" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Posting Date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Posting Date]"
+                      name="Posting Date" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Source No_]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Source No_]"
+                      name="Source No_" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Document No_]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Document No_]"
+                      name="Document No_" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Location Code]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Location Code]"
+                      name="Location Code" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Source Posting Group]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Source Posting Group]"
+                      name="Source Posting Group" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Valued Quantity]"
+                      dataType="numeric"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Valued Quantity]"
+                      name="Valued Quantity"
+                      precision="38"
+                      scale="20" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Invoiced Quantity]"
+                      dataType="numeric"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Invoiced Quantity]"
+                      name="Invoiced Quantity"
+                      precision="38"
+                      scale="20" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Cost per Unit]"
+                      dataType="numeric"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Cost per Unit]"
+                      name="Cost per Unit"
+                      precision="38"
+                      scale="20" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Cost Amount (Actual)]"
+                      dataType="numeric"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Cost Amount (Actual)]"
+                      name="Cost Amount (Actual)"
+                      precision="38"
+                      scale="20" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Gen_ Prod_ Posting Group]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Gen_ Prod_ Posting Group]"
+                      name="Gen_ Prod_ Posting Group" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Valuation Date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Valuation Date]"
+                      name="Valuation Date" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Purchase Amount (Actual)]"
+                      dataType="numeric"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Purchase Amount (Actual)]"
+                      name="Purchase Amount (Actual)"
+                      precision="38"
+                      scale="20" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Purchase Amount (Expected)]"
+                      dataType="numeric"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Purchase Amount (Expected)]"
+                      name="Purchase Amount (Expected)"
+                      precision="38"
+                      scale="20" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Cost Amount (Expected)]"
+                      dataType="numeric"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Cost Amount (Expected)]"
+                      name="Cost Amount (Expected)"
+                      precision="38"
+                      scale="20" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Dimension Set ID]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Dimension Set ID]"
+                      name="Dimension Set ID" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Inventory Posting Group]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie d'erreur de source OLE DB].Columns[Inventory Posting Group]"
+                      name="Inventory Posting Group" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Chargement de la Table Achats_Fact.Paths[Sortie de recherche avec correspondance]"
+              endId="Package\Chargement de la Table Achats_Fact\id_DimLocation.Inputs[Entrée de recherche]"
+              name="Sortie de recherche avec correspondance"
+              startId="Package\Chargement de la Table Achats_Fact\id_DimItem.Outputs[Sortie de recherche avec correspondance]" />
+            <path
+              refId="Package\Chargement de la Table Achats_Fact.Paths[Sortie de recherche avec correspondance1]"
+              endId="Package\Chargement de la Table Achats_Fact\id_DimFournisseur.Inputs[Entrée de recherche]"
+              name="Sortie de recherche avec correspondance"
+              startId="Package\Chargement de la Table Achats_Fact\id_DimLocation.Outputs[Sortie de recherche avec correspondance]" />
+            <path
+              refId="Package\Chargement de la Table Achats_Fact.Paths[Sortie de recherche avec correspondance2]"
+              endId="Package\Chargement de la Table Achats_Fact\id_DimGCS.Inputs[Entrée de recherche]"
+              name="Sortie de recherche avec correspondance"
+              startId="Package\Chargement de la Table Achats_Fact\id_DimFournisseur.Outputs[Sortie de recherche avec correspondance]" />
+            <path
+              refId="Package\Chargement de la Table Achats_Fact.Paths[Sortie de recherche avec correspondance3]"
+              endId="Package\Chargement de la Table Achats_Fact\id_DimGCP.Inputs[Entrée de recherche]"
+              name="Sortie de recherche avec correspondance"
+              startId="Package\Chargement de la Table Achats_Fact\id_DimGCS.Outputs[Sortie de recherche avec correspondance]" />
+            <path
+              refId="Package\Chargement de la Table Achats_Fact.Paths[Sortie de recherche avec correspondance4]"
+              endId="Package\Chargement de la Table Achats_Fact\Achats_Fact.Inputs[Entrée de destination OLE DB]"
+              name="Sortie de recherche avec correspondance"
+              startId="Package\Chargement de la Table Achats_Fact\id_DimGCP.Outputs[Sortie de recherche avec correspondance]" />
+            <path
+              refId="Package\Chargement de la Table Achats_Fact.Paths[Sortie de source OLE DB]"
+              endId="Package\Chargement de la Table Achats_Fact\id_DimItem.Inputs[Entrée de recherche]"
+              name="Sortie de source OLE DB"
+              startId="Package\Chargement de la Table Achats_Fact\Staging_Entry Value.Outputs[Sortie de source OLE DB]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Cette section CDATA contient des informations sur la disposition du package. Elle comprend des informations telles que les coordonnées (x,y), la largeur et la hauteur.-->
+<!--Si vous modifiez manuellement cette section et commettez une erreur, vous pouvez la supprimer. -->
+<!--Le package pourra toujours se charger normalement, mais les informations de disposition précédente seront perdues et le concepteur réorganisera automatiquement les éléments sur l'aire de conception.-->
+<Objects
+  Version="8">
+  <!--Chaque nœud ci-dessous contiendra des propriétés qui n'affectent pas le comportement d'exécution.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="251.2,41.6"
+          Id="Package\Chargement de la Table Achats_Fact"
+          TopLeft="65.7142868333933,61.1764714462122" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Chargement de la Table Achats_Fact">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="173.6,41.6"
+          Id="Package\Chargement de la Table Achats_Fact\Staging_Entry Value"
+          TopLeft="80.5714299435518,26.3058827218712" />
+        <NodeLayout
+          Size="165.6,41.6"
+          Id="Package\Chargement de la Table Achats_Fact\id_DimFournisseur"
+          TopLeft="320.326536067374,191.83193546348" />
+        <NodeLayout
+          Size="130.4,41.6"
+          Id="Package\Chargement de la Table Achats_Fact\id_DimGCS"
+          TopLeft="130.775512431175,194.736136657556" />
+        <NodeLayout
+          Size="150.4,41.6"
+          Id="Package\Chargement de la Table Achats_Fact\id_DimLocation"
+          TopLeft="329.469393365932,99.2806736612814" />
+        <NodeLayout
+          Size="130.4,41.6"
+          Id="Package\Chargement de la Table Achats_Fact\id_DimGCP"
+          TopLeft="130.693879776724,276.356305802157" />
+        <NodeLayout
+          Size="133.6,41.6"
+          Id="Package\Chargement de la Table Achats_Fact\id_DimItem"
+          TopLeft="104.163267080012,94.3865559455846" />
+        <NodeLayout
+          Size="135.2,41.6"
+          Id="Package\Chargement de la Table Achats_Fact\Achats_Fact"
+          TopLeft="385.061231047349,350.978156182841" />
+        <EdgeLayout
+          Id="Package\Chargement de la Table Achats_Fact.Paths[Sortie de source OLE DB]"
+          TopLeft="169.167348511782,67.9058827218712">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,26.4806732237134"
+              Start="0,0"
+              End="0,18.9806732237134">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.9806732237134" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Chargement de la Table Achats_Fact.Paths[Sortie de recherche avec correspondance4]"
+          TopLeft="195.893879776724,317.956305802157">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="256.767351270625,33.0218503806835"
+              Start="0,0"
+              End="256.767351270625,25.5218503806835">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,12.5109251903417" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,12.5109251903417"
+                    Point2="0,16.5109251903417"
+                    Point3="4,16.5109251903417" />
+                  <mssgle:LineSegment
+                    End="252.767351270625,16.5109251903417" />
+                  <mssgle:CubicBezierSegment
+                    Point1="252.767351270625,16.5109251903417"
+                    Point2="256.767351270625,16.5109251903417"
+                    Point3="256.767351270625,20.5109251903417" />
+                  <mssgle:LineSegment
+                    End="256.767351270625,25.5218503806835" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="36.7066639165627,21.5109251903417,183.3540234375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Chargement de la Table Achats_Fact.Paths[Sortie de recherche avec correspondance3]"
+          TopLeft="195.93469610395,236.336136657556">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40.020169144601"
+              Start="0,0"
+              End="0,32.520169144601">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.520169144601" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-91.67701171875,10.4553970723005,183.3540234375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Chargement de la Table Achats_Fact.Paths[Sortie de recherche avec correspondance2]"
+          TopLeft="320.326536067374,214.084036060518">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-59.1510236361991,0"
+              Start="0,0"
+              End="-51.6510236361991,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-51.6510236361991,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-117.50252353685,5,183.3540234375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Chargement de la Table Achats_Fact.Paths[Sortie de recherche avec correspondance1]"
+          TopLeft="403.897964716653,140.880673661281">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,50.9512618021982"
+              Start="0,0"
+              End="0,43.4512618021982">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,43.4512618021982" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-91.67701171875,15.9209434010991,183.3540234375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Chargement de la Table Achats_Fact.Paths[Sortie de recherche avec correspondance]"
+          TopLeft="237.763267080012,117.633614803433">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="91.7061262859203,0"
+              Start="0,0"
+              End="84.2061262859203,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="84.2061262859203,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-49.5739485757899,5,183.3540234375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Chargement de la Table Achats_Fact\Staging_Entry Value">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Chargement de la Table Achats_Fact\id_DimFournisseur">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[Dim_Fournisseur]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Chargement de la Table Achats_Fact\id_DimGCS">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[Dim_GroupeComptaStock]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Chargement de la Table Achats_Fact\id_DimLocation">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[Dim_Location]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Chargement de la Table Achats_Fact\id_DimGCP">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[Dim_GroupeComptaProduit]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Chargement de la Table Achats_Fact\id_DimItem">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Chargement de la Table Achats_Fact\Achats_Fact">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

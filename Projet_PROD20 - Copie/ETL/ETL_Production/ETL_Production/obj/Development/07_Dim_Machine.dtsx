@@ -1,0 +1,949 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="6/6/2020 2:35:52 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="NAV_2017"
+  DTS:CreatorName="MATHE\administrateur"
+  DTS:DTSID="{819AE91A-3B29-4CD2-BC02-3268B88B80F5}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3002.107"
+  DTS:LocaleID="1036"
+  DTS:ObjectName="07_Dim_Machine"
+  DTS:PackageType="5"
+  DTS:VersionBuild="9"
+  DTS:VersionGUID="{1C8D245B-8575-42E1-AF0D-CA2FBA832A02}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.DWH_Prod2020]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{DCFBE0C5-DAC4-42DA-B453-BF0230C232DE}"
+      DTS:ObjectName="LocalHost.DWH_Prod2020">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=.;Initial Catalog=DWH_Prod2020;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.Staging2020]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{95E7721E-DD9D-45B5-A834-4F394AE0086F}"
+      DTS:ObjectName="LocalHost.Staging2020">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=172.30.14.12;Initial Catalog=Staging2020;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Chargement Dim_Machine"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tâche de flux de données"
+      DTS:DTSID="{8858BF9C-676B-4348-B1E3-8EFFC55EE4A5}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Chargement Dim_Machine"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Chargement Dim_Machine\Dim_Machine"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destination OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;4"
+              description="Destination OLE DB"
+              name="Dim_Machine"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Nombre de secondes avant l'expiration d'une commande.  Une valeur égale à 0 indique un délai d'expiration infini."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowset">[Dim_Machine]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie la variable contenant le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Commande SQL à exécuter."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Force l'utilisation de la valeur de propriété DefaultCodePage lors de la description des données caractères."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le mode utilisé pour accéder à la base de données."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si les valeurs fournies pour les colonnes d'identité seront copiées à la destination. Si la valeur est définie à False, les valeurs des colonnes d'identité seront générées automatiquement à la destination. Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si les colonnes contenant la valeur NULL auront cette valeur NULL copiée à la destination. Si la valeur est définie à False, les colonnes contenant la valeur NULL auront leurs valeurs par défaut insérées à la destination. Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie les options à utiliser avec le chargement rapide.  Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie quand les validations sont émises pendant l'insertion des données.  Une valeur égale à 0 spécifie qu'une validation sera émise à la fin de l'insertion des données.  Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Chargement Dim_Machine\Dim_Machine.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.DWH_Prod2020]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.DWH_Prod2020]"
+                  description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB]"
+                  errorOrTruncationOperation="Insérer"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrée de destination OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].Columns[Statut]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Statut"
+                      externalMetadataColumnId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].ExternalColumns[Statut]"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[Statut]" />
+                    <inputColumn
+                      refId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].Columns[N° ordre de fabrication]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="N° ordre de fabrication"
+                      externalMetadataColumnId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].ExternalColumns[N° ordre de fabrication]"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[N° ordre de fabrication]" />
+                    <inputColumn
+                      refId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].Columns[N° opération]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="N° opération"
+                      externalMetadataColumnId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].ExternalColumns[N° opération]"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[N° opération]" />
+                    <inputColumn
+                      refId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].Columns[Description]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Description"
+                      externalMetadataColumnId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].ExternalColumns[Description]"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[Description]" />
+                    <inputColumn
+                      refId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].Columns[Temps de préparation]"
+                      cachedDataType="r8"
+                      cachedName="Temps de préparation"
+                      externalMetadataColumnId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].ExternalColumns[Temps de préparation]"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[Temps de préparation]" />
+                    <inputColumn
+                      refId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].Columns[Temps d'exécution]"
+                      cachedDataType="r8"
+                      cachedName="Temps d'exécution"
+                      externalMetadataColumnId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].ExternalColumns[Temps d'exécution]"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[Temps d'exécution]" />
+                    <inputColumn
+                      refId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].Columns[Temps d'attente]"
+                      cachedDataType="r8"
+                      cachedName="Temps d'attente"
+                      externalMetadataColumnId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].ExternalColumns[Temps d'attente]"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[Temps d'attente]" />
+                    <inputColumn
+                      refId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].Columns[Temps de transfert]"
+                      cachedDataType="r8"
+                      cachedName="Temps de transfert"
+                      externalMetadataColumnId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].ExternalColumns[Temps de transfert]"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[Temps de transfert]" />
+                    <inputColumn
+                      refId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].Columns[Heure début]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Heure début"
+                      externalMetadataColumnId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].ExternalColumns[Heure début]"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[Heure début]" />
+                    <inputColumn
+                      refId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].Columns[Date début]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Date début"
+                      externalMetadataColumnId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].ExternalColumns[Date début]"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[Date début]" />
+                    <inputColumn
+                      refId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].Columns[Heure fin]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Heure fin"
+                      externalMetadataColumnId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].ExternalColumns[Heure fin]"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[Heure fin]" />
+                    <inputColumn
+                      refId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].Columns[Date fin]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Date fin"
+                      externalMetadataColumnId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].ExternalColumns[Date fin]"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[Date fin]" />
+                    <inputColumn
+                      refId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].Columns[Capacités simultanées]"
+                      cachedDataType="r8"
+                      cachedName="Capacités simultanées"
+                      externalMetadataColumnId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].ExternalColumns[Capacités simultanées]"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[Capacités simultanées]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].ExternalColumns[Statut]"
+                      dataType="wstr"
+                      length="255"
+                      name="Statut" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].ExternalColumns[N° ordre de fabrication]"
+                      dataType="wstr"
+                      length="255"
+                      name="N° ordre de fabrication" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].ExternalColumns[N° opération]"
+                      dataType="wstr"
+                      length="255"
+                      name="N° opération" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].ExternalColumns[Description]"
+                      dataType="wstr"
+                      length="255"
+                      name="Description" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].ExternalColumns[Temps de préparation]"
+                      dataType="r8"
+                      name="Temps de préparation" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].ExternalColumns[Temps d'exécution]"
+                      dataType="r8"
+                      name="Temps d'exécution" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].ExternalColumns[Temps d'attente]"
+                      dataType="r8"
+                      name="Temps d'attente" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].ExternalColumns[Temps de transfert]"
+                      dataType="r8"
+                      name="Temps de transfert" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].ExternalColumns[Heure début]"
+                      dataType="dbTimeStamp"
+                      name="Heure début" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].ExternalColumns[Date début]"
+                      dataType="dbTimeStamp"
+                      name="Date début" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].ExternalColumns[Heure fin]"
+                      dataType="dbTimeStamp"
+                      name="Heure fin" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].ExternalColumns[Date fin]"
+                      dataType="dbTimeStamp"
+                      name="Date fin" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB].ExternalColumns[Capacités simultanées]"
+                      dataType="r8"
+                      name="Capacités simultanées" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Chargement Dim_Machine\Dim_Machine.Outputs[Sortie d'erreur de destination OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de destination OLE DB"
+                  synchronousInputId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement Dim_Machine\Dim_Machine.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Chargement Dim_Machine\Dim_Machine.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Machine\Dim_Machine.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Chargement Dim_Machine\Dim_Machine.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Chargement Dim_Machine\Recherche"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Recherche;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;6"
+              description="Joint des colonnes supplémentaires au flux de données en recherchant des valeurs dans une table. Par exemple, joignez la colonne 'id employé' à la table des employés afin d'obtenir la 'date d'embauche' et le 'nom de l'employé'. Nous recommandons cette transformation lorsque la table de recherche peut être stockée en mémoire."
+              name="Recherche"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Spécifie l'instruction SQL qui génère la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select [N° ordre de fabrication] from [dbo].[Staging_Machine Center Task List]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie une instruction SQL qui utilise des paramètres pour générer la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select [N° ordre de fabrication] from [dbo].[Staging_Machine Center Task List]) [refTable]
+where [refTable].[N° ordre de fabrication] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de connexion utilisé pour accéder au dataset de référence."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de cache de la table de correspondance."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie comment la transformation de recherche gère les lignes sans entrées correspondantes dans le jeu de données de référence."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le pourcentage du cache alloué aux lignes sans entrées correspondantes dans le dataset de référence."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indique si les métadonnées sont à référencer en format XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="N° ordre de fabrication" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Spécifie la liste d'identificateurs de lignage se mappant aux paramètres utilisés dans la propriété SQLCommand par l'instruction SQL. Les entrées dans la liste sont séparées par des points-virgules."
+                  name="ParameterMap">#{Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[N° ordre de fabrication]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Détermine si les clés dupliquées dans les données de référence doivent être traitées en tant qu'erreurs lorsque le mode Cache complet est utilisé."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Chargement Dim_Machine\Recherche.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.Staging2020]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.Staging2020]"
+                  description="Gestionnaire de connexions utilisé pour accéder aux données de correspondance."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Chargement Dim_Machine\Recherche.Inputs[Entrée de recherche]"
+                  name="Entrée de recherche">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Chargement Dim_Machine\Recherche.Inputs[Entrée de recherche].Columns[N° ordre de fabrication]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="N° ordre de fabrication"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[N° ordre de fabrication]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">N° ordre de fabrication</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Chargement Dim_Machine\Recherche.Outputs[Sortie de recherche avec correspondance]"
+                  errorOrTruncationOperation="Recherche"
+                  exclusionGroup="1"
+                  name="Sortie de recherche avec correspondance"
+                  synchronousInputId="Package\Chargement Dim_Machine\Recherche.Inputs[Entrée de recherche]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Chargement Dim_Machine\Recherche.Outputs[Sortie de recherche sans correspondance]"
+                  description="Sortie de recherche gérant les lignes sans entrées correspondantes dans le dataset de référence. Utilisez cette sortie lorsque la propriété NoMatchBehavior a la valeur « Envoyez les lignes sans entrées correspondantes dans la sortie sans correspondance »."
+                  exclusionGroup="1"
+                  name="Sortie de recherche sans correspondance"
+                  synchronousInputId="Package\Chargement Dim_Machine\Recherche.Inputs[Entrée de recherche]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Chargement Dim_Machine\Recherche.Outputs[Sortie d'erreur de recherche]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de recherche"
+                  synchronousInputId="Package\Chargement Dim_Machine\Recherche.Inputs[Entrée de recherche]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement Dim_Machine\Recherche.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Chargement Dim_Machine\Recherche.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Machine\Recherche.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Chargement Dim_Machine\Recherche.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Source OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;7"
+              description="Source OLE DB"
+              name="Staging_Machine Center Task List"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Nombre de secondes avant l'expiration d'une commande.  Une valeur égale à 0 indique un délai d'expiration infini."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowset">[dbo].[Staging_Machine Center Task List]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie la variable contenant le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Commande SQL à exécuter."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="Variable contenant la commande SQL à exécuter."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Force l'utilisation de la valeur de propriété DefaultCodePage lors de la description des données caractères."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le mode utilisé pour accéder à la base de données."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="Mappages entre les paramètres de la commande SQL et les variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.Staging2020]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.Staging2020]"
+                  description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB]"
+                  name="Sortie de source OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[Statut]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].ExternalColumns[Statut]"
+                      length="255"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[Statut]"
+                      name="Statut"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[N° ordre de fabrication]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].ExternalColumns[N° ordre de fabrication]"
+                      length="255"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[N° ordre de fabrication]"
+                      name="N° ordre de fabrication"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[N° opération]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].ExternalColumns[N° opération]"
+                      length="255"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[N° opération]"
+                      name="N° opération"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[Description]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].ExternalColumns[Description]"
+                      length="255"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[Description]"
+                      name="Description"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[Temps de préparation]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].ExternalColumns[Temps de préparation]"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[Temps de préparation]"
+                      name="Temps de préparation"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[Temps d'exécution]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].ExternalColumns[Temps d'exécution]"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[Temps d'exécution]"
+                      name="Temps d'exécution"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[Temps d'attente]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].ExternalColumns[Temps d'attente]"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[Temps d'attente]"
+                      name="Temps d'attente"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[Temps de transfert]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].ExternalColumns[Temps de transfert]"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[Temps de transfert]"
+                      name="Temps de transfert"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[Heure début]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].ExternalColumns[Heure début]"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[Heure début]"
+                      name="Heure début"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[Date début]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].ExternalColumns[Date début]"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[Date début]"
+                      name="Date début"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[Heure fin]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].ExternalColumns[Heure fin]"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[Heure fin]"
+                      name="Heure fin"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[Date fin]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].ExternalColumns[Date fin]"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[Date fin]"
+                      name="Date fin"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[Capacités simultanées]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].ExternalColumns[Capacités simultanées]"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].Columns[Capacités simultanées]"
+                      name="Capacités simultanées"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].ExternalColumns[Statut]"
+                      dataType="wstr"
+                      length="255"
+                      name="Statut" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].ExternalColumns[N° ordre de fabrication]"
+                      dataType="wstr"
+                      length="255"
+                      name="N° ordre de fabrication" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].ExternalColumns[N° opération]"
+                      dataType="wstr"
+                      length="255"
+                      name="N° opération" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].ExternalColumns[Description]"
+                      dataType="wstr"
+                      length="255"
+                      name="Description" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].ExternalColumns[Temps de préparation]"
+                      dataType="r8"
+                      name="Temps de préparation" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].ExternalColumns[Temps d'exécution]"
+                      dataType="r8"
+                      name="Temps d'exécution" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].ExternalColumns[Temps d'attente]"
+                      dataType="r8"
+                      name="Temps d'attente" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].ExternalColumns[Temps de transfert]"
+                      dataType="r8"
+                      name="Temps de transfert" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].ExternalColumns[Heure début]"
+                      dataType="dbTimeStamp"
+                      name="Heure début" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].ExternalColumns[Date début]"
+                      dataType="dbTimeStamp"
+                      name="Date début" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].ExternalColumns[Heure fin]"
+                      dataType="dbTimeStamp"
+                      name="Heure fin" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].ExternalColumns[Date fin]"
+                      dataType="dbTimeStamp"
+                      name="Date fin" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB].ExternalColumns[Capacités simultanées]"
+                      dataType="r8"
+                      name="Capacités simultanées" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie d'erreur de source OLE DB]"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de source OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie d'erreur de source OLE DB].Columns[Statut]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie d'erreur de source OLE DB].Columns[Statut]"
+                      name="Statut" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie d'erreur de source OLE DB].Columns[N° ordre de fabrication]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie d'erreur de source OLE DB].Columns[N° ordre de fabrication]"
+                      name="N° ordre de fabrication" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie d'erreur de source OLE DB].Columns[N° opération]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie d'erreur de source OLE DB].Columns[N° opération]"
+                      name="N° opération" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie d'erreur de source OLE DB].Columns[Description]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie d'erreur de source OLE DB].Columns[Description]"
+                      name="Description" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie d'erreur de source OLE DB].Columns[Temps de préparation]"
+                      dataType="r8"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie d'erreur de source OLE DB].Columns[Temps de préparation]"
+                      name="Temps de préparation" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie d'erreur de source OLE DB].Columns[Temps d'exécution]"
+                      dataType="r8"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie d'erreur de source OLE DB].Columns[Temps d'exécution]"
+                      name="Temps d'exécution" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie d'erreur de source OLE DB].Columns[Temps d'attente]"
+                      dataType="r8"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie d'erreur de source OLE DB].Columns[Temps d'attente]"
+                      name="Temps d'attente" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie d'erreur de source OLE DB].Columns[Temps de transfert]"
+                      dataType="r8"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie d'erreur de source OLE DB].Columns[Temps de transfert]"
+                      name="Temps de transfert" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie d'erreur de source OLE DB].Columns[Heure début]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie d'erreur de source OLE DB].Columns[Heure début]"
+                      name="Heure début" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie d'erreur de source OLE DB].Columns[Date début]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie d'erreur de source OLE DB].Columns[Date début]"
+                      name="Date début" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie d'erreur de source OLE DB].Columns[Heure fin]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie d'erreur de source OLE DB].Columns[Heure fin]"
+                      name="Heure fin" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie d'erreur de source OLE DB].Columns[Date fin]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie d'erreur de source OLE DB].Columns[Date fin]"
+                      name="Date fin" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie d'erreur de source OLE DB].Columns[Capacités simultanées]"
+                      dataType="r8"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie d'erreur de source OLE DB].Columns[Capacités simultanées]"
+                      name="Capacités simultanées" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Chargement Dim_Machine.Paths[Sortie de recherche sans correspondance]"
+              endId="Package\Chargement Dim_Machine\Dim_Machine.Inputs[Entrée de destination OLE DB]"
+              name="Sortie de recherche sans correspondance"
+              startId="Package\Chargement Dim_Machine\Recherche.Outputs[Sortie de recherche sans correspondance]" />
+            <path
+              refId="Package\Chargement Dim_Machine.Paths[Sortie de source OLE DB]"
+              endId="Package\Chargement Dim_Machine\Recherche.Inputs[Entrée de recherche]"
+              name="Sortie de source OLE DB"
+              startId="Package\Chargement Dim_Machine\Staging_Machine Center Task List.Outputs[Sortie de source OLE DB]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Cette section CDATA contient des informations sur la disposition du package. Elle comprend des informations telles que les coordonnées (x,y), la largeur et la hauteur.-->
+<!--Si vous modifiez manuellement cette section et commettez une erreur, vous pouvez la supprimer. -->
+<!--Le package pourra toujours se charger normalement, mais les informations de disposition précédente seront perdues et le concepteur réorganisera automatiquement les éléments sur l'aire de conception.-->
+<Objects
+  Version="8">
+  <!--Chaque nœud ci-dessous contiendra des propriétés qui n'affectent pas le comportement d'exécution.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="202.4,41.6"
+          Id="Package\Chargement Dim_Machine"
+          TopLeft="98.85714454067,72.8000010209925" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Chargement Dim_Machine">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="236.8,41.6"
+          Id="Package\Chargement Dim_Machine\Staging_Machine Center Task List"
+          TopLeft="53.7142866290346,52.6117654437424" />
+        <NodeLayout
+          Size="127.2,41.6"
+          Id="Package\Chargement Dim_Machine\Recherche"
+          TopLeft="402.285721136599,157.835296331227" />
+        <NodeLayout
+          Size="141.6,41.6"
+          Id="Package\Chargement Dim_Machine\Dim_Machine"
+          TopLeft="99.4285731218296,229.411767923295" />
+        <EdgeLayout
+          Id="Package\Chargement Dim_Machine.Paths[Sortie de source OLE DB]"
+          TopLeft="172.114286629035,94.2117654437424">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="293.771434507565,63.623530887485"
+              Start="0,0"
+              End="293.771434507565,56.123530887485">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.8117654437425" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,27.8117654437425"
+                    Point2="0,31.8117654437425"
+                    Point3="4,31.8117654437425" />
+                  <mssgle:LineSegment
+                    End="289.771434507565,31.8117654437425" />
+                  <mssgle:CubicBezierSegment
+                    Point1="289.771434507565,31.8117654437425"
+                    Point2="293.771434507565,31.8117654437425"
+                    Point3="293.771434507565,35.8117654437425" />
+                  <mssgle:LineSegment
+                    End="293.771434507565,56.123530887485" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Chargement Dim_Machine.Paths[Sortie de recherche sans correspondance]"
+          TopLeft="465.885721136599,199.435296331227">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-295.657148014769,29.976471592068"
+              Start="0,0"
+              End="-295.657148014769,22.476471592068">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,10.988235796034" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,10.988235796034"
+                    Point2="0,14.988235796034"
+                    Point3="-4,14.988235796034" />
+                  <mssgle:LineSegment
+                    End="-291.657148014769,14.988235796034" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-291.657148014769,14.988235796034"
+                    Point2="-295.657148014769,14.988235796034"
+                    Point3="-295.657148014769,18.988235796034" />
+                  <mssgle:LineSegment
+                    End="-295.657148014769,22.476471592068" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-239.330585726135,19.988235796034,183.0040234375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Chargement Dim_Machine\Staging_Machine Center Task List">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Chargement Dim_Machine\Recherche">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Chargement Dim_Machine\Dim_Machine">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

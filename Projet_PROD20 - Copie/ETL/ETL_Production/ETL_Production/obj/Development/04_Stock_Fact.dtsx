@@ -1,0 +1,1064 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="6/3/2020 3:03:19 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="NAV_2017"
+  DTS:CreatorName="MATHE\administrateur"
+  DTS:DTSID="{99FC7D08-61B6-4C0A-901F-178280862D42}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3002.107"
+  DTS:LocaleID="1036"
+  DTS:ObjectName="04_Stock_Fact"
+  DTS:PackageType="5"
+  DTS:VersionBuild="29"
+  DTS:VersionGUID="{EE4ABD52-A7DD-4A1D-B11C-EAF2A716E8EB}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.DWH_Prod2020]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{18729C91-E5FB-422D-A5C2-3369B7BE88DF}"
+      DTS:ObjectName="LocalHost.DWH_Prod2020">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=.;Initial Catalog=DWH_Prod2020;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.Staging2020]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{484F4BC6-B19D-47D1-B421-8E3E6776B0C6}"
+      DTS:ObjectName="LocalHost.Staging2020">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=172.30.14.12;Initial Catalog=Staging2020;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Chargement de la table Stock_Fact"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tâche de flux de données"
+      DTS:DTSID="{701BA27E-E807-4F2C-8AFD-23FB242A45E3}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Chargement de la table Stock_Fact"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Source OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;7"
+              description="Source OLE DB"
+              name="Creation de la table Stock_Fact"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Nombre de secondes avant l'expiration d'une commande.  Une valeur égale à 0 indique un délai d'expiration infini."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie la variable contenant le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Commande SQL à exécuter."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select [Posting Date],[Entry No_],[Entry Type],[Item No_],[Document No_],[Unit of Measure Code],Quantity,[Remaining Quantity],[Location Code]
+			
+from [Staging_Item Ledger Entry] as ILE
+
+where ([Remaining Quantity]&gt;0)
+order by [Posting Date] desc,[Entry No_]desc,[Remaining Quantity],[Entry Type] desc,[Item No_],Quantity</property>
+                <property
+                  dataType="System.String"
+                  description="Variable contenant la commande SQL à exécuter."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Force l'utilisation de la valeur de propriété DefaultCodePage lors de la description des données caractères."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le mode utilisé pour accéder à la base de données."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="Mappages entre les paramètres de la commande SQL et les variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.Staging2020]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.Staging2020]"
+                  description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB]"
+                  name="Sortie de source OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].Columns[Posting Date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Posting Date]"
+                      lineageId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].Columns[Posting Date]"
+                      name="Posting Date"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].Columns[Entry No_]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Entry No_]"
+                      lineageId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].Columns[Entry No_]"
+                      name="Entry No_"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].Columns[Entry Type]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Entry Type]"
+                      lineageId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].Columns[Entry Type]"
+                      name="Entry Type"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].Columns[Item No_]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Item No_]"
+                      length="20"
+                      lineageId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].Columns[Item No_]"
+                      name="Item No_"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].Columns[Document No_]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Document No_]"
+                      length="20"
+                      lineageId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].Columns[Document No_]"
+                      name="Document No_"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].Columns[Unité]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Unit of Measure Code]"
+                      length="10"
+                      lineageId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].Columns[Unité]"
+                      name="Unité"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].Columns[Quantité]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Quantity]"
+                      lineageId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].Columns[Quantité]"
+                      name="Quantité"
+                      precision="38"
+                      scale="20"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].Columns[Quantité restante]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Remaining Quantity]"
+                      lineageId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].Columns[Quantité restante]"
+                      name="Quantité restante"
+                      precision="38"
+                      scale="20"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].Columns[Location Code]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Location Code]"
+                      length="10"
+                      lineageId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].Columns[Location Code]"
+                      name="Location Code"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Posting Date]"
+                      dataType="dbTimeStamp"
+                      name="Posting Date" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Entry No_]"
+                      dataType="i4"
+                      name="Entry No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Entry Type]"
+                      dataType="i4"
+                      name="Entry Type" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Item No_]"
+                      dataType="wstr"
+                      length="20"
+                      name="Item No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Document No_]"
+                      dataType="wstr"
+                      length="20"
+                      name="Document No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Unit of Measure Code]"
+                      dataType="wstr"
+                      length="10"
+                      name="Unit of Measure Code" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Quantity]"
+                      dataType="numeric"
+                      name="Quantity"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Remaining Quantity]"
+                      dataType="numeric"
+                      name="Remaining Quantity"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].ExternalColumns[Location Code]"
+                      dataType="wstr"
+                      length="10"
+                      name="Location Code" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie d'erreur de source OLE DB]"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de source OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Posting Date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Posting Date]"
+                      name="Posting Date" />
+                    <outputColumn
+                      refId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Entry No_]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Entry No_]"
+                      name="Entry No_" />
+                    <outputColumn
+                      refId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Entry Type]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Entry Type]"
+                      name="Entry Type" />
+                    <outputColumn
+                      refId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Item No_]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Item No_]"
+                      name="Item No_" />
+                    <outputColumn
+                      refId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Document No_]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Document No_]"
+                      name="Document No_" />
+                    <outputColumn
+                      refId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Unit of Measure Code]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Unit of Measure Code]"
+                      name="Unit of Measure Code" />
+                    <outputColumn
+                      refId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Quantity]"
+                      dataType="numeric"
+                      lineageId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Quantity]"
+                      name="Quantity"
+                      precision="38"
+                      scale="20" />
+                    <outputColumn
+                      refId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Remaining Quantity]"
+                      dataType="numeric"
+                      lineageId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Remaining Quantity]"
+                      name="Remaining Quantity"
+                      precision="38"
+                      scale="20" />
+                    <outputColumn
+                      refId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Location Code]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[Location Code]"
+                      name="Location Code" />
+                    <outputColumn
+                      refId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Chargement de la table Stock_Fact\id_DimItem"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Recherche;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;6"
+              description="Joint des colonnes supplémentaires au flux de données en recherchant des valeurs dans une table. Par exemple, joignez la colonne 'id employé' à la table des employés afin d'obtenir la 'date d'embauche' et le 'nom de l'employé'. Nous recommandons cette transformation lorsque la table de recherche peut être stockée en mémoire."
+              name="id_DimItem"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Spécifie l'instruction SQL qui génère la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[Dim_Item]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie une instruction SQL qui utilise des paramètres pour générer la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[Dim_Item]) [refTable]
+where [refTable].[No_] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de connexion utilisé pour accéder au dataset de référence."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de cache de la table de correspondance."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie comment la transformation de recherche gère les lignes sans entrées correspondantes dans le jeu de données de référence."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le pourcentage du cache alloué aux lignes sans entrées correspondantes dans le dataset de référence."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indique si les métadonnées sont à référencer en format XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="id_DimItem" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="No_" dataType="DT_WSTR" length="20" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Description" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Gpe compta. marché TVA" dataType="DT_WSTR" length="20" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Groupe compta. produit" dataType="DT_WSTR" length="20" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="code_groupe produit" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Code_Marque" dataType="DT_WSTR" length="20" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Type Produit" dataType="DT_WSTR" length="20" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Unité" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Groupe compta. stock" dataType="DT_WSTR" length="20" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Prix Unitaire" dataType="DT_NUMERIC" length="0" precision="38" scale="20" codePage="0"/&gt;&lt;referenceColumn name="Profit _" dataType="DT_NUMERIC" length="0" precision="38" scale="20" codePage="0"/&gt;&lt;referenceColumn name="Cout Unitaire" dataType="DT_NUMERIC" length="0" precision="38" scale="20" codePage="0"/&gt;&lt;referenceColumn name="Poids Net" dataType="DT_NUMERIC" length="0" precision="38" scale="20" codePage="0"/&gt;&lt;referenceColumn name="GIFT IN C" dataType="DT_WSTR" length="20" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Statut article" dataType="DT_WSTR" length="20" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Spécifie la liste d'identificateurs de lignage se mappant aux paramètres utilisés dans la propriété SQLCommand par l'instruction SQL. Les entrées dans la liste sont séparées par des points-virgules."
+                  name="ParameterMap">#{Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].Columns[Item No_]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Détermine si les clés dupliquées dans les données de référence doivent être traitées en tant qu'erreurs lorsque le mode Cache complet est utilisé."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Chargement de la table Stock_Fact\id_DimItem.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.DWH_Prod2020]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.DWH_Prod2020]"
+                  description="Gestionnaire de connexions utilisé pour accéder aux données de correspondance."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Chargement de la table Stock_Fact\id_DimItem.Inputs[Entrée de recherche]"
+                  name="Entrée de recherche">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Chargement de la table Stock_Fact\id_DimItem.Inputs[Entrée de recherche].Columns[Item No_]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Item No_"
+                      lineageId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].Columns[Item No_]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">No_</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Chargement de la table Stock_Fact\id_DimItem.Outputs[Sortie de recherche avec correspondance]"
+                  errorOrTruncationOperation="Recherche"
+                  exclusionGroup="1"
+                  name="Sortie de recherche avec correspondance"
+                  synchronousInputId="Package\Chargement de la table Stock_Fact\id_DimItem.Inputs[Entrée de recherche]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de la table Stock_Fact\id_DimItem.Outputs[Sortie de recherche avec correspondance].Columns[id_DimItem]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copie de colonnes"
+                      lineageId="Package\Chargement de la table Stock_Fact\id_DimItem.Outputs[Sortie de recherche avec correspondance].Columns[id_DimItem]"
+                      name="id_DimItem"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn">id_DimItem</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Chargement de la table Stock_Fact\id_DimItem.Outputs[Sortie de recherche sans correspondance]"
+                  description="Sortie de recherche gérant les lignes sans entrées correspondantes dans le dataset de référence. Utilisez cette sortie lorsque la propriété NoMatchBehavior a la valeur « Envoyez les lignes sans entrées correspondantes dans la sortie sans correspondance »."
+                  exclusionGroup="1"
+                  name="Sortie de recherche sans correspondance"
+                  synchronousInputId="Package\Chargement de la table Stock_Fact\id_DimItem.Inputs[Entrée de recherche]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Chargement de la table Stock_Fact\id_DimItem.Outputs[Sortie d'erreur de recherche]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de recherche"
+                  synchronousInputId="Package\Chargement de la table Stock_Fact\id_DimItem.Inputs[Entrée de recherche]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de la table Stock_Fact\id_DimItem.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de la table Stock_Fact\id_DimItem.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Chargement de la table Stock_Fact\id_DimItem.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de la table Stock_Fact\id_DimItem.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Chargement de la table Stock_Fact\id_DimLocation"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Recherche;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;6"
+              description="Joint des colonnes supplémentaires au flux de données en recherchant des valeurs dans une table. Par exemple, joignez la colonne 'id employé' à la table des employés afin d'obtenir la 'date d'embauche' et le 'nom de l'employé'. Nous recommandons cette transformation lorsque la table de recherche peut être stockée en mémoire."
+              name="id_DimLocation"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Spécifie l'instruction SQL qui génère la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[Dim_Location]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie une instruction SQL qui utilise des paramètres pour générer la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[Dim_Location]) [refTable]
+where [refTable].[Code] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de connexion utilisé pour accéder au dataset de référence."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de cache de la table de correspondance."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie comment la transformation de recherche gère les lignes sans entrées correspondantes dans le jeu de données de référence."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le pourcentage du cache alloué aux lignes sans entrées correspondantes dans le dataset de référence."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indique si les métadonnées sont à référencer en format XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="id_DimLocation" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Code" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Name" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="City" dataType="DT_WSTR" length="30" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="County" dataType="DT_WSTR" length="30" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="E-Mail" dataType="DT_WSTR" length="80" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Spécifie la liste d'identificateurs de lignage se mappant aux paramètres utilisés dans la propriété SQLCommand par l'instruction SQL. Les entrées dans la liste sont séparées par des points-virgules."
+                  name="ParameterMap">#{Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].Columns[Location Code]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Détermine si les clés dupliquées dans les données de référence doivent être traitées en tant qu'erreurs lorsque le mode Cache complet est utilisé."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Chargement de la table Stock_Fact\id_DimLocation.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.DWH_Prod2020]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.DWH_Prod2020]"
+                  description="Gestionnaire de connexions utilisé pour accéder aux données de correspondance."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Chargement de la table Stock_Fact\id_DimLocation.Inputs[Entrée de recherche]"
+                  name="Entrée de recherche">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Chargement de la table Stock_Fact\id_DimLocation.Inputs[Entrée de recherche].Columns[Location Code]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="Location Code"
+                      lineageId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].Columns[Location Code]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Code</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Chargement de la table Stock_Fact\id_DimLocation.Outputs[Sortie de recherche avec correspondance]"
+                  errorOrTruncationOperation="Recherche"
+                  exclusionGroup="1"
+                  name="Sortie de recherche avec correspondance"
+                  synchronousInputId="Package\Chargement de la table Stock_Fact\id_DimLocation.Inputs[Entrée de recherche]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de la table Stock_Fact\id_DimLocation.Outputs[Sortie de recherche avec correspondance].Columns[id_DimLocation]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copie de colonnes"
+                      lineageId="Package\Chargement de la table Stock_Fact\id_DimLocation.Outputs[Sortie de recherche avec correspondance].Columns[id_DimLocation]"
+                      name="id_DimLocation"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn">id_DimLocation</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Chargement de la table Stock_Fact\id_DimLocation.Outputs[Sortie de recherche sans correspondance]"
+                  description="Sortie de recherche gérant les lignes sans entrées correspondantes dans le dataset de référence. Utilisez cette sortie lorsque la propriété NoMatchBehavior a la valeur « Envoyez les lignes sans entrées correspondantes dans la sortie sans correspondance »."
+                  exclusionGroup="1"
+                  name="Sortie de recherche sans correspondance"
+                  synchronousInputId="Package\Chargement de la table Stock_Fact\id_DimLocation.Inputs[Entrée de recherche]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Chargement de la table Stock_Fact\id_DimLocation.Outputs[Sortie d'erreur de recherche]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de recherche"
+                  synchronousInputId="Package\Chargement de la table Stock_Fact\id_DimLocation.Inputs[Entrée de recherche]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de la table Stock_Fact\id_DimLocation.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de la table Stock_Fact\id_DimLocation.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Chargement de la table Stock_Fact\id_DimLocation.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de la table Stock_Fact\id_DimLocation.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Chargement de la table Stock_Fact\Stock_Fact"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destination OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;4"
+              description="Destination OLE DB"
+              name="Stock_Fact"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Nombre de secondes avant l'expiration d'une commande.  Une valeur égale à 0 indique un délai d'expiration infini."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowset">[Stock_Fact]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie la variable contenant le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Commande SQL à exécuter."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Force l'utilisation de la valeur de propriété DefaultCodePage lors de la description des données caractères."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le mode utilisé pour accéder à la base de données."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si les valeurs fournies pour les colonnes d'identité seront copiées à la destination. Si la valeur est définie à False, les valeurs des colonnes d'identité seront générées automatiquement à la destination. Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si les colonnes contenant la valeur NULL auront cette valeur NULL copiée à la destination. Si la valeur est définie à False, les colonnes contenant la valeur NULL auront leurs valeurs par défaut insérées à la destination. Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie les options à utiliser avec le chargement rapide.  Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadOptions">CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie quand les validations sont émises pendant l'insertion des données.  Une valeur égale à 0 spécifie qu'une validation sera émise à la fin de l'insertion des données.  Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Chargement de la table Stock_Fact\Stock_Fact.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.DWH_Prod2020]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.DWH_Prod2020]"
+                  description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Chargement de la table Stock_Fact\Stock_Fact.Inputs[Entrée de destination OLE DB]"
+                  errorOrTruncationOperation="Insérer"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrée de destination OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Chargement de la table Stock_Fact\Stock_Fact.Inputs[Entrée de destination OLE DB].Columns[Posting Date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Posting Date"
+                      externalMetadataColumnId="Package\Chargement de la table Stock_Fact\Stock_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Posting Date]"
+                      lineageId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].Columns[Posting Date]" />
+                    <inputColumn
+                      refId="Package\Chargement de la table Stock_Fact\Stock_Fact.Inputs[Entrée de destination OLE DB].Columns[Entry No_]"
+                      cachedDataType="i4"
+                      cachedName="Entry No_"
+                      externalMetadataColumnId="Package\Chargement de la table Stock_Fact\Stock_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Entry No_]"
+                      lineageId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].Columns[Entry No_]" />
+                    <inputColumn
+                      refId="Package\Chargement de la table Stock_Fact\Stock_Fact.Inputs[Entrée de destination OLE DB].Columns[Document No_]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Document No_"
+                      externalMetadataColumnId="Package\Chargement de la table Stock_Fact\Stock_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Document No_]"
+                      lineageId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].Columns[Document No_]" />
+                    <inputColumn
+                      refId="Package\Chargement de la table Stock_Fact\Stock_Fact.Inputs[Entrée de destination OLE DB].Columns[Unité]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="Unité"
+                      externalMetadataColumnId="Package\Chargement de la table Stock_Fact\Stock_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Unité]"
+                      lineageId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].Columns[Unité]" />
+                    <inputColumn
+                      refId="Package\Chargement de la table Stock_Fact\Stock_Fact.Inputs[Entrée de destination OLE DB].Columns[Quantité]"
+                      cachedDataType="numeric"
+                      cachedName="Quantité"
+                      cachedPrecision="38"
+                      cachedScale="20"
+                      externalMetadataColumnId="Package\Chargement de la table Stock_Fact\Stock_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Quantité]"
+                      lineageId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].Columns[Quantité]" />
+                    <inputColumn
+                      refId="Package\Chargement de la table Stock_Fact\Stock_Fact.Inputs[Entrée de destination OLE DB].Columns[Quantité restante]"
+                      cachedDataType="numeric"
+                      cachedName="Quantité restante"
+                      cachedPrecision="38"
+                      cachedScale="20"
+                      externalMetadataColumnId="Package\Chargement de la table Stock_Fact\Stock_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Quantité restante]"
+                      lineageId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB].Columns[Quantité restante]" />
+                    <inputColumn
+                      refId="Package\Chargement de la table Stock_Fact\Stock_Fact.Inputs[Entrée de destination OLE DB].Columns[id_DimItem]"
+                      cachedDataType="i4"
+                      cachedName="id_DimItem"
+                      externalMetadataColumnId="Package\Chargement de la table Stock_Fact\Stock_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[id_DimItem]"
+                      lineageId="Package\Chargement de la table Stock_Fact\id_DimItem.Outputs[Sortie de recherche avec correspondance].Columns[id_DimItem]" />
+                    <inputColumn
+                      refId="Package\Chargement de la table Stock_Fact\Stock_Fact.Inputs[Entrée de destination OLE DB].Columns[id_DimLocation]"
+                      cachedDataType="i4"
+                      cachedName="id_DimLocation"
+                      externalMetadataColumnId="Package\Chargement de la table Stock_Fact\Stock_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[id_DimLocation]"
+                      lineageId="Package\Chargement de la table Stock_Fact\id_DimLocation.Outputs[Sortie de recherche avec correspondance].Columns[id_DimLocation]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la table Stock_Fact\Stock_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Posting Date]"
+                      dataType="dbTimeStamp"
+                      name="Posting Date" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la table Stock_Fact\Stock_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Entry No_]"
+                      dataType="i4"
+                      name="Entry No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la table Stock_Fact\Stock_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Document No_]"
+                      dataType="wstr"
+                      length="20"
+                      name="Document No_" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la table Stock_Fact\Stock_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Unité]"
+                      dataType="wstr"
+                      length="10"
+                      name="Unité" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la table Stock_Fact\Stock_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Quantité]"
+                      dataType="numeric"
+                      name="Quantité"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la table Stock_Fact\Stock_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[Quantité restante]"
+                      dataType="numeric"
+                      name="Quantité restante"
+                      precision="38"
+                      scale="20" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la table Stock_Fact\Stock_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[id_DimItem]"
+                      dataType="i4"
+                      name="id_DimItem" />
+                    <externalMetadataColumn
+                      refId="Package\Chargement de la table Stock_Fact\Stock_Fact.Inputs[Entrée de destination OLE DB].ExternalColumns[id_DimLocation]"
+                      dataType="i4"
+                      name="id_DimLocation" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Chargement de la table Stock_Fact\Stock_Fact.Outputs[Sortie d'erreur de destination OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de destination OLE DB"
+                  synchronousInputId="Package\Chargement de la table Stock_Fact\Stock_Fact.Inputs[Entrée de destination OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Chargement de la table Stock_Fact\Stock_Fact.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de la table Stock_Fact\Stock_Fact.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Chargement de la table Stock_Fact\Stock_Fact.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Chargement de la table Stock_Fact\Stock_Fact.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Chargement de la table Stock_Fact.Paths[Sortie de recherche avec correspondance]"
+              endId="Package\Chargement de la table Stock_Fact\id_DimLocation.Inputs[Entrée de recherche]"
+              name="Sortie de recherche avec correspondance"
+              startId="Package\Chargement de la table Stock_Fact\id_DimItem.Outputs[Sortie de recherche avec correspondance]" />
+            <path
+              refId="Package\Chargement de la table Stock_Fact.Paths[Sortie de recherche avec correspondance1]"
+              endId="Package\Chargement de la table Stock_Fact\Stock_Fact.Inputs[Entrée de destination OLE DB]"
+              name="Sortie de recherche avec correspondance"
+              startId="Package\Chargement de la table Stock_Fact\id_DimLocation.Outputs[Sortie de recherche avec correspondance]" />
+            <path
+              refId="Package\Chargement de la table Stock_Fact.Paths[Sortie de source OLE DB]"
+              endId="Package\Chargement de la table Stock_Fact\id_DimItem.Inputs[Entrée de recherche]"
+              name="Sortie de source OLE DB"
+              startId="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact.Outputs[Sortie de source OLE DB]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Cette section CDATA contient des informations sur la disposition du package. Elle comprend des informations telles que les coordonnées (x,y), la largeur et la hauteur.-->
+<!--Si vous modifiez manuellement cette section et commettez une erreur, vous pouvez la supprimer. -->
+<!--Le package pourra toujours se charger normalement, mais les informations de disposition précédente seront perdues et le concepteur réorganisera automatiquement les éléments sur l'aire de conception.-->
+<Objects
+  Version="8">
+  <!--Chaque nœud ci-dessous contiendra des propriétés qui n'affectent pas le comportement d'exécution.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="243.2,41.6"
+          Id="Package\Chargement de la table Stock_Fact"
+          TopLeft="101.14285886531,85.6470600246971" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Chargement de la table Stock_Fact">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="150.4,41.6"
+          Id="Package\Chargement de la table Stock_Fact\id_DimLocation"
+          TopLeft="294.128575710375,178.723528991356" />
+        <NodeLayout
+          Size="129.6,41.6"
+          Id="Package\Chargement de la table Stock_Fact\Stock_Fact"
+          TopLeft="131.957144200072,244.841175552553" />
+        <NodeLayout
+          Size="133.6,41.6"
+          Id="Package\Chargement de la table Stock_Fact\id_DimItem"
+          TopLeft="429.385720727882,111.994117715697" />
+        <NodeLayout
+          Size="224.8,41.6"
+          Id="Package\Chargement de la table Stock_Fact\Creation de la table Stock_Fact"
+          TopLeft="97.5000015667505,33.0294121507956" />
+        <EdgeLayout
+          Id="Package\Chargement de la table Stock_Fact.Paths[Sortie de source OLE DB]"
+          TopLeft="209.900001566751,74.6294121507956">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="286.285719161131,37.3647055649015"
+              Start="0,0"
+              End="286.285719161131,29.8647055649015">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14.6823527824507" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,14.6823527824507"
+                    Point2="0,18.6823527824507"
+                    Point3="4,18.6823527824507" />
+                  <mssgle:LineSegment
+                    End="282.285719161131,18.6823527824507" />
+                  <mssgle:CubicBezierSegment
+                    Point1="282.285719161131,18.6823527824507"
+                    Point2="286.285719161131,18.6823527824507"
+                    Point3="286.285719161131,22.6823527824507" />
+                  <mssgle:LineSegment
+                    End="286.285719161131,29.8647055649015" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Chargement de la table Stock_Fact.Paths[Sortie de recherche avec correspondance1]"
+          TopLeft="369.328575710375,220.323528991356">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-172.571431510303,24.5176465611963"
+              Start="0,0"
+              End="-172.571431510303,17.0176465611963">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,8.25882328059816" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,8.25882328059816"
+                    Point2="0,12.2588232805982"
+                    Point3="-4,12.2588232805982" />
+                  <mssgle:LineSegment
+                    End="-168.571431510303,12.2588232805982" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-168.571431510303,12.2588232805982"
+                    Point2="-172.571431510303,12.2588232805982"
+                    Point3="-172.571431510303,16.2588232805982" />
+                  <mssgle:LineSegment
+                    End="-172.571431510303,17.0176465611963" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-177.962727473901,17.2588232805982,183.3540234375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Chargement de la table Stock_Fact.Paths[Sortie de recherche avec correspondance]"
+          TopLeft="496.185720727882,153.594117715697">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="-126.857145017507,25.1294112756593"
+              Start="0,0"
+              End="-126.857145017507,17.6294112756593">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,8.56470563782965" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,8.56470563782965"
+                    Point2="0,12.5647056378296"
+                    Point3="-4,12.5647056378296" />
+                  <mssgle:LineSegment
+                    End="-122.857145017507,12.5647056378296" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-122.857145017507,12.5647056378296"
+                    Point2="-126.857145017507,12.5647056378296"
+                    Point3="-126.857145017507,16.5647056378296" />
+                  <mssgle:LineSegment
+                    End="-126.857145017507,17.6294112756593" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-155.105584227503,17.5647056378296,183.3540234375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Chargement de la table Stock_Fact\id_DimLocation">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Chargement de la table Stock_Fact\Stock_Fact">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Chargement de la table Stock_Fact\id_DimItem">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[Dim_Item]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
